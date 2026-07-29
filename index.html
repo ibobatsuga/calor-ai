@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>CalorAI - Kesehatan, Gizi & Diet Personal</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons & FontAwesome -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Hide scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Wave animation for water tracker */
+    @keyframes wave {
+      0% {
+        transform: translateY(0) scaleY(1);
+      }
+
+      50% {
+        transform: translateY(-5px) scaleY(1.05);
+      }
+
+      100% {
+        transform: translateY(0) scaleY(1);
+      }
+    }
+
+    .wave-effect {
+      animation: wave 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="m-0 p-0 flex justify-center bg-gray-100">
+
+  <!-- Main Wrapper (Mobile-First) -->
+  <div class="w-full max-w-[620px] mx-auto h-[100dvh] bg-white flex flex-col overflow-hidden relative shadow-2xl">
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast"
+      class="absolute top-5 left-1/2 -translate-x-1/2 z-[100] bg-gray-900 text-white px-5 py-3 rounded-2xl shadow-lg flex items-center space-x-3 transition-all duration-300 transform -translate-y-20 opacity-0 pointer-events-none">
+      <i id="toast-icon" class="ph-bold ph-info text-xl text-[#FF6C35]"></i>
+      <span id="toast-message" class="text-sm font-medium">Notifikasi</span>
+    </div>
+
+    <!-- ==================== SCREEN: LOGIN ==================== -->
+    <div id="screen-login" class="absolute inset-0 z-50 bg-white flex flex-col justify-between p-8">
+      <div class="flex-1 flex flex-col justify-center">
+        <!-- Logo & Header -->
+        <div class="text-center mb-8">
+          <div
+            class="w-20 h-20 bg-gradient-to-tr from-[#FF6C35] to-[#ff8f66] rounded-[28px] flex items-center justify-center mx-auto shadow-md mb-4 transform rotate-6 hover:rotate-12 transition-transform duration-300">
+            <i class="ph-bold ph-heartbeat text-white text-4xl"></i>
+          </div>
+          <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Calor<span class="text-[#FF6C35]">AI</span>
+          </h1>
+          <p class="text-sm text-gray-500 mt-2">Mulai revolusi gizi pintar di genggamanmu</p>
+        </div>
+
+        <!-- Form Login -->
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Username</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                <i class="ph-bold ph-user"></i>
+              </span>
+              <input type="text" id="login-username" value="admin"
+                class="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#FF6C35] focus:outline-none text-sm transition-all font-semibold"
+                placeholder="Username kamu">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Password</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                <i class="ph-bold ph-lock"></i>
+              </span>
+              <input type="password" id="login-password" value="123"
+                class="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-[#FF6C35] focus:outline-none text-sm transition-all font-semibold"
+                placeholder="••••••••">
+            </div>
+          </div>
+          <button onclick="handleLogin()"
+            class="w-full bg-[#FF6C35] active:scale-[0.98] transition-transform text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#FF6C35]/25 hover:bg-[#e55b27]">
+            Masuk Sekarang
+          </button>
+        </div>
+      </div>
+      <!-- Info Akun Default -->
+      <div class="bg-gray-50 border border-gray-100 rounded-2xl p-4 text-center">
+        <p class="text-xs text-gray-400">Akun Demo Default:</p>
+        <p class="text-xs font-bold text-gray-600 mt-1">Username: <span class="text-[#FF6C35]">admin</span> | Password:
+          <span class="text-[#FF6C35]">123</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== APP HEADER ==================== -->
+    <header class="flex-none z-40 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div
+          class="w-10 h-10 bg-gradient-to-tr from-[#FF6C35] to-[#ff8f66] rounded-xl flex items-center justify-center shadow-sm">
+          <i class="ph-bold ph-heartbeat text-white text-xl"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-gray-900 tracking-tight">Calor<span class="text-[#FF6C35]">AI</span></h2>
+          <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Plan: <span id="header-plan"
+              class="text-[#FF6C35]">Program 30 Hari</span></p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="triggerMidnightCronSimulation()"
+          class="w-8 h-8 bg-orange-50 hover:bg-orange-100 rounded-lg flex items-center justify-center text-[#FF6C35] transition-colors"
+          title="Simulasi Midnight Cron Job">
+          <i class="ph-bold ph-clock-clockwise text-lg"></i>
+        </button>
+        <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-[#FF6C35]/30 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+            alt="Avatar User" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+    <main class="flex-1 overflow-y-auto no-scrollbar pb-24 bg-gray-50 relative">
+
+      <!-- VIEW 1: DASHBOARD (HOME) -->
+      <div id="view-home" class="view-panel p-5 space-y-5">
+
+        <!-- Welcome Alert (Auto-Calibration Message) -->
+        <div id="welcome-alert"
+          class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-3xl shadow-md hidden flex-col space-y-2">
+          <div class="flex items-center space-x-2">
+            <i class="ph-bold ph-bell-ringing text-lg"></i>
+            <span class="font-bold text-sm">Kalibrasi Mandiri CalorAI</span>
+          </div>
+          <p id="welcome-alert-desc" class="text-xs text-white/90 leading-relaxed">
+            Sistem mendeteksi absen kemarin. Berat badan disesuaikan otomatis dari hari sebelumnya, dan target kalori
+            hari ini disesuaikan demi kenyamanan dietmu.
+          </p>
+        </div>
+
+        <!-- Bento Card 1: Gauge Nutrisi Ringkasan -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-gray-800 text-sm">Ringkasan Nutrisi Harian</h3>
+            <span id="date-label" class="text-xs text-gray-400 font-semibold">Selasa, 14 Jul 2026</span>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 items-center">
+            <!-- Circular Progress (62.7% Vibe) -->
+            <div class="col-span-5 flex flex-col items-center justify-center relative">
+              <svg class="w-32 h-32 transform -rotate-90">
+                <circle cx="64" cy="64" r="54" stroke="#f3f4f6" stroke-width="10" fill="transparent" />
+                <circle cx="64" cy="64" r="54" stroke="#FF6C35" stroke-width="10" fill="transparent"
+                  stroke-dasharray="339" stroke-dashoffset="126" stroke-linecap="round"
+                  class="transition-all duration-1000" id="gauge-ring" />
+              </svg>
+              <div class="absolute text-center">
+                <span id="gauge-score" class="text-2xl font-extrabold text-gray-800">62.7</span>
+                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Skor Gizi</p>
+              </div>
+            </div>
+
+            <!-- Jatah Kalori & Macros -->
+            <div class="col-span-7 space-y-3">
+              <div>
+                <p class="text-xs text-gray-400 font-semibold">Sisa Kalori</p>
+                <div class="flex items-baseline space-x-1">
+                  <span id="calories-remaining" class="text-2xl font-black text-gray-900">1,250</span>
+                  <span class="text-xs font-semibold text-gray-500">/ <span id="calories-target-val">2,125</span>
+                    kkal</span>
+                </div>
+              </div>
+
+              <!-- Macros list (dynamic) -->
+              <div class="space-y-2" id="macros-container">
+                <!-- Diisi via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Bento Grid: 2 Columns -->
+        <div class="grid grid-cols-2 gap-4">
+
+          <!-- Bento Card 2: Water Tracker (Interactive Waves) -->
+          <div
+            class="bg-gradient-to-b from-[#e0f2fe] to-[#bae6fd] rounded-3xl p-5 shadow-sm border border-sky-100 flex flex-col justify-between relative overflow-hidden h-[170px] group">
+            <div class="z-10">
+              <span class="text-xs text-sky-700 font-bold uppercase tracking-wider">Water Tracker</span>
+              <h4 id="water-count" class="text-2xl font-black text-sky-950 mt-1">1.2 Liter</h4>
+              <p class="text-[10px] text-sky-600 font-semibold">Target: 2.5 L</p>
+            </div>
+            <!-- Wave Graphic Background -->
+            <div class="absolute inset-x-0 bottom-0 h-16 bg-[#38bdf8]/30 wave-effect pointer-events-none rounded-b-3xl">
+            </div>
+            <!-- Button -->
+            <button onclick="addWater()"
+              class="z-10 mt-auto w-full bg-white/80 active:scale-95 transition-all text-sky-950 py-2 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1 shadow-sm backdrop-blur-sm">
+              <i class="ph-bold ph-plus"></i>
+              <span>+ 1 Gelas (250ml)</span>
+            </button>
+          </div>
+
+          <!-- Bento Card 3: Weight Tracker Summary -->
+          <div
+            class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col justify-between h-[170px]">
+            <div>
+              <span class="text-xs text-gray-400 font-bold uppercase tracking-wider">Berat Aktual</span>
+              <div class="flex items-baseline space-x-1 mt-1">
+                <span id="current-weight" class="text-2xl font-black text-gray-800">68.5</span>
+                <span class="text-xs font-semibold text-gray-500">kg</span>
+              </div>
+              <p class="text-[10px] text-emerald-500 font-bold mt-1 flex items-center">
+                <i class="ph-bold ph-caret-down mr-0.5"></i> Turun 1.5kg minggu ini
+              </p>
+            </div>
+            <button onclick="openWeightModal()"
+              class="w-full bg-gray-50 hover:bg-gray-100 text-gray-700 py-2 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1">
+              <i class="ph-bold ph-pencil-simple"></i>
+              <span>Perbarui Berat</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Bento Card 4: Weight & Calorie Trend Line Chart (SVG Canvas) -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-bold text-gray-800 text-sm">Tren Berat & Progres</h3>
+              <p class="text-[10px] text-gray-400 font-medium">Garis putus-putus = data Auto-Fill (Sistem Toleransi)</p>
+            </div>
+            <div class="flex items-center space-x-3 text-xs">
+              <span class="flex items-center"><span
+                  class="w-2.5 h-2.5 bg-[#FF6C35] rounded-full mr-1.5"></span>Manual</span>
+              <span class="flex items-center"><span
+                  class="w-2.5 h-2.5 bg-gray-300 rounded-full mr-1.5"></span>Auto-Fill</span>
+            </div>
+          </div>
+          <!-- Line chart SVG -->
+          <div class="w-full h-40 bg-gray-50 rounded-2xl flex items-center justify-center relative p-2"
+            id="chart-container">
+            <!-- Rendered Dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Recent Logs List (Dashboard Bottom) -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-gray-800 text-sm">Makanan Dikonsumsi Hari Ini</h3>
+            <span class="text-xs text-[#FF6C35] font-bold" id="total-consumed">0 kkal</span>
+          </div>
+          <div class="space-y-3" id="recent-logs-list">
+            <!-- Loaded dynamically from state -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- VIEW 2: SMART LOGGER (KAMERA / NLP / MANUAL) -->
+      <div id="view-logger" class="view-panel p-5 space-y-5 hidden">
+        <div class="text-center mb-2">
+          <h3 class="text-lg font-bold text-gray-800">Catat Gizi Lebih Cepat</h3>
+          <p class="text-xs text-gray-500">Pilih metode yang paling nyaman buat kamu</p>
+        </div>
+
+        <!-- 3-Way Tabs Selector -->
+        <div class="grid grid-cols-3 gap-1 bg-gray-100 p-1.5 rounded-2xl">
+          <button onclick="switchLogTab('nlp')" id="btn-tab-nlp"
+            class="py-2.5 rounded-xl text-xs font-bold text-center transition-all bg-white text-[#FF6C35] shadow-sm">AI
+            Tulis Bebas</button>
+          <button onclick="switchLogTab('camera')" id="btn-tab-camera"
+            class="py-2.5 rounded-xl text-xs font-bold text-center transition-all text-gray-500 hover:text-gray-800">AI
+            Foto Piring</button>
+          <button onclick="switchLogTab('manual')" id="btn-tab-manual"
+            class="py-2.5 rounded-xl text-xs font-bold text-center transition-all text-gray-500 hover:text-gray-800">Manual
+            Cari</button>
+        </div>
+
+        <!-- NLP Tab View -->
+        <div id="log-tab-nlp" class="space-y-4">
+          <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 space-y-4">
+            <div class="flex items-center space-x-2 text-[#FF6C35] text-sm font-bold">
+              <i class="ph-bold ph-sparkle text-lg"></i>
+              <span>Natural Language Input</span>
+            </div>
+            <textarea id="nlp-textarea"
+              class="w-full h-32 p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF6C35] font-medium"
+              placeholder="Contoh: 'Makan siang tadi pakai 1 mangkok salad buah plus segelas teh manis hangat'"></textarea>
+            <button onclick="processNLP()"
+              class="w-full bg-[#FF6C35] hover:bg-[#e55b27] text-white py-3.5 rounded-2xl font-bold flex items-center justify-center space-x-2 text-sm shadow-md">
+              <i class="ph-bold ph-magic-wand"></i>
+              <span>Terjemahkan Gizi dengan AI</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Camera Tab View -->
+        <div id="log-tab-camera" class="space-y-4 hidden">
+          <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 space-y-4 text-center">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2 text-[#FF6C35] text-sm font-bold">
+                <i class="ph-bold ph-camera text-lg"></i>
+                <span>Foto Makanan Kamu</span>
+              </div>
+              <button onclick="document.getElementById('camera-file-input').click()"
+                class="text-[10px] font-bold text-gray-500 hover:text-gray-800 border border-gray-200 px-2.5 py-1 rounded-xl transition-all">
+                Unggah Foto
+              </button>
+            </div>
+
+            <!-- Real Camera Viewfinder -->
+            <div
+              class="w-full aspect-video bg-gray-900 rounded-2xl relative overflow-hidden flex flex-col items-center justify-center text-white">
+              <!-- Real Video Stream -->
+              <video id="camera-stream" autoplay playsinline
+                class="absolute inset-0 w-full h-full object-cover hidden"></video>
+
+              <!-- Image Preview (Uploaded or Preset) -->
+              <div id="camera-preview" class="absolute inset-0 bg-cover bg-center hidden"></div>
+
+              <!-- Placeholder / Error / Loading UI -->
+              <div id="camera-placeholder" class="z-10 flex flex-col items-center justify-center p-4">
+                <i class="ph-bold ph-camera-slash text-4xl text-gray-400 mb-2"></i>
+                <p class="text-xs text-gray-400">Kamera tidak aktif</p>
+                <button onclick="startCamera()"
+                  class="mt-3 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border border-white/20">
+                  Aktifkan Kamera
+                </button>
+              </div>
+
+              <!-- Canvas for capturing frame -->
+              <canvas id="camera-canvas" class="hidden"></canvas>
+
+              <!-- Target Crosshair -->
+              <div
+                class="absolute w-28 h-28 border-2 border-white/60 border-dashed rounded-3xl pointer-events-none flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-[#FF6C35] rounded-full animate-ping"></div>
+              </div>
+
+              <!-- Vision Info Overlay -->
+              <div
+                class="absolute bottom-3 inset-x-3 bg-black/60 backdrop-blur-sm p-2 rounded-xl text-[10px] flex justify-between items-center z-10">
+                <span class="font-bold text-orange-400">Powered by AI</span>
+                <span id="camera-status-label" class="font-semibold">Menginisialisasi...</span>
+              </div>
+            </div>
+
+            <!-- Hidden File Input for fallback upload -->
+            <input type="file" id="camera-file-input" accept="image/*" class="hidden"
+              onchange="handleFileSelect(event)">
+
+            <!-- Preset Swappers for Simulator -->
+            <div class="flex items-center justify-between py-2 overflow-x-auto no-scrollbar space-x-2">
+              <button
+                onclick="setCameraPreset('steak', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80', 'Steak Sapi Panggang')"
+                class="bg-orange-50 border border-orange-100 text-orange-700 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0">Steak
+                Sapi</button>
+              <button
+                onclick="setCameraPreset('salad', 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&q=80', 'Salad Sayuran Alpukat')"
+                class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0">Fresh Salad</button>
+              <button
+                onclick="setCameraPreset('pancake', 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=300&q=80', 'Pancake Pisang Cokelat')"
+                class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0">Pancake</button>
+            </div>
+
+            <button onclick="snapFoodImage()"
+              class="w-full bg-[#FF6C35] hover:bg-[#e55b27] text-white py-3.5 rounded-2xl font-bold flex items-center justify-center space-x-2 text-sm shadow-md mt-2">
+              <i class="ph-bold ph-aperture"></i>
+              <span>Foto & Estimasi Porsi</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Manual Search Tab View -->
+        <div id="log-tab-manual" class="space-y-4 hidden">
+          <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 space-y-4">
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                <i class="ph-bold ph-magnifying-glass"></i>
+              </span>
+              <input type="text" id="manual-search-input" onkeyup="handleManualSearch()"
+                class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#FF6C35] text-sm font-semibold"
+                placeholder="Cari makanan (misal: Nasi, Ayam, Telur)">
+            </div>
+
+            <div class="divide-y divide-gray-100 max-h-60 overflow-y-auto no-scrollbar" id="manual-search-results">
+              <!-- Search results list rendered here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Log Validation Output Panel (Common for AI extractions) -->
+        <div id="ai-extraction-panel"
+          class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 space-y-4 hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-orange-600 font-bold uppercase tracking-wider flex items-center">
+              <i class="ph-bold ph-check-circle mr-1"></i> Gizi Terdeteksi AI
+            </span>
+            <button onclick="closeExtractionPanel()" class="text-gray-400 hover:text-gray-600 text-sm"><i
+                class="ph-bold ph-x"></i></button>
+          </div>
+
+          <div class="bg-gray-50 p-4 rounded-2xl space-y-3">
+            <div class="flex justify-between items-center">
+              <div>
+                <h4 id="extracted-food-name" class="font-bold text-gray-800 text-sm">Steak Sapi Panggang</h4>
+                <p class="text-[10px] text-gray-400">Hasil verifikasi database nutrisi</p>
+              </div>
+              <div class="text-right">
+                <span id="extracted-calories" class="text-lg font-black text-gray-900">250</span>
+                <span class="text-xs font-semibold text-gray-500">kkal</span>
+              </div>
+            </div>
+
+            <!-- Quick Macro Breakdown Visual -->
+            <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
+              <div class="bg-orange-50/70 p-2 rounded-xl text-orange-800">
+                <p>Protein</p>
+                <p class="text-sm font-black mt-0.5" id="extracted-protein">24g</p>
+              </div>
+              <div class="bg-amber-50/70 p-2 rounded-xl text-amber-800">
+                <p>Karbo</p>
+                <p class="text-sm font-black mt-0.5" id="extracted-carbs">12g</p>
+              </div>
+              <div class="bg-rose-50/70 p-2 rounded-xl text-rose-800">
+                <p>Lemak</p>
+                <p class="text-sm font-black mt-0.5" id="extracted-fat">8g</p>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="commitAILog()"
+            class="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3.5 rounded-2xl font-bold text-sm shadow-md">
+            Konfirmasi & Log Makanan
+          </button>
+        </div>
+
+      </div>
+
+      <!-- VIEW 3: DIET PLANS (MANAJEMEN PROGRAM) -->
+      <div id="view-diet" class="view-panel p-5 space-y-5 hidden">
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 text-center space-y-4">
+          <span
+            class="inline-block bg-orange-50 text-[#FF6C35] text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">Plan
+            Aktif</span>
+          <h3 class="text-xl font-extrabold text-gray-800">CalorAI 30-Day Shred Plan</h3>
+          <p class="text-xs text-gray-500">Program intensif 30 hari memangkas kalori berlebih secara sehat dengan
+            penyesuaian otomatis harian.</p>
+
+          <!-- Progress Bar -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-bold text-gray-600">
+              <span>Hari ke-14</span>
+              <span>Sisa 16 Hari</span>
+            </div>
+            <div class="w-full h-3.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-[#FF6C35] to-[#ff8f66] rounded-full transition-all duration-500"
+                style="width: 46.6%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Daily Target Box -->
+        <div class="bg-amber-50 border border-amber-100 rounded-3xl p-5 space-y-3">
+          <div class="flex items-center space-x-2 text-amber-800 font-bold text-sm">
+            <i class="ph-bold ph-arrows-left-right text-lg"></i>
+            <span>Penyesuaian Kalori Dinamis</span>
+          </div>
+          <p class="text-xs text-amber-900/80 leading-relaxed">
+            Target kalori harian kamu saat ini disetel pada <strong id="plan-cal-label">2,125 kkal</strong>. Target ini
+            dinamis dan telah disesuaikan karena progres berat badanmu terpantau meluncur stabil.
+          </p>
+        </div>
+
+        <!-- Plan Selections -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-gray-700 text-sm">Ganti Program Diet</h4>
+
+          <div
+            class="bg-white hover:border-[#FF6C35] border-2 border-gray-100 rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all"
+            onclick="changeDietProgram(30, 2125)">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-[#FF6C35]">
+                <i class="ph-bold ph-fire text-lg"></i>
+              </div>
+              <div>
+                <p class="font-bold text-sm text-gray-800">30-Day Fat Burner</p>
+                <p class="text-[10px] text-gray-400">Target ketat harian, optimasi cepat</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-gray-600">2,125 kkal/hari</span>
+          </div>
+
+          <div
+            class="bg-white hover:border-[#FF6C35] border-2 border-transparent border-gray-100 rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all"
+            onclick="changeDietProgram(60, 2350)">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <i class="ph-bold ph-leaf text-lg"></i>
+              </div>
+              <div>
+                <p class="font-bold text-sm text-gray-800">60-Day Lean Muscle</p>
+                <p class="text-[10px] text-gray-400">Pola makan seimbang bertahap</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-gray-600">2,350 kkal/hari</span>
+          </div>
+
+          <div
+            class="bg-white hover:border-[#FF6C35] border-2 border-transparent border-gray-100 rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all"
+            onclick="changeDietProgram(90, 2500)">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600">
+                <i class="ph-bold ph-activity text-lg"></i>
+              </div>
+              <div>
+                <p class="font-bold text-sm text-gray-800">90-Day Healthy Lifestyle</p>
+                <p class="text-[10px] text-gray-400">Menjaga berat ideal jangka panjang</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-gray-600">2,500 kkal/hari</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: AI NUTRITIONIST CHATBOT -->
+      <div id="view-chat" class="view-panel flex flex-col h-full bg-gray-50 hidden">
+        <!-- Chat Head -->
+        <div class="bg-white border-b border-gray-100 p-4 flex items-center space-x-3">
+          <div class="w-10 h-10 bg-[#FF6C35] rounded-xl flex items-center justify-center text-white relative">
+            <i class="ph-bold ph-robot text-xl"></i>
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white"></span>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-gray-800">Coach Sandow AI</h4>
+            <p class="text-[10px] text-gray-400">Gizi & Diet Specialist • Aktif</p>
+          </div>
+        </div>
+
+        <!-- Chat Area (Scrollable) -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4">
+          <!-- Pre-populated/welcome message -->
+          <div class="flex items-start space-x-2.5">
+            <div
+              class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-[#FF6C35] shrink-0 text-xs">
+              <i class="ph-bold ph-robot"></i>
+            </div>
+            <div class="bg-white border border-gray-100 rounded-2xl rounded-tl-none p-3.5 max-w-[80%] shadow-sm">
+              <p class="text-xs text-gray-800 leading-relaxed">
+                Halo! Saya <strong>Coach Sandow</strong>, asisten diet virtual gizi kamu. Kamu bisa tanyakan rekomendasi
+                resep makan malam rendah kalori, atau tanya apapun seputar makanan gizi sehat hari ini! 😉
+              </p>
+              <span class="text-[9px] text-gray-400 block mt-1">Hari ini • 17.40</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Chat Suggestion Pills -->
+        <div class="bg-white border-t border-gray-100 py-2.5 px-3 flex space-x-2 overflow-x-auto no-scrollbar">
+          <button onclick="sendQuickMessage('Resep sarapan tinggi protein dibawah 300 kkal')"
+            class="bg-gray-50 hover:bg-gray-100 text-gray-600 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0">Resep
+            Sarapan &lt;300 kkal</button>
+          <button onclick="sendQuickMessage('Berapa kalori ideal untuk menurunkan berat badan?')"
+            class="bg-gray-50 hover:bg-gray-100 text-gray-600 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0">Kalori
+            Ideal Turun Berat</button>
+          <button onclick="sendQuickMessage('Tips menjaga diet saat sedang nongkrong di kafe')"
+            class="bg-gray-50 hover:bg-gray-100 text-gray-600 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0">Tips
+            Diet Nongkrong</button>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="bg-white p-3 flex items-center space-x-2 border-t border-gray-100">
+          <input type="text" id="chat-input" onkeyup="if(event.key === 'Enter') sendChatMessage()"
+            class="flex-1 bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-[#FF6C35] font-semibold"
+            placeholder="Ketik pesan untuk Coach...">
+          <button onclick="sendChatMessage()"
+            class="w-10 h-10 bg-[#FF6C35] hover:bg-[#e55b27] text-white rounded-2xl flex items-center justify-center shadow-md active:scale-95 transition-all">
+            <i class="ph-bold ph-paper-plane-tilt"></i>
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ==================== WEIGHT UPDATOR MODAL ==================== -->
+    <div id="weight-modal"
+      class="absolute inset-0 bg-black/50 z-50 flex items-end justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+      <div
+        class="bg-white w-full rounded-t-[32px] p-6 space-y-5 transform translate-y-full transition-transform duration-300">
+        <div class="flex justify-between items-center">
+          <h4 class="font-extrabold text-gray-800 text-base">Catat Berat Badan Baru</h4>
+          <button onclick="closeWeightModal()" class="text-gray-400 hover:text-gray-600"><i
+              class="ph-bold ph-x text-lg"></i></button>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center space-x-3 bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3">
+            <span class="text-sm font-bold text-gray-500">Berat (kg):</span>
+            <input type="number" id="new-weight-input" step="0.1"
+              class="flex-1 bg-transparent border-none text-right font-black text-gray-800 text-xl focus:outline-none"
+              placeholder="68.0">
+          </div>
+
+          <button onclick="saveWeight()"
+            class="w-full bg-[#FF6C35] hover:bg-[#e55b27] text-white py-4 rounded-2xl font-bold shadow-md">
+            Simpan Berat & Sinkronisasi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ROADMAP SOON SCREEN OVERLAY ==================== -->
+    <div id="coming-soon-panel"
+      class="absolute inset-0 bg-white/95 z-50 flex flex-col items-center justify-center p-6 text-center transition-opacity duration-300 opacity-0 pointer-events-none">
+      <div
+        class="w-24 h-24 bg-orange-50 rounded-[32px] flex items-center justify-center text-[#FF6C35] text-4xl mb-4 shadow-sm animate-bounce">
+        <i class="ph-bold ph-rocket-launch"></i>
+      </div>
+      <h3 class="text-2xl font-black text-gray-800">🚀 Fitur Segera Hadir</h3>
+      <p id="soon-feature-desc" class="text-xs text-gray-500 max-w-[80%] mx-auto mt-2 leading-relaxed">
+        Fitur Gym Equipment Scanner & scan barcode gizi instan sedang dalam tahap pengembangan akhir oleh tim CalorAI.
+      </p>
+      <button onclick="hideComingSoon()"
+        class="mt-6 bg-gray-900 text-white px-6 py-3 rounded-2xl text-xs font-bold active:scale-95 transition-all">
+        Kembali ke Dashboard
+      </button>
+    </div>
+
+    <!-- ==================== BOTTOM NAVIGATION BAR ==================== -->
+    <nav
+      class="absolute bottom-0 inset-x-0 bg-white/90 backdrop-blur-md border-t border-gray-100 py-3 px-6 flex items-center justify-between z-40">
+      <button onclick="switchView('home')" id="nav-home"
+        class="flex flex-col items-center space-y-1 text-[#FF6C35] transition-colors">
+        <i class="ph-bold ph-house-line text-2xl"></i>
+        <span class="text-[9px] font-bold">Dashboard</span>
+      </button>
+      <button onclick="switchView('logger')" id="nav-logger"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors">
+        <i class="ph-bold ph-plus-circle text-2xl"></i>
+        <span class="text-[9px] font-bold">Catat Gizi</span>
+      </button>
+      <button onclick="switchView('diet')" id="nav-diet"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors">
+        <i class="ph-bold ph-calendar text-2xl"></i>
+        <span class="text-[9px] font-bold">Rencana</span>
+      </button>
+      <button onclick="switchView('chat')" id="nav-chat"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors">
+        <i class="ph-bold ph-chat-circle text-2xl"></i>
+        <span class="text-[9px] font-bold">Tanya AI</span>
+      </button>
+      <button onclick="showComingSoon('Scan Barcode & Peralatan Gym')"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors">
+        <i class="ph-bold ph-scan text-2xl"></i>
+        <span class="text-[9px] font-bold">Scan AI</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- ==================== FRONTEND JAVASCRIPT SYSTEM ==================== -->
+  <script>
+    /* GANTI */
+    const APP_URL = "https://script.google.com/macros/s/AKfycbzOgTBylTHz-S1bhAGJO8A5-jugSRz_nSI1YePJIyez71iWauXafPcgm2BjlhgNWsFL-w/exec";
+    const PREVIEW_MODE = false;
+    const apiKey = "cfut_poJJE4MaOsy9QDZ0L9Wdqu6USUjXxZ3bZAJh18yb25097ed9"; // Cloudflare AI Token
+    const CF_AI_ENDPOINT = "/api/ai";
+
+    // STATE MANAGEMENT APLIKASI
+    const state = {
+      user: null,
+      todayLogs: [],
+      weightHistory: [
+        { date: '08 Jul', weight: 70.0, autoFilled: false },
+        { date: '09 Jul', weight: 69.5, autoFilled: false },
+        { date: '10 Jul', weight: 69.5, autoFilled: true }, // Auto filled
+        { date: '11 Jul', weight: 69.2, autoFilled: false },
+        { date: '12 Jul', weight: 69.0, autoFilled: false },
+        { date: '13 Jul', weight: 68.8, autoFilled: true }, // Auto filled
+        { date: '14 Jul', weight: 68.5, autoFilled: false }  // Today
+      ],
+      waterDrank: 1.2,
+      targetCalories: 2125,
+      currentWeight: 68.5,
+      activePlanDays: 30,
+      activeView: 'home',
+      activeLogTab: 'nlp',
+      cameraPreset: {
+        id: 'steak',
+        img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80',
+        name: 'Steak Sapi Panggang'
+      },
+      extractedLog: null,
+      chatHistory: [
+        {
+          role: "system",
+          content: "Anda adalah Coach Sandow, asisten diet virtual dan spesialis gizi profesional dari CalorAI. Tugas Anda adalah membantu pengguna dengan rekomendasi diet sehat, resep rendah kalori, tips gizi, dan menjawab pertanyaan seputar kesehatan dengan ramah, informatif, dan ringkas dalam bahasa Indonesia. Selalu berikan tips praktis dan motivasi."
+        },
+        {
+          role: "assistant",
+          content: "Halo! Saya Coach Sandow, asisten diet virtual gizi kamu. Kamu bisa tanyakan rekomendasi resep makan malam rendah kalori, atau tanya apapun seputar makanan gizi sehat hari ini! 😉"
+        }
+      ]
+    };
+
+    // Database dummy makanan untuk menu pencarian manual
+    const mockFoodDB = [
+      { name: "Nasi Putih (1 Porsi)", calories: 204, protein: 4, carbs: 44, fat: 0.5 },
+      { name: "Dada Ayam Panggang (100g)", calories: 165, protein: 31, carbs: 0, fat: 3.6 },
+      { name: "Telur Rebus (1 Butir)", calories: 78, protein: 6, carbs: 0.6, fat: 5 },
+      { name: "Tahu Goreng (1 Potong)", calories: 35, protein: 3, carbs: 1.5, fat: 2.5 },
+      { name: "Tempe Goreng (1 Potong)", calories: 50, protein: 4, carbs: 3, fat: 3 },
+      { name: "Alpukat Fresh (1 Buah)", calories: 160, protein: 2, carbs: 8.5, fat: 14.7 }
+    ];
+
+    // Helper calling Cloudflare AI (OpenAI-compatible via AI Gateway)
+    async function callGroqAPI(messages, jsonMode = false) {
+      if (!apiKey) {
+        throw new Error("API Token Cloudflare tidak ditemukan atau kosong!");
+      }
+
+      const body = {
+        model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        messages: messages,
+        temperature: 0.7
+      };
+      if (jsonMode) body.response_format = { type: "json_object" };
+
+      const response = await fetch(CF_AI_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, detail: ${errText}`);
+      }
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    }
+
+    // Helper calling Cloudflare Vision AI (OpenAI-compatible via AI Gateway)
+    async function callGroqVisionAPI(imageUrl) {
+      if (!apiKey) {
+        throw new Error("API Token Cloudflare tidak ditemukan atau kosong!");
+      }
+
+      // Ensure image is compressed & converted to base64 Data URI (< 200KB)
+      const formattedImageUrl = await ensureCompressedBase64DataUri(imageUrl);
+
+      const response = await fetch(CF_AI_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "@cf/meta/llama-3.2-11b-vision-instruct",
+          messages: [
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: `Identifikasi makanan pada gambar. HANYA BALAS DENGAN JSON FORMAT DENGAN STRUKTUR INI SAJA TANPA TEKS LAIN:\n{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
+                },
+                {
+                  type: "image_url",
+                  image_url: {
+                    url: formattedImageUrl
+                  }
+                }
+              ]
+            }
+          ],
+          temperature: 0.1,
+          max_tokens: 300
+        })
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, detail: ${errText}`);
+      }
+
+      const data = await response.json();
+      const rawContent = data.choices[0].message.content;
+
+      // 1. If Cloudflare parsed content as a JSON Object directly
+      if (typeof rawContent === 'object' && rawContent !== null) {
+        return JSON.stringify(rawContent);
+      }
+
+      // 2. If content is string, attempt JSON extraction
+      if (typeof rawContent === 'string') {
+        const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
+        if (jsonMatch) return jsonMatch[0];
+
+        // 3. Fallback text parsing if model returned bullet points or text
+        const calMatch = rawContent.match(/(\d+)\s*(?:kalori|kcal|kkal)/i);
+        const protMatch = rawContent.match(/(\d+)\s*g(?:ram)?\s*(?:protein)?/i);
+        const carbMatch = rawContent.match(/(\d+)\s*g(?:ram)?\s*(?:karbohidrat|carbs)?/i);
+        const fatMatch = rawContent.match(/(\d+)\s*g(?:ram)?\s*(?:lemak|fat)?/i);
+
+        return JSON.stringify({
+          name: "Hidangan Terdeteksi",
+          calories: calMatch ? parseInt(calMatch[1]) : 350,
+          protein: protMatch ? parseInt(protMatch[1]) : 20,
+          carbs: carbMatch ? parseInt(carbMatch[1]) : 45,
+          fat: fatMatch ? parseInt(fatMatch[1]) : 10
+        });
+      }
+
+      throw new Error("Format respons Vision AI tidak dikenali.");
+    }
+
+    // Ensure image is compressed and converted to base64 Data URI (512px max, 0.7 quality)
+    async function ensureCompressedBase64DataUri(src, maxDim = 512, quality = 0.7) {
+      if (!src) return src;
+      if (src.startsWith("http://") || src.startsWith("https://")) {
+        try {
+          src = await urlToBase64DataUri(src);
+        } catch (e) {
+          console.warn("Failed to fetch remote image URL:", e);
+        }
+      }
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = () => resolve(src);
+        img.src = src;
+      });
+    }
+
+    // Convert external image URL to base64 Data URI
+    async function urlToBase64DataUri(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+        img.onerror = () => {
+          fetch(url)
+            .then(res => res.blob())
+            .then(blob => {
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result);
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            })
+            .catch(reject);
+        };
+        img.src = url;
+      });
+    }
+
+    // Helper to get base64 string from File object
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    // WEB CAMERA DEVICE CONTROLLER STATE
+    let cameraStreamObj = null;
+
+    async function startCamera() {
+      const video = document.getElementById('camera-stream');
+      const placeholder = document.getElementById('camera-placeholder');
+      const preview = document.getElementById('camera-preview');
+      const statusLabel = document.getElementById('camera-status-label');
+
+      stopCamera();
+      preview.classList.add('hidden');
+      document.getElementById('camera-file-input').value = ""; // Clear file fallback
+
+      try {
+        statusLabel.innerText = "Mengakses Kamera...";
+        cameraStreamObj = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' },
+          audio: false
+        });
+        video.srcObject = cameraStreamObj;
+        video.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        statusLabel.innerText = "Kamera Aktif (Belakang/Utama)";
+      } catch (err) {
+        console.error("Akses kamera gagal:", err);
+        statusLabel.innerText = "Kamera tidak dapat diakses";
+        video.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+        showToast("Gagal mengakses kamera perangkat Anda.", false);
+      }
+    }
+
+    function stopCamera() {
+      if (cameraStreamObj) {
+        cameraStreamObj.getTracks().forEach(track => track.stop());
+        cameraStreamObj = null;
+      }
+      const video = document.getElementById('camera-stream');
+      if (video) {
+        video.srcObject = null;
+        video.classList.add('hidden');
+      }
+    }
+
+    async function handleFileSelect(event) {
+      const file = event.target.files ? event.target.files[0] : null;
+      if (!file) return;
+
+      const video = document.getElementById('camera-stream');
+      const preview = document.getElementById('camera-preview');
+      const placeholder = document.getElementById('camera-placeholder');
+      const statusLabel = document.getElementById('camera-status-label');
+
+      stopCamera();
+      video.classList.add('hidden');
+
+      const base64Image = await getBase64(file);
+      preview.style.backgroundImage = `url('${base64Image}')`;
+      preview.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+      statusLabel.innerText = "Foto Terunggah: " + file.name;
+    }
+
+    // INTI RUNTIME
+    window.onload = function () {
+      if (PREVIEW_MODE) {
+        // Load default dummy state
+        state.todayLogs = [
+          { name: 'Oatmeal Pisang Mandiri', calories: 285, protein: 12, carbs: 45, fat: 6, date: '14 Jul' },
+          { name: 'Kopi Hitam (Auto-Fill Sistem)', calories: 5, protein: 0, carbs: 1, fat: 0, date: '14 Jul' }
+        ];
+        document.getElementById('screen-login').classList.add('hidden');
+        renderDashboard();
+      } else {
+        checkSession();
+      }
+    };
+
+    // CHECK SESSION FUNCTION
+    function checkSession() {
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        state.user = JSON.parse(savedUser);
+        document.getElementById('screen-login').classList.add('hidden');
+        renderDashboard();
+      } else {
+        document.getElementById('screen-login').classList.remove('hidden');
+      }
+    }
+
+    // FUNGSI NOTIFIKASI TOAST
+    function showToast(msg, isSuccess = true) {
+      const toast = document.getElementById('toast');
+      const icon = document.getElementById('toast-icon');
+      const message = document.getElementById('toast-message');
+
+      message.innerText = msg;
+      if (isSuccess) {
+        icon.className = "ph-bold ph-check-circle text-[#FF6C35]";
+      } else {
+        icon.className = "ph-bold ph-warning-circle text-red-500";
+      }
+
+      toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-20');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-20');
+      }, 3000);
+    }
+
+    // AUTHENTICATION FLOW
+    function handleLogin() {
+      const u = document.getElementById('login-username').value;
+      const p = document.getElementById('login-password').value;
+
+      if (u === 'admin' && p === '123') {
+        state.user = { username: 'admin' };
+        localStorage.setItem('user', JSON.stringify(state.user));
+        document.getElementById('screen-login').classList.add('hidden');
+        showToast("Masuk berhasil! Selamat datang kembali.");
+        renderDashboard();
+      } else {
+        showToast("Username atau Password salah!", false);
+      }
+    }
+
+    // VIEW SWAPPER SYSTEM
+    function switchView(viewName) {
+      document.querySelectorAll('.view-panel').forEach(v => v.classList.add('hidden'));
+      document.getElementById('view-' + viewName).classList.remove('hidden');
+
+      // Update Nav Class
+      document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.add('text-gray-400');
+        btn.classList.remove('text-[#FF6C35]');
+      });
+      const activeNav = document.getElementById('nav-' + viewName);
+      if (activeNav) {
+        activeNav.classList.remove('text-gray-400');
+        activeNav.classList.add('text-[#FF6C35]');
+      }
+
+      state.activeView = viewName;
+      if (viewName === 'home') renderDashboard();
+
+      // Camera lifecycle control
+      if (viewName !== 'logger') {
+        stopCamera();
+      } else if (state.activeLogTab === 'camera') {
+        startCamera();
+      }
+    }
+
+    // GANTI TAB FOOD LOGGER
+    function switchLogTab(tab) {
+      state.activeLogTab = tab;
+      document.querySelectorAll('#view-logger > div[id^="log-tab-"]').forEach(t => t.classList.add('hidden'));
+      document.getElementById('log-tab-' + tab).classList.remove('hidden');
+
+      const tabs = ['nlp', 'camera', 'manual'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('btn-tab-' + t);
+        if (t === tab) {
+          btn.className = "py-2.5 rounded-xl text-xs font-bold text-center transition-all bg-white text-[#FF6C35] shadow-sm";
+        } else {
+          btn.className = "py-2.5 rounded-xl text-xs font-bold text-center transition-all text-gray-500 hover:text-gray-800";
+        }
+      });
+
+      if (tab === 'camera') {
+        startCamera();
+      } else {
+        stopCamera();
+      }
+    }
+
+    // RENDERING DASHBOARD DATA
+    function renderDashboard() {
+      // 1. Calculate macros & calories
+      let totalCal = 0;
+      let totalProtein = 0;
+      let totalCarbs = 0;
+      let totalFat = 0;
+
+      state.todayLogs.forEach(l => {
+        totalCal += l.calories;
+        totalProtein += l.protein;
+        totalCarbs += l.carbs;
+        totalFat += l.fat;
+      });
+
+      const remaining = Math.max(0, state.targetCalories - totalCal);
+      document.getElementById('calories-remaining').innerText = remaining.toLocaleString();
+      document.getElementById('calories-target-val').innerText = state.targetCalories.toLocaleString();
+      document.getElementById('total-consumed').innerText = totalCal.toLocaleString() + " kkal";
+
+      // 2. Score Calculation (Nutrition Score Vibe)
+      const ratio = totalCal / state.targetCalories;
+      const score = Math.min(100, Math.round(ratio * 100 * 10) / 10);
+      document.getElementById('gauge-score').innerText = score > 0 ? score : "0";
+
+      // Update SVG Ring Gauge
+      const ring = document.getElementById('gauge-ring');
+      const maxOffset = 339; // 2 * PI * r (54) -> 339.29
+      const progressPercent = Math.min(1, ratio);
+      ring.style.strokeDashoffset = maxOffset - (maxOffset * progressPercent);
+
+      // 3. Render Macros Bars (Bento Card 1)
+      const targetP = 150, targetC = 250, targetF = 70; // Est Targets
+      const macros = [
+        { label: 'Protein', icon: 'ph-egg', val: totalProtein, target: targetP, color: 'bg-orange-500' },
+        { label: 'Karbohidrat', icon: 'ph-bread', val: totalCarbs, target: targetC, color: 'bg-amber-500' },
+        { label: 'Lemak', icon: 'ph-drop', val: totalFat, target: targetF, color: 'bg-rose-500' }
+      ];
+
+      const mContainer = document.getElementById('macros-container');
+      mContainer.innerHTML = macros.map(m => `
+        <div class="space-y-0.5">
+          <div class="flex justify-between text-[10px] font-bold text-gray-500">
+            <span class="flex items-center"><i class="${m.icon} mr-1"></i>${m.label}</span>
+            <span>${m.val}g / ${m.target}g</span>
+          </div>
+          <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full ${m.color} rounded-full" style="width: ${Math.min(100, (m.val / m.target) * 100)}%"></div>
+          </div>
+        </div>
+      `).join('');
+
+      // 4. Water tracker update
+      document.getElementById('water-count').innerText = state.waterDrank.toFixed(1) + " Liter";
+
+      // 5. Weight label update
+      document.getElementById('current-weight').innerText = state.currentWeight.toFixed(1);
+
+      // 6. Draw Sparkline / Trend (SVG Canvas based)
+      drawTrendChart();
+
+      // 7. Recent log listings
+      const listContainer = document.getElementById('recent-logs-list');
+      if (state.todayLogs.length === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-4 text-gray-400 text-xs">
+            <i class="ph-bold ph-egg-crack text-3xl block mb-1"></i>
+            Belum ada makanan dicatat hari ini.
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = state.todayLogs.map((l, idx) => `
+          <div class="flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-2xl transition-all">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-[#FF6C35]">
+                <i class="ph-bold ph-fork-knife text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-gray-800">${l.name}</h4>
+                <p class="text-[9px] text-gray-400">P: ${l.protein}g • K: ${l.carbs}g • L: ${l.fat}g</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-xs font-black text-gray-800">${l.calories} kkal</span>
+              <button onclick="deleteLog(${idx})" class="text-gray-300 hover:text-rose-500"><i class="ph-bold ph-trash"></i></button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // DRAW TREND CHART (Lightweight SVG builder)
+    function drawTrendChart() {
+      const container = document.getElementById('chart-container');
+      const w = container.clientWidth - 16;
+      const h = 160;
+
+      const data = state.weightHistory;
+      const minW = Math.min(...data.map(d => d.weight)) - 0.5;
+      const maxW = Math.max(...data.map(d => d.weight)) + 0.5;
+      const spanW = maxW - minW;
+
+      // Map coordinates
+      const points = data.map((d, i) => {
+        const x = (i / (data.length - 1)) * (w - 40) + 20;
+        const y = h - ((d.weight - minW) / spanW) * (h - 40) - 20;
+        return { x, y, weight: d.weight, label: d.date, autoFilled: d.autoFilled };
+      });
+
+      // Construct SVG line
+      let linePath = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 1; i < points.length; i++) {
+        linePath += ` L ${points[i].x} ${points[i].y}`;
+      }
+
+      // Generate points and annotations in SVG
+      let svgElements = '';
+      points.forEach(p => {
+        const dotColor = p.autoFilled ? '#cbd5e1' : '#FF6C35';
+        const dotStroke = p.autoFilled ? 'stroke-dasharray="3,3"' : '';
+        svgElements += `
+          <circle cx="${p.x}" cy="${p.y}" r="4" fill="${dotColor}" />
+          <text x="${p.x}" y="${p.y - 10}" font-size="9" font-weight="bold" fill="#374151" text-anchor="middle">${p.weight}</text>
+          <text x="${p.x}" y="${h - 5}" font-size="8" font-weight="bold" fill="#9ca3af" text-anchor="middle">${p.label}</text>
+        `;
+      });
+
+      container.innerHTML = `
+        <svg class="w-full h-full">
+          <path d="${linePath}" fill="none" stroke="#FF6C35" stroke-width="2" stroke-linecap="round" />
+          ${svgElements}
+        </svg>
+      `;
+    }
+
+    // WATER TRACKER INTERACTION
+    function addWater() {
+      state.waterDrank += 0.25;
+      if (state.waterDrank > 2.5) {
+        showToast("Keren! Target hidrasi air mineral hari ini tercapai.");
+      } else {
+        showToast("Segelas kesegaran dicatat (+250ml)");
+      }
+      renderDashboard();
+    }
+
+    // RECENT LOG OPERATIONS
+    function deleteLog(idx) {
+      state.todayLogs.splice(idx, 1);
+      showToast("Log makanan berhasil dihapus.");
+      renderDashboard();
+    }
+
+    // WEIGHT MODAL MANAGEMENT
+    function openWeightModal() {
+      document.getElementById('weight-modal').classList.remove('pointer-events-none', 'opacity-0');
+      document.getElementById('weight-modal').querySelector('div').classList.remove('translate-y-full');
+      document.getElementById('new-weight-input').value = state.currentWeight;
+    }
+    function closeWeightModal() {
+      document.getElementById('weight-modal').classList.add('pointer-events-none', 'opacity-0');
+      document.getElementById('weight-modal').querySelector('div').classList.add('translate-y-full');
+    }
+    function saveWeight() {
+      const val = parseFloat(document.getElementById('new-weight-input').value);
+      if (isNaN(val) || val <= 0) {
+        showToast("Masukkan angka berat badan valid!", false);
+        return;
+      }
+
+      state.currentWeight = val;
+      // Add or replace today's log in history
+      const lastEntry = state.weightHistory[state.weightHistory.length - 1];
+      if (lastEntry.date === '14 Jul') {
+        lastEntry.weight = val;
+        lastEntry.autoFilled = false;
+      } else {
+        state.weightHistory.push({ date: '14 Jul', weight: val, autoFilled: false });
+      }
+
+      closeWeightModal();
+      showToast("Berat badan aktual berhasil disinkronisasi!");
+      renderDashboard();
+    }
+
+    // SIMULATED CAMERA PRESET CHANGER
+    function setCameraPreset(id, imgUrl, name) {
+      state.cameraPreset = { id, img: imgUrl, name };
+
+      // Stop webcam stream
+      stopCamera();
+      document.getElementById('camera-stream').classList.add('hidden');
+
+      // Show preview
+      const preview = document.getElementById('camera-preview');
+      preview.style.backgroundImage = `url('${imgUrl}')`;
+      preview.classList.remove('hidden');
+
+      document.getElementById('camera-placeholder').classList.add('hidden');
+      document.getElementById('camera-status-label').innerText = "Preset: " + name;
+
+      // Style active button
+      document.querySelectorAll('#log-tab-camera button').forEach(b => {
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(id)) {
+          b.className = "bg-orange-50 border border-orange-100 text-orange-700 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0";
+        } else if (b.getAttribute('onclick')) {
+          b.className = "bg-gray-100 text-gray-600 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0";
+        }
+      });
+    }
+
+    // SNAP FOOD BY CAMERA
+    async function snapFoodImage() {
+      const video = document.getElementById('camera-stream');
+      const canvas = document.getElementById('camera-canvas');
+      const context = canvas.getContext('2d');
+      const fileInput = document.getElementById('camera-file-input');
+
+      let imageUrl = null;
+
+      if (cameraStreamObj && video.srcObject && !video.classList.contains('hidden')) {
+        // Capture from live camera stream with max 512px dimension
+        const maxDim = 512;
+        let w = video.videoWidth || 640;
+        let h = video.videoHeight || 480;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
+        canvas.width = w;
+        canvas.height = h;
+        context.drawImage(video, 0, 0, w, h);
+        imageUrl = canvas.toDataURL('image/jpeg', 0.7);
+      } else if (fileInput.files && fileInput.files[0]) {
+        // Use uploaded file
+        imageUrl = await getBase64(fileInput.files[0]);
+      } else if (state.cameraPreset && state.cameraPreset.img) {
+        // Use active preset image URL
+        imageUrl = state.cameraPreset.img;
+      }
+
+      if (!imageUrl) {
+        showToast("Ambil foto makanan, pilih preset, atau unggah file terlebih dahulu!", false);
+        return;
+      }
+
+      showToast("Menganalisis foto makanan menggunakan Cloudflare Vision AI...");
+
+      try {
+        const responseText = await callGroqVisionAPI(imageUrl);
+        const logData = JSON.parse(responseText);
+
+        state.extractedLog = {
+          name: logData.name + " (Vision AI)",
+          calories: parseInt(logData.calories) || 0,
+          protein: parseInt(logData.protein) || 0,
+          carbs: parseInt(logData.carbs) || 0,
+          fat: parseInt(logData.fat) || 0
+        };
+
+        // Populate and open Validation Panel
+        document.getElementById('extracted-food-name').innerText = state.extractedLog.name;
+        document.getElementById('extracted-calories').innerText = state.extractedLog.calories;
+        document.getElementById('extracted-protein').innerText = state.extractedLog.protein + "g";
+        document.getElementById('extracted-carbs').innerText = state.extractedLog.carbs + "g";
+        document.getElementById('extracted-fat').innerText = state.extractedLog.fat + "g";
+
+        document.getElementById('ai-extraction-panel').classList.remove('hidden');
+        showToast("Vision AI berhasil mendeteksi hidangan!");
+
+        stopCamera();
+      } catch (err) {
+        console.error(err);
+        showToast("Vision AI gagal menganalisis gambar: " + err.message, false);
+      }
+    }
+
+    // NLP FOOD LOG TRANSLATOR
+    async function processNLP() {
+      const text = document.getElementById('nlp-textarea').value.trim();
+      if (!text) {
+        showToast("Ketik deskripsi hidangan kamu terlebih dahulu!", false);
+        return;
+      }
+
+      showToast("Menganalisis teks gizi menggunakan NLP AI...");
+
+      try {
+        const messages = [
+          {
+            role: "system",
+            content: `Anda adalah pakar nutrisi AI. Tugas Anda adalah mengurai deskripsi teks makanan pengguna dan menaksir nilai nutrisinya (kalori dalam kkal, protein dalam gram, karbohidrat dalam gram, lemak dalam gram).
+Anda harus membalas HANYA dengan objek JSON valid dengan struktur kunci berikut:
+{
+  "name": "Nama makanan yang ringkas dan jelas dalam Bahasa Indonesia",
+  "calories": bilangan bulat taksiran kalori (kkal),
+  "protein": bilangan bulat taksiran protein (gram),
+  "carbs": bilangan bulat taksiran karbohidrat (gram),
+  "fat": bilangan bulat taksiran lemak (gram)
+}
+Jangan menambahkan penjelasan teks atau markdown di luar JSON.`
+          },
+          {
+            role: "user",
+            content: `Teks makanan: "${text}"`
+          }
+        ];
+
+        const jsonResponse = await callGroqAPI(messages, true);
+        const logData = JSON.parse(jsonResponse);
+
+        state.extractedLog = {
+          name: logData.name + " (NLP AI)",
+          calories: parseInt(logData.calories) || 0,
+          protein: parseInt(logData.protein) || 0,
+          carbs: parseInt(logData.carbs) || 0,
+          fat: parseInt(logData.fat) || 0
+        };
+
+        document.getElementById('extracted-food-name').innerText = state.extractedLog.name;
+        document.getElementById('extracted-calories').innerText = state.extractedLog.calories;
+        document.getElementById('extracted-protein').innerText = state.extractedLog.protein + "g";
+        document.getElementById('extracted-carbs').innerText = state.extractedLog.carbs + "g";
+        document.getElementById('extracted-fat').innerText = state.extractedLog.fat + "g";
+
+        document.getElementById('ai-extraction-panel').classList.remove('hidden');
+        showToast("Ekstraksi gizi AI selesai.");
+      } catch (err) {
+        console.error(err);
+        showToast("Gagal menganalisis gizi: " + err.message, false);
+      }
+    }
+
+    // COMMIT EXTRACTED LOG
+    function commitAILog() {
+      if (!state.extractedLog) return;
+      state.todayLogs.push({ ...state.extractedLog, date: '14 Jul' });
+      closeExtractionPanel();
+      showToast("Makanan berhasil dicatat di Dashboard!");
+      switchView('home');
+    }
+
+    function closeExtractionPanel() {
+      document.getElementById('ai-extraction-panel').classList.add('hidden');
+      state.extractedLog = null;
+    }
+
+    // MANUAL SEARCH LOGIC
+    function handleManualSearch() {
+      const query = document.getElementById('manual-search-input').value.toLowerCase();
+      const resultsDiv = document.getElementById('manual-search-results');
+      resultsDiv.innerHTML = "";
+
+      if (!query) return;
+
+      const filtered = mockFoodDB.filter(f => f.name.toLowerCase().includes(query));
+      if (filtered.length === 0) {
+        resultsDiv.innerHTML = `<div class="p-3 text-center text-xs text-gray-400">Tidak ada hasil ditemukan</div>`;
+        return;
+      }
+
+      resultsDiv.innerHTML = filtered.map(f => `
+        <div class="flex items-center justify-between py-3 cursor-pointer hover:bg-gray-50 px-2 rounded-xl" onclick="logManualFood('${f.name}', ${f.calories}, ${f.protein}, ${f.carbs}, ${f.fat})">
+          <div>
+            <p class="font-bold text-xs text-gray-800">${f.name}</p>
+            <p class="text-[9px] text-gray-400">P: ${f.protein}g • K: ${f.carbs}g • L: ${f.fat}g</p>
+          </div>
+          <span class="text-xs font-black text-[#FF6C35]">${f.calories} kkal</span>
+        </div>
+      `).join('');
+    }
+
+    function logManualFood(name, cal, p, c, f) {
+      state.todayLogs.push({ name, calories: cal, protein: p, carbs: c, fat: f, date: '14 Jul' });
+      showToast(`${name} berhasil ditambahkan!`);
+      document.getElementById('manual-search-input').value = "";
+      document.getElementById('manual-search-results').innerHTML = "";
+      switchView('home');
+    }
+
+    // CHANGE DIET PROGRAM
+    function changeDietProgram(days, targetKcal) {
+      state.activePlanDays = days;
+      state.targetCalories = targetKcal;
+      document.getElementById('header-plan').innerText = `Program ${days} Hari`;
+      document.getElementById('plan-cal-label').innerText = `${targetKcal} kkal`;
+      showToast(`Program berhasil diubah ke ${days} Hari.`);
+
+      // highlight border selector in View Plan UI
+      // reset others
+      renderDashboard();
+    }
+
+    // CHATBOT DIET SYSTEM
+    function sendQuickMessage(text) {
+      document.getElementById('chat-input').value = text;
+      sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      // Append user msg
+      appendChatMessage(text, false);
+      input.value = "";
+
+      // Push user msg to chatHistory
+      state.chatHistory.push({ role: "user", content: text });
+
+      // Append typing loading state
+      const loadingId = appendChatLoading();
+
+      try {
+        const responseText = await callGroqAPI(state.chatHistory);
+        removeChatLoading(loadingId);
+
+        // Push assistant response to chatHistory
+        state.chatHistory.push({ role: "assistant", content: responseText });
+
+        appendChatMessage(responseText, true);
+      } catch (err) {
+        removeChatLoading(loadingId);
+        console.error(err);
+        showToast("Gagal menghubungi Coach AI: " + err.message, false);
+        appendChatMessage("Maaf, terjadi kesalahan koneksi. Pastikan API token Cloudflare Anda valid dan coba lagi. 😔", true);
+      }
+    }
+
+    function appendChatMessage(text, isBot) {
+      const container = document.getElementById('chat-messages');
+      const now = new Date();
+      const time = String(now.getHours()).padStart(2, '0') + "." + String(now.getMinutes()).padStart(2, '0');
+
+      const msgHTML = isBot ? `
+        <div class="flex items-start space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-[#FF6C35] shrink-0 text-xs">
+            <i class="ph-bold ph-robot"></i>
+          </div>
+          <div class="bg-white border border-gray-100 rounded-2xl rounded-tl-none p-3.5 max-w-[80%] shadow-sm">
+            <p class="text-xs text-gray-800 leading-relaxed">${text}</p>
+            <span class="text-[9px] text-gray-400 block mt-1">${time}</span>
+          </div>
+        </div>
+      ` : `
+        <div class="flex items-start justify-end space-x-2.5">
+          <div class="bg-[#FF6C35] text-white rounded-2xl rounded-tr-none p-3.5 max-w-[80%] shadow-sm">
+            <p class="text-xs leading-relaxed">${text}</p>
+            <span class="text-[9px] text-white/70 block mt-1 text-right">${time}</span>
+          </div>
+          <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-[#FF6C35] shrink-0 text-xs">
+            <i class="ph-bold ph-user"></i>
+          </div>
+        </div>
+      `;
+
+      container.insertAdjacentHTML('beforeend', msgHTML);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendChatLoading() {
+      const id = 'loading-' + Date.now();
+      const container = document.getElementById('chat-messages');
+      const loaderHTML = `
+        <div id="${id}" class="flex items-start space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-[#FF6C35] shrink-0 text-xs">
+            <i class="ph-bold ph-robot animate-spin"></i>
+          </div>
+          <div class="bg-white border border-gray-100 rounded-2xl rounded-tl-none p-3 py-2 max-w-[80%] shadow-sm flex items-center space-x-1">
+            <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+            <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', loaderHTML);
+      container.scrollTop = container.scrollHeight;
+      return id;
+    }
+
+    function removeChatLoading(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    // SIMULATED MIDNIGHT CRON JOB
+    function triggerMidnightCronSimulation() {
+      showToast("Menjalankan simulasi Midnight Cron Job...");
+
+      setTimeout(() => {
+        // Show automatic user calibration modal
+        document.getElementById('welcome-alert').classList.remove('hidden');
+        document.getElementById('welcome-alert').classList.add('flex');
+
+        // Auto fill weight log
+        const lastVal = state.currentWeight;
+        state.weightHistory.push({ date: '15 Jul', weight: lastVal, autoFilled: true });
+
+        // Force update date
+        document.getElementById('date-label').innerText = "Rabu, 15 Jul 2026";
+
+        // Empty calories for new day simulation
+        state.todayLogs = [];
+        state.waterDrank = 0;
+
+        renderDashboard();
+        showToast("Toleransi data kosong dipicu! Jatah diet baru dimulai.");
+      }, 1000);
+    }
+
+    // ROADMAP & COMING SOON UTILS
+    function showComingSoon(featureName) {
+      document.getElementById('soon-feature-desc').innerText = `Fitur ${featureName} sedang dalam optimasi AI akhir oleh tim developer CalorAI.`;
+      document.getElementById('coming-soon-panel').classList.remove('pointer-events-none', 'opacity-0');
+    }
+    function hideComingSoon() {
+      document.getElementById('coming-soon-panel').classList.add('pointer-events-none', 'opacity-0');
+    }
+  </script>
+</body>
+
+</html>
