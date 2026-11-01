@@ -126,6 +126,21 @@ export default {
     }
 
     // Serve static frontend files (index.html, manifest.json, sw.js, etc.)
-    return env.ASSETS.fetch(request);
+    const staticRes = await env.ASSETS.fetch(request);
+    
+    // Disable caching for HTML and service worker to guarantee immediate updates
+    if (url.pathname === "/" || url.pathname.endsWith(".html") || url.pathname.endsWith("sw.js")) {
+      const freshHeaders = new Headers(staticRes.headers);
+      freshHeaders.set("Cache-Control", "no-cache, no-store, must-revalidate");
+      freshHeaders.set("Pragma", "no-cache");
+      freshHeaders.set("Expires", "0");
+      return new Response(staticRes.body, {
+        status: staticRes.status,
+        statusText: staticRes.statusText,
+        headers: freshHeaders
+      });
+    }
+
+    return staticRes;
   }
 };
