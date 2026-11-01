@@ -288,7 +288,7 @@
               <i class="ph-bold ph-sneaker-move"></i>
               <span>Sit Up</span>
             </button>
-            <button onclick="switchView('scan')"
+            <button onclick="switchView('logger'); switchLogTab('barcode');"
               class="bg-white border border-gray-200/80 text-gray-700 hover:border-[#FF991C] px-4 py-2 rounded-full text-xs font-bold shrink-0 flex items-center space-x-1.5 active:scale-95 transition-all">
               <i class="ph-bold ph-barcode"></i>
               <span>Scan Barcode</span>
@@ -418,18 +418,22 @@
           <p class="text-xs text-gray-500 mt-0.5">Tulis bebas, foto makanan, atau cari database</p>
         </div>
 
-        <!-- 3-Way Tabs Selector (Matching Reference Pill Style) -->
-        <div class="grid grid-cols-3 gap-1.5 bg-gray-200/60 p-1 rounded-2xl">
+        <!-- 4-Way Sub-Menu Tabs inside Catat Gizi -->
+        <div class="grid grid-cols-4 gap-1 bg-gray-200/60 p-1 rounded-2xl">
           <button onclick="switchLogTab('nlp')" id="btn-tab-nlp"
-            class="py-2.5 rounded-xl text-xs font-bold text-center transition-all bg-white text-[#FF991C] shadow-sm">
-            AI Teks & Suara
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all bg-white text-[#FF991C] shadow-sm">
+            AI Teks
           </button>
           <button onclick="switchLogTab('camera')" id="btn-tab-camera"
-            class="py-2.5 rounded-xl text-xs font-bold text-center transition-all text-gray-600 hover:text-gray-900">
-            AI Foto Piring
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900">
+            Foto Piring
+          </button>
+          <button onclick="switchLogTab('barcode')" id="btn-tab-barcode"
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900">
+            Scan Barcode
           </button>
           <button onclick="switchLogTab('manual')" id="btn-tab-manual"
-            class="py-2.5 rounded-xl text-xs font-bold text-center transition-all text-gray-600 hover:text-gray-900">
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900">
             Cari Database
           </button>
         </div>
@@ -524,7 +528,105 @@
           </div>
         </div>
 
-        <!-- Tab 3: Manual & Open Food Facts Search -->
+        <!-- Tab 3: Barcode Scanner Sub-Menu (Open Food Facts) -->
+        <div id="log-tab-barcode" class="space-y-3 hidden">
+          <!-- Barcode Viewfinder Card -->
+          <div class="app-card p-5 space-y-4 text-center">
+            <div class="w-full aspect-[4/3] bg-black rounded-2xl relative overflow-hidden flex flex-col items-center justify-center text-white">
+              <video id="barcode-scanner-video" class="absolute inset-0 w-full h-full object-cover"></video>
+
+              <!-- Laser Scanning Line -->
+              <div class="absolute inset-x-8 h-0.5 bg-[#FF991C] shadow-[0_0_12px_#FF991C] scan-laser z-20"></div>
+
+              <!-- Target Reticle Box -->
+              <div class="w-48 h-28 border-2 border-white/80 rounded-2xl relative z-10 flex items-center justify-center">
+                <span class="text-[10px] bg-black/60 px-2 py-0.5 rounded text-white font-mono">Posisikan Barcode di Sini</span>
+              </div>
+
+              <!-- Status Indicator -->
+              <div class="absolute bottom-2 inset-x-3 bg-black/70 backdrop-blur-md p-2 rounded-xl text-[10px] flex justify-between items-center z-10">
+                <span class="text-[#FF991C] font-bold">Open Food Facts Engine</span>
+                <span id="barcode-status-text" class="text-white font-medium">Kamera aktif mendeteksi...</span>
+              </div>
+            </div>
+
+            <!-- Controls & Manual Barcode Input Fallback -->
+            <div class="space-y-2 pt-1">
+              <div class="flex space-x-2">
+                <input type="text" id="manual-barcode-input" placeholder="Atau ketik angka barcode (8992761...)"
+                  class="flex-1 px-3.5 py-2.5 bg-gray-50 border border-gray-200/80 rounded-xl text-xs font-mono text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+                <button onclick="handleManualBarcodeSubmit()"
+                  class="bg-[#191A1D] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-black active:scale-95 transition-all">
+                  Cek
+                </button>
+              </div>
+              
+              <button onclick="toggleBarcodeCamera()" id="btn-toggle-barcode-cam"
+                class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5">
+                <i class="ph-bold ph-camera-rotate"></i>
+                <span>Ganti Kamera / Refresh Scanner</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Scanned Product Result Card -->
+          <div id="barcode-result-card" class="app-card p-5 space-y-4 hidden border-2 border-[#FF991C]">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-emerald-600 font-bold uppercase tracking-wider flex items-center">
+                <i class="ph-bold ph-check-circle mr-1"></i> Produk Ditemukan!
+              </span>
+              <button onclick="closeBarcodeResult()" class="text-gray-400 hover:text-gray-600 text-sm">
+                <i class="ph-bold ph-x"></i>
+              </button>
+            </div>
+
+            <div class="flex items-start space-x-3.5">
+              <div id="scanned-product-img" class="w-16 h-16 rounded-xl bg-gray-100 bg-cover bg-center shrink-0 border border-gray-200"></div>
+              <div class="flex-1">
+                <h4 id="scanned-product-name" class="font-extrabold text-[#191A1D] text-sm">Indomie Goreng Original</h4>
+                <p id="scanned-product-brand" class="text-xs text-gray-500 font-medium">Indofood</p>
+                <p class="text-[10px] text-gray-400 mt-1">Barcode: <span id="scanned-product-code" class="font-mono">8992761111018</span></p>
+              </div>
+            </div>
+
+            <!-- Gram / Portion Slider -->
+            <div class="bg-[#F8F9FA] p-3.5 rounded-2xl space-y-2 border border-gray-100">
+              <div class="flex justify-between text-xs font-bold">
+                <span class="text-gray-600">Porsi Dikonsumsi:</span>
+                <span class="text-[#FF991C]"><span id="scanned-portion-label">100</span> gram / ml</span>
+              </div>
+              <input type="range" id="scanned-portion-slider" min="10" max="500" step="10" value="100" oninput="updateScannedPortion()"
+                class="w-full accent-[#FF991C]">
+
+              <!-- Scaled Nutrition Grid -->
+              <div class="grid grid-cols-4 gap-1.5 text-center text-[10px] font-bold pt-1">
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Kalori</p>
+                  <p class="text-xs font-black text-[#FF991C]" id="scanned-scaled-cal">380</p>
+                </div>
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Protein</p>
+                  <p class="text-xs font-black text-gray-800" id="scanned-scaled-p">8g</p>
+                </div>
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Karbo</p>
+                  <p class="text-xs font-black text-gray-800" id="scanned-scaled-c">54g</p>
+                </div>
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Lemak</p>
+                  <p class="text-xs font-black text-gray-800" id="scanned-scaled-f">14g</p>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="commitScannedFood()"
+              class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold text-xs shadow-md shadow-[#FF991C]/25 transition-all">
+              Tambahkan ke Log Nutrisi
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 4: Manual & Open Food Facts Search -->
         <div id="log-tab-manual" class="space-y-3 hidden">
           <div class="app-card p-5 space-y-3">
             <div class="flex space-x-2">
@@ -694,111 +796,7 @@
 
       </div>
 
-      <!-- ==================== VIEW 4: BARCODE SCANNER (STAGE 2) ==================== -->
-      <div id="view-scan" class="view-panel space-y-4 hidden">
-        <div class="text-center pt-2">
-          <h3 class="text-xl font-extrabold text-[#191A1D]">Scan Barcode Makanan</h3>
-          <p class="text-xs text-gray-500 mt-0.5">Arahkan kamera ke barcode produk kemasan instan</p>
-        </div>
-
-        <!-- Barcode Viewfinder Card -->
-        <div class="app-card p-5 space-y-4 text-center">
-          <div class="w-full aspect-[4/3] bg-black rounded-2xl relative overflow-hidden flex flex-col items-center justify-center text-white">
-            <video id="barcode-scanner-video" class="absolute inset-0 w-full h-full object-cover"></video>
-
-            <!-- Laser Scanning Line -->
-            <div class="absolute inset-x-8 h-0.5 bg-[#FF991C] shadow-[0_0_12px_#FF991C] scan-laser z-20"></div>
-
-            <!-- Target Reticle Box -->
-            <div class="w-48 h-28 border-2 border-white/80 rounded-2xl relative z-10 flex items-center justify-center">
-              <span class="text-[10px] bg-black/60 px-2 py-0.5 rounded text-white font-mono">Posisikan Barcode di Sini</span>
-            </div>
-
-            <!-- Status Indicator -->
-            <div class="absolute bottom-2 inset-x-3 bg-black/70 backdrop-blur-md p-2 rounded-xl text-[10px] flex justify-between items-center z-10">
-              <span class="text-[#FF991C] font-bold">Open Food Facts Engine</span>
-              <span id="barcode-status-text" class="text-white font-medium">Kamera aktif mendeteksi...</span>
-            </div>
-          </div>
-
-          <!-- Controls & Manual Barcode Input Fallback -->
-          <div class="space-y-2 pt-1">
-            <div class="flex space-x-2">
-              <input type="text" id="manual-barcode-input" placeholder="Atau ketik angka barcode (misal: 8992761...)"
-                class="flex-1 px-3.5 py-2.5 bg-gray-50 border border-gray-200/80 rounded-xl text-xs font-mono text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
-              <button onclick="handleManualBarcodeSubmit()"
-                class="bg-[#191A1D] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-black active:scale-95 transition-all">
-                Cek
-              </button>
-            </div>
-            
-            <button onclick="toggleBarcodeCamera()" id="btn-toggle-barcode-cam"
-              class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5">
-              <i class="ph-bold ph-camera-rotate"></i>
-              <span>Ganti Kamera / Refresh Scanner</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Scanned Product Result Modal/Card -->
-        <div id="barcode-result-card" class="app-card p-5 space-y-4 hidden border-2 border-[#FF991C]">
-          <div class="flex items-center justify-between">
-            <span class="text-xs text-emerald-600 font-bold uppercase tracking-wider flex items-center">
-              <i class="ph-bold ph-check-circle mr-1"></i> Produk Ditemukan!
-            </span>
-            <button onclick="closeBarcodeResult()" class="text-gray-400 hover:text-gray-600 text-sm">
-              <i class="ph-bold ph-x"></i>
-            </button>
-          </div>
-
-          <div class="flex items-start space-x-3.5">
-            <div id="scanned-product-img" class="w-16 h-16 rounded-xl bg-gray-100 bg-cover bg-center shrink-0 border border-gray-200"></div>
-            <div class="flex-1">
-              <h4 id="scanned-product-name" class="font-extrabold text-[#191A1D] text-sm">Indomie Goreng Original</h4>
-              <p id="scanned-product-brand" class="text-xs text-gray-500 font-medium">Indofood</p>
-              <p class="text-[10px] text-gray-400 mt-1">Barcode: <span id="scanned-product-code" class="font-mono">8992761111018</span></p>
-            </div>
-          </div>
-
-          <!-- Gram / Portion Slider -->
-          <div class="bg-[#F8F9FA] p-3.5 rounded-2xl space-y-2 border border-gray-100">
-            <div class="flex justify-between text-xs font-bold">
-              <span class="text-gray-600">Porsi Dikonsumsi:</span>
-              <span class="text-[#FF991C]"><span id="scanned-portion-label">100</span> gram / ml</span>
-            </div>
-            <input type="range" id="scanned-portion-slider" min="10" max="500" step="10" value="100" oninput="updateScannedPortion()"
-              class="w-full accent-[#FF991C]">
-
-            <!-- Scaled Nutrition Grid -->
-            <div class="grid grid-cols-4 gap-1.5 text-center text-[10px] font-bold pt-1">
-              <div class="bg-white p-2 rounded-xl shadow-xs">
-                <p class="text-gray-400 text-[9px]">Kalori</p>
-                <p class="text-xs font-black text-[#FF991C]" id="scanned-scaled-cal">380</p>
-              </div>
-              <div class="bg-white p-2 rounded-xl shadow-xs">
-                <p class="text-gray-400 text-[9px]">Protein</p>
-                <p class="text-xs font-black text-gray-800" id="scanned-scaled-p">8g</p>
-              </div>
-              <div class="bg-white p-2 rounded-xl shadow-xs">
-                <p class="text-gray-400 text-[9px]">Karbo</p>
-                <p class="text-xs font-black text-gray-800" id="scanned-scaled-c">54g</p>
-              </div>
-              <div class="bg-white p-2 rounded-xl shadow-xs">
-                <p class="text-gray-400 text-[9px]">Lemak</p>
-                <p class="text-xs font-black text-gray-800" id="scanned-scaled-f">14g</p>
-              </div>
-            </div>
-          </div>
-
-          <button onclick="commitScannedFood()"
-            class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold text-xs shadow-md shadow-[#FF991C]/25 transition-all">
-            Tambahkan ke Log Nutrisi
-          </button>
-        </div>
-
-      </div>
-
-      <!-- ==================== VIEW 5: DIET & FASTING ==================== -->
+      <!-- ==================== VIEW 4: DIET & FASTING ==================== -->
       <div id="view-diet" class="view-panel space-y-4 hidden">
         
         <!-- Period Switcher Pills (Matching Reference UI: Day / Weekly / Monthly) -->
@@ -951,12 +949,6 @@
         class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors flex-1">
         <i class="ph-bold ph-barbell text-xl"></i>
         <span class="text-[9px] font-bold">Gym & Fit</span>
-      </button>
-
-      <button onclick="switchView('scan')" id="nav-scan"
-        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors flex-1">
-        <i class="ph-bold ph-barcode text-xl"></i>
-        <span class="text-[9px] font-bold">Barcode</span>
       </button>
 
       <button onclick="switchView('diet')" id="nav-diet"
@@ -1302,36 +1294,41 @@
       state.activeView = viewName;
       if (viewName === 'home') renderDashboard();
 
-      // Camera Controls
-      if (viewName === 'scan') {
-        startBarcodeScanner();
-      } else {
-        stopBarcodeScanner();
-      }
-
+      // Stop hardware streams when leaving logger view
       if (viewName !== 'logger') {
         stopCamera();
-      } else if (state.activeLogTab === 'camera') {
-        startCamera();
+        stopBarcodeScanner();
+      } else {
+        if (state.activeLogTab === 'camera') startCamera();
+        else if (state.activeLogTab === 'barcode') startBarcodeScanner();
       }
     }
 
     function switchLogTab(tab) {
       state.activeLogTab = tab;
-      ['nlp', 'camera', 'manual'].forEach(t => {
+      ['nlp', 'camera', 'barcode', 'manual'].forEach(t => {
         const el = document.getElementById('log-tab-' + t);
         const btn = document.getElementById('btn-tab-' + t);
         if (t === tab) {
           if (el) el.classList.remove('hidden');
-          if (btn) btn.className = "py-2.5 rounded-xl text-xs font-bold text-center transition-all bg-white text-[#FF991C] shadow-sm";
+          if (btn) btn.className = "py-2.5 rounded-xl text-[11px] font-bold text-center transition-all bg-white text-[#FF991C] shadow-sm";
         } else {
           if (el) el.classList.add('hidden');
-          if (btn) btn.className = "py-2.5 rounded-xl text-xs font-bold text-center transition-all text-gray-600 hover:text-gray-900";
+          if (btn) btn.className = "py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900";
         }
       });
 
-      if (tab === 'camera') startCamera();
-      else stopCamera();
+      // Camera lifecycle control
+      if (tab === 'camera') {
+        stopBarcodeScanner();
+        startCamera();
+      } else if (tab === 'barcode') {
+        stopCamera();
+        startBarcodeScanner();
+      } else {
+        stopCamera();
+        stopBarcodeScanner();
+      }
     }
 
     // ==================== DASHBOARD RENDERING ====================
