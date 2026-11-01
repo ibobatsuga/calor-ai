@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CalorAI</string>
+    <string name="title_activity_main">CalorAI</string>
+    <string name="package_name">com.nalarasa.calorai</string>
+    <string name="custom_url_scheme">com.nalarasa.calorai</string>
+</resources>

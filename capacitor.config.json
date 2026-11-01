@@ -1,0 +1,10 @@
+{
+  "appId": "com.nalarasa.calorai",
+  "appName": "CalorAI",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://calorai.nalarasa.workers.dev",
+    "cleartext": true
+  }
+}
