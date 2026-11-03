@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Route /api/ai directly to api.php
+    RewriteRule ^api/ai/?$ api.php [L,QSA]
+</IfModule>
+
+# Caching and PWA headers
+<IfModule mod_headers.c>
+    # HTML and SW should not be cached aggressively
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </FilesMatch>
+    <FilesMatch "^sw\.js$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </FilesMatch>
+</IfModule>
