@@ -163,6 +163,11 @@
             class="w-full bg-[#FF991C] active:scale-[0.98] transition-transform text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#FF991C]/30 hover:bg-[#e68512] text-sm">
             Masuk ke Aplikasi
           </button>
+          <button onclick="handleGuestLogin()"
+            class="w-full bg-white border border-gray-200 text-gray-700 active:scale-[0.98] transition-transform py-3.5 rounded-2xl font-bold hover:bg-gray-50 text-xs shadow-xs flex items-center justify-center space-x-1.5">
+            <i class="ph-bold ph-sparkle text-[#FF991C]"></i>
+            <span>Coba Langsung (Akses Tamu / Demo)</span>
+          </button>
         </div>
       </div>
       <!-- Info Demo -->
@@ -1268,6 +1273,14 @@
       } else {
         document.getElementById('screen-login').classList.remove('hidden');
       }
+    }
+
+    function handleGuestLogin() {
+      state.user = { username: 'guest', name: 'Martin Buttler' };
+      localStorage.setItem('user', JSON.stringify(state.user));
+      document.getElementById('screen-login').classList.add('hidden');
+      showToast("Selamat datang di CalorAI!");
+      renderDashboard();
     }
 
     function handleLogin() {
