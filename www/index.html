@@ -57,6 +57,9 @@
   <!-- Supabase JS Client for Auth & OAuth -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- Markdown Parser for Coach Sandow Chat -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <!-- Database Pangan Indonesia TKPI 2019 (darya-nutrition-db) -->
   <script src="foods.js"></script>
 
@@ -112,6 +115,54 @@
     }
     .scan-laser {
       animation: scanline 2.2s ease-in-out infinite;
+    }
+
+    /* Coach Sandow Chatbot Bubble & Markdown Styler */
+    .chat-bot-bubble {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #2D3139;
+      word-break: break-word;
+    }
+    .chat-bot-bubble h1, .chat-bot-bubble h2 {
+      font-size: 13px;
+      font-weight: 800;
+      color: #191A1D;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .chat-bot-bubble h3, .chat-bot-bubble h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF991C;
+      margin-top: 8px;
+      margin-bottom: 3px;
+    }
+    .chat-bot-bubble p {
+      margin-bottom: 8px;
+    }
+    .chat-bot-bubble p:last-child {
+      margin-bottom: 0;
+    }
+    .chat-bot-bubble ul, .chat-bot-bubble ol {
+      margin-left: 18px;
+      margin-bottom: 8px;
+      list-style-type: disc;
+    }
+    .chat-bot-bubble li {
+      margin-bottom: 3px;
+      line-height: 1.45;
+    }
+    .chat-bot-bubble strong {
+      font-weight: 800;
+      color: #111827;
+    }
+    .chat-bot-bubble hr {
+      border: 0;
+      border-top: 1px dashed rgba(0,0,0,0.12);
+      margin: 8px 0;
     }
   </style>
 </head>
@@ -2828,11 +2879,38 @@ ${mealsSummary}
 - Catatan Latihan Fisik Hari Ini:
 ${workoutsSummary}
 
-PEDOMAN COACH SANDOW:
+PEDOMAN COACH SANDOW & ATURAN FORMAT TAMPILAN (SANGAT PENTING):
 1. Sapa atau sebut nama ${userName} secara personal dan akrab. Anda mengenal profil fisiknya dan apa yang dia makan hari ini.
-2. Selalu gunakan data angka di atas secara cerdas dan kontekstual saat menjawab (misalnya menyebutkan sisa kuota kalorinya, makanan apa yang baru saja dia catat, kebutuhan proteinnya, atau rekomendasi sesuai berat badannya).
-3. Berikan saran menu praktis berbahan lokal Indonesia (tempe, tahu, telur, ikan tongkol, dada ayam, sayur bayam/kangkung, buah pepaya/pisang, dll.).
-4. Gaya bicara: Enerjik, ramah, profesional, memberi solusi langkah demi langkah, dan tidak berbelit-belit.`;
+2. FORMAT HARUS SANGAT MUDAH DIBACA DI LAYAR HP (Mobile-Friendly):
+   - JANGAN MENULIS TEKS PANJANG YANG MENUMPUK DALAM SATU PARAGRAF!
+   - Pisahkan setiap menu/bagian dengan baris kosong ganda (double newline).
+   - Gunakan bullet points (-) yang ringkas untuk setiap bahan dan porsi gramasi.
+   - Sorot angka penting (gram, kalori, protein) dengan format tebal (**200 g**, **650 kkal**, **85 g protein**).
+   - Buat judul menu singkat dan jelas (misal: "🍽️ Makan Siang (Ayam & Sayur)").
+   - Akhiri dengan ringkasan total kalori dan motivasi singkat yang bersemangat.
+3. Selalu gunakan data angka di atas secara cerdas dan kontekstual saat menjawab (misalnya menyebutkan sisa kuota kalorinya, makanan apa yang baru saja dia catat, kebutuhan proteinnya, atau rekomendasi sesuai berat badannya).
+4. Berikan saran menu praktis berbahan lokal Indonesia (tempe, tahu, telur, ikan tongkol, dada ayam, sayur bayam/kangkung, buah pepaya/pisang, dll.).
+5. Gaya bicara: Enerjik, ramah, profesional, memberi solusi langkah demi langkah, dan tidak berbelit-belit.`;
+    }
+
+    function formatChatMessage(text) {
+      if (!text) return "";
+      if (window.marked && typeof window.marked.parse === 'function') {
+        try {
+          return window.marked.parse(text, { breaks: true, gfm: true });
+        } catch (e) {
+          console.warn("Marked parse error:", e);
+        }
+      }
+      // Robust Fallback Markdown Formatter
+      return text
+        .replace(/^### (.*$)/gim, '<div class="font-bold text-[#FF991C] text-xs mt-2.5 mb-1 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-[#FF991C] mr-1.5 shrink-0"></span>$1</div>')
+        .replace(/^## (.*$)/gim, '<div class="font-extrabold text-[#191A1D] text-xs mt-3 mb-1 pb-0.5 border-b border-gray-200/80 flex items-center">$1</div>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-extrabold text-[#191A1D]">$1</strong>')
+        .replace(/^\s*-\s+(.*$)/gim, '<li class="ml-3.5 list-disc text-gray-700 my-0.5 leading-relaxed">$1</li>')
+        .replace(/(<li.*<\/li>\n?)+/g, '<ul class="my-1 space-y-0.5">$0</ul>')
+        .replace(/\n\n+/g, '<div class="my-2"></div>')
+        .replace(/\n/g, '<br>');
     }
 
     function renderChatHistory() {
@@ -2845,7 +2923,7 @@ PEDOMAN COACH SANDOW:
         state.chatHistory = [
           {
             role: "assistant",
-            content: `Halo ${userName}! Saya Coach Sandow, pelatih gizi & kebugaran personal kamu di CalorAI. Saya sudah memegang data profilmu (Target: ${state.targetCalories} kkal/hari). Ada yang ingin kamu konsultasikan tentang menu makan atau latihan hari ini? 🔥`
+            content: `Halo **${userName}**! Saya Coach Sandow, pelatih gizi & kebugaran personal kamu di CalorAI.\n\nSaya memegang profilmu (Target: **${state.targetCalories} kkal/hari**). Ada yang ingin dikonsultasikan tentang sisa kuota kalori atau program latihan hari ini? 🔥`
           }
         ];
       }
@@ -2895,20 +2973,20 @@ PEDOMAN COACH SANDOW:
     function appendChatMessage(text, isBot) {
       const container = document.getElementById('chat-messages');
       const div = document.createElement('div');
-      div.className = isBot ? "flex items-start space-x-2" : "flex items-end justify-end";
+      div.className = isBot ? "flex items-start space-x-2.5 my-1" : "flex items-end justify-end my-1";
 
       if (isBot) {
         div.innerHTML = `
-          <div class="w-7 h-7 rounded-full bg-[#FFF5E9] p-0.5 flex items-center justify-center shrink-0 shadow-xs border border-[#FF991C]/20">
+          <div class="w-7 h-7 rounded-full bg-[#FFF5E9] p-0.5 flex items-center justify-center shrink-0 shadow-xs border border-[#FF991C]/20 mt-0.5">
             <img src="logo.png" alt="CalorAI" class="w-full h-full object-contain">
           </div>
-          <div class="bg-gray-100/90 text-gray-800 p-3 rounded-2xl rounded-tl-none max-w-[80%] leading-relaxed font-medium">
-            ${text}
+          <div class="chat-bot-bubble bg-white border border-gray-100 text-gray-800 p-3.5 rounded-2xl rounded-tl-none max-w-[88%] shadow-xs">
+            ${formatChatMessage(text)}
           </div>
         `;
       } else {
         div.innerHTML = `
-          <div class="bg-[#FF991C] text-white p-3 rounded-2xl rounded-tr-none max-w-[80%] leading-relaxed font-semibold shadow-xs">
+          <div class="bg-[#FF991C] text-white p-3.5 rounded-2xl rounded-tr-none max-w-[85%] leading-relaxed font-semibold shadow-xs text-xs whitespace-pre-line">
             ${text}
           </div>
         `;
