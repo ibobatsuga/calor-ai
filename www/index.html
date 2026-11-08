@@ -1148,6 +1148,7 @@
 
         <!-- Section 3: Akun & Logout -->
         <div class="pt-1">
+          <div id="modal-account-info" class="text-center pb-2 text-[11px] text-gray-500 font-medium"></div>
           <button onclick="handleLogout()"
             class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 py-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center space-x-2 shadow-xs">
             <i class="ph-bold ph-sign-out text-base text-gray-400"></i>
@@ -1513,6 +1514,11 @@
         const avatarImg = document.querySelector('header img');
         if (avatarImg) avatarImg.src = state.user.avatar;
       }
+
+      const accInfo = document.getElementById('modal-account-info');
+      if (accInfo) {
+        accInfo.innerText = state.user.email ? `Akun: ${state.user.email}` : `Akun: ${state.user.name}`;
+      }
     }
 
     async function handleLogout() {
@@ -1545,6 +1551,11 @@
             setUserFromSupabase(data.session.user);
             document.getElementById('screen-login').classList.add('hidden');
             renderDashboard();
+            if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('error'))) {
+              setTimeout(() => {
+                window.history.replaceState(null, '', window.location.pathname);
+              }, 300);
+            }
             return;
           }
         } catch (e) {
@@ -1557,6 +1568,11 @@
             setUserFromSupabase(session.user);
             document.getElementById('screen-login').classList.add('hidden');
             renderDashboard();
+            if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('error'))) {
+              setTimeout(() => {
+                window.history.replaceState(null, '', window.location.pathname);
+              }, 300);
+            }
           }
         });
       }
