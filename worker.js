@@ -13,6 +13,35 @@ export default {
       });
     }
 
+    // 0. Supabase Auth Verification Endpoint
+    if (url.pathname === "/api/auth/me" && request.method === "GET") {
+      const authHeader = request.headers.get("Authorization");
+      if (!authHeader) {
+        return new Response(JSON.stringify({ error: "Missing Authorization header" }), {
+          status: 401,
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+        });
+      }
+      try {
+        const supaRes = await fetch(`${env.SUPABASE_URL || "https://yxydabqmsjijgnrymkle.supabase.co"}/auth/v1/user`, {
+          headers: {
+            "apikey": env.SUPABASE_PUBLISHABLE_KEY || "sb_publishable_jXjCgAT5zqBtbr3pA3qNOQ_YBpo4gh6",
+            "Authorization": authHeader
+          }
+        });
+        const userData = await supaRes.json();
+        return new Response(JSON.stringify(userData), {
+          status: supaRes.status,
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+        });
+      } catch (e) {
+        return new Response(JSON.stringify({ error: e.message }), {
+          status: 500,
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+        });
+      }
+    }
+
     // 1. AI API via Sakelar GPT Luna 6.0
     if (url.pathname === "/api/ai" && request.method === "POST") {
       try {
