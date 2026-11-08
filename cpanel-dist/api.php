@@ -1,5 +1,5 @@
 <?php
-// Proxy to Cloudflare Workers AI backend
+// Proxy to Sakelar GPT Luna 6.0 backend
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -11,12 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = file_get_contents('php://input');
-    $ch = curl_init('https://calorai.nalarasa.workers.dev/api/ai');
+    $body = json_decode($input, true);
+    if (!is_array($body)) {
+        $body = [];
+    }
+    if (!isset($body['model'])) {
+        $body['model'] = 'gpt-6-luna';
+    }
+
+    $ch = curl_init('https://api.sakelar.web.id/v1/chat/completions');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $input);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
+        'Authorization: Bearer sk_live_kWr-688piLS3Bv1UbEwBfVdsmyuaCGqEKF4n64V23E8',
         'User-Agent: CalorAI-cPanel-Proxy/1.0'
     ]);
     curl_setopt($ch, CURLOPT_TIMEOUT, 45);

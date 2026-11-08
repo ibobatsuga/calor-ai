@@ -896,7 +896,7 @@
             <h4 class="font-bold text-[#191A1D] text-sm">Coach Sandow</h4>
             <p class="text-[10px] font-semibold text-emerald-500 flex items-center">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
-              Konsultan Diet AI Aktif
+              Konsultan Diet AI Aktif • GPT Luna 6.0
             </p>
           </div>
         </div>
@@ -1138,11 +1138,11 @@
       chatHistory: [
         {
           role: "system",
-          content: "Anda adalah Coach Sandow, spesialis gizi dan pelatih kebugaran personal dari CalorAI. Tugas Anda membantu pengguna dengan rekomendasi diet, resep bergizi seimbang, teknik latihan gym, dan motivasi ramah ringkas dalam Bahasa Indonesia."
+          content: "Anda adalah Coach Sandow, spesialis gizi dan pelatih kebugaran personal dari CalorAI ditenagai model AI canggih GPT Luna 6.0. Tugas Anda membantu pengguna dengan rekomendasi diet, perhitungan kalori, resep sehat, teknik latihan gym, dan motivasi ramah ringkas dalam Bahasa Indonesia yang berenergi dan aplikatif."
         },
         {
           role: "assistant",
-          content: "Halo Martin! Saya Coach Sandow. Kamu bisa tanyakan rekomendasi makanan rendah kalori, jadwal latihan gym, atau tips gizi hari ini! Ada yang ingin didiskusikan? 😉"
+          content: "Halo! Saya Coach Sandow, pelatih kebugaran & gizi CalorAI (ditenagai GPT Luna 6.0). Tanyakan apa saja tentang kalori makanan, tips diet, atau program latihan kamu hari ini! 🔥"
         }
       ]
     };
@@ -2086,27 +2086,97 @@
       }
     }
 
-    // ==================== CLOUDFLARE AI API INTEGRATION ====================
-    async function callCloudflareAI(messages, jsonMode = false) {
-      const body = {
-        model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-        messages: messages,
-        temperature: 0.1
-      };
+    // ==================== GPT LUNA 6.0 AI API INTEGRATION ====================
+    const SAKELAR_AI = {
+      baseURL: "https://api.sakelar.web.id/v1",
+      apiKey: "sk_live_kWr-688piLS3Bv1UbEwBfVdsmyuaCGqEKF4n64V23E8",
+      model: "gpt-6-luna"
+    };
 
-      const response = await fetch(CF_AI_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
+    async function callLunaAI(messages, temperature = 0.2) {
+      // 1. Direct fetch to Sakelar GPT Luna 6.0 API (CORS enabled)
+      try {
+        const response = await fetch(`${SAKELAR_AI.baseURL}/chat/completions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${SAKELAR_AI.apiKey}`
+          },
+          body: JSON.stringify({
+            model: SAKELAR_AI.model,
+            messages: messages,
+            temperature: temperature
+          })
+        });
 
-      if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(`HTTP ${response.status}: ${errText}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.choices && data.choices[0] && data.choices[0].message) {
+            return data.choices[0].message.content;
+          }
+        }
+        console.warn("Direct Sakelar API returned status:", response.status);
+      } catch (directErr) {
+        console.warn("Direct Sakelar API fetch error, attempting fallback:", directErr);
       }
 
-      const data = await response.json();
-      return data.choices[0].message.content;
+      // 2. Fallback to /api/ai proxy endpoint
+      try {
+        const fallbackRes = await fetch("/api/ai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: SAKELAR_AI.model,
+            messages: messages,
+            temperature: temperature
+          })
+        });
+        if (fallbackRes.ok) {
+          const fbData = await fallbackRes.json();
+          if (fbData.choices && fbData.choices[0] && fbData.choices[0].message) {
+            return fbData.choices[0].message.content;
+          }
+        }
+      } catch (fbErr) {
+        console.error("Fallback /api/ai failed:", fbErr);
+      }
+
+      throw new Error("Gagal terhubung ke layanan GPT Luna 6.0.");
+    }
+
+    function parseAIJson(text) {
+      if (!text) throw new Error("Respons AI kosong");
+      const cleaned = text.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+
+      // Check array format first
+      const arrayMatch = cleaned.match(/\[[\s\S]*\]/);
+      if (arrayMatch) {
+        try {
+          const arr = JSON.parse(arrayMatch[0]);
+          if (Array.isArray(arr) && arr.length > 0) {
+            const totalCal = arr.reduce((sum, item) => sum + (parseInt(item.calories) || 0), 0);
+            const totalProt = arr.reduce((sum, item) => sum + (parseInt(item.protein) || 0), 0);
+            const totalCarb = arr.reduce((sum, item) => sum + (parseInt(item.carbs) || 0), 0);
+            const totalFat = arr.reduce((sum, item) => sum + (parseInt(item.fat) || 0), 0);
+            const names = arr.map(item => item.name).filter(Boolean).join(" + ");
+            return {
+              name: names || "Porsi Makanan Campur",
+              calories: totalCal,
+              protein: totalProt,
+              carbs: totalCarb,
+              fat: totalFat
+            };
+          }
+        } catch (e) {}
+      }
+
+      // Check single object format
+      const objMatch = cleaned.match(/\{[\s\S]*\}/);
+      if (objMatch) {
+        return JSON.parse(objMatch[0]);
+      }
+
+      return JSON.parse(cleaned);
     }
 
     async function processNLP() {
@@ -2116,14 +2186,14 @@
         return;
       }
 
-      showToast("Menganalisis teks gizi menggunakan NLP AI...");
+      showToast("Menganalisis gizi via GPT Luna 6.0...");
 
       try {
         const messages = [
           {
             role: "system",
-            content: `Anda adalah pakar nutrisi AI. Ekstraksi makanan dan taksir gizinya. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN TANPA PENJELASAN:
-{"name":"Nama Makanan","calories":300,"protein":15,"carbs":40,"fat":8}`
+            content: `Anda adalah pakar nutrisi AI CalorAI ditenagai model GPT Luna 6.0. Ekstraksi makanan dan taksir nilai gizinya secara akurat. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN TANPA TEKS LAIN:
+{"name":"Nama Makanan Lengkap","calories":300,"protein":15,"carbs":40,"fat":8}`
           },
           {
             role: "user",
@@ -2131,9 +2201,8 @@
           }
         ];
 
-        const responseText = await callCloudflareAI(messages);
-        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-        const logData = JSON.parse(jsonMatch ? jsonMatch[0] : responseText);
+        const responseText = await callLunaAI(messages, 0.1);
+        const logData = parseAIJson(responseText);
 
         state.extractedLog = {
           name: logData.name || text,
@@ -2144,7 +2213,7 @@
         };
 
         displayExtractionPanel();
-        showToast("Analisis AI selesai!");
+        showToast("Analisis GPT Luna 6.0 selesai!");
       } catch (err) {
         console.error(err);
         showToast("Gagal analisis NLP: " + err.message, false);
@@ -2233,24 +2302,74 @@
     }
 
     async function snapFoodImage() {
-      showToast("Menganalisis foto piring via Cloudflare AI...");
+      showToast("Menganalisis foto piring via GPT Luna 6.0 Vision...");
       try {
-        const promptName = state.cameraPreset ? state.cameraPreset.name : "Hidangan Sehat";
-        const messages = [
-          {
-            role: "system",
-            content: `Anda adalah pakar nutrisi AI. Taksir kalori dan makronutrisi dari nama makanan ini. HANYA BALAS DENGAN SATU JSON VALID:
-{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
-          },
-          {
-            role: "user",
-            content: `Makanan: ${promptName}`
+        // If camera stream is currently active, capture current frame onto canvas
+        const video = document.getElementById('camera-stream');
+        if (video && video.videoWidth > 0 && !video.classList.contains('hidden')) {
+          const canvas = document.createElement('canvas');
+          const maxDim = 800;
+          let w = video.videoWidth;
+          let h = video.videoHeight;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+            else { w = Math.round(w * maxDim / h); h = maxDim; }
           }
-        ];
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, w, h);
+          const snapUrl = canvas.toDataURL('image/jpeg', 0.85);
 
-        const responseText = await callCloudflareAI(messages);
-        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-        const logData = JSON.parse(jsonMatch ? jsonMatch[0] : responseText);
+          const preview = document.getElementById('camera-preview');
+          preview.style.backgroundImage = `url('${snapUrl}')`;
+          preview.classList.remove('hidden');
+          video.classList.add('hidden');
+          stopCamera();
+          state.cameraPreset = { id: 'live-snap', img: snapUrl, name: 'Foto Kamera Langsung' };
+        }
+
+        const promptName = state.cameraPreset ? state.cameraPreset.name : "Hidangan Sehat";
+        const hasImage = state.cameraPreset && state.cameraPreset.img;
+
+        let messages;
+        if (hasImage) {
+          messages = [
+            {
+              role: "system",
+              content: `Anda adalah pakar nutrisi AI CalorAI ditenagai model GPT Luna 6.0 Vision. Analisis foto makanan ini secara akurat dan taksir nilai gizinya. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
+{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
+            },
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: `Kenali makanan pada foto piring ini${promptName && promptName !== 'Foto Kamera Langsung' ? ' (' + promptName + ')' : ''} dan hitung taksiran gizinya.`
+                },
+                {
+                  type: "image_url",
+                  image_url: { url: state.cameraPreset.img }
+                }
+              ]
+            }
+          ];
+        } else {
+          messages = [
+            {
+              role: "system",
+              content: `Anda adalah pakar nutrisi AI CalorAI ditenagai model GPT Luna 6.0. Taksir kalori dan makronutrisi dari nama makanan ini. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
+{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
+            },
+            {
+              role: "user",
+              content: `Makanan: ${promptName}`
+            }
+          ];
+        }
+
+        const responseText = await callLunaAI(messages, 0.2);
+        const logData = parseAIJson(responseText);
 
         state.extractedLog = {
           name: logData.name || promptName,
@@ -2261,8 +2380,9 @@
         };
 
         displayExtractionPanel();
-        showToast("Foto berhasil dianalisis!");
+        showToast("Foto berhasil dianalisis dengan GPT Luna 6.0!");
       } catch (err) {
+        console.error(err);
         showToast("Analisis gagal: " + err.message, false);
       }
     }
@@ -2314,13 +2434,13 @@
       const loadingId = appendChatLoading();
 
       try {
-        const botReply = await callCloudflareAI(state.chatHistory);
+        const botReply = await callLunaAI(state.chatHistory, 0.7);
         removeChatLoading(loadingId);
         appendChatMessage(botReply, true);
         state.chatHistory.push({ role: "assistant", content: botReply });
       } catch (err) {
         removeChatLoading(loadingId);
-        appendChatMessage("Maaf, koneksi ke Coach Sandow AI sedang terganggu. Coba ulangi sesaat lagi.", true);
+        appendChatMessage("Maaf, koneksi ke Coach Sandow AI (GPT Luna 6.0) sedang terganggu. Coba ulangi sesaat lagi.", true);
       }
     }
 

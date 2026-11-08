@@ -13,34 +13,37 @@ export default {
       });
     }
 
-    // 1. AI API via Cloudflare Workers AI native binding
+    // 1. AI API via Sakelar GPT Luna 6.0
     if (url.pathname === "/api/ai" && request.method === "POST") {
       try {
         const body = await request.json();
-        const model = body.model || "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+        const model = body.model || "gpt-6-luna";
 
-        const aiResult = await env.AI.run(model, {
-          messages: body.messages,
-          max_tokens: body.max_tokens || 400,
-          temperature: body.temperature || 0.1
-        });
-
-        const content = aiResult.response || aiResult;
-
-        return new Response(JSON.stringify({
-          choices: [
-            {
-              message: {
-                content: content
-              }
-            }
-          ]
-        }), {
+        const sakelarRes = await fetch("https://api.sakelar.web.id/v1/chat/completions", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
+            "Authorization": "Bearer sk_live_kWr-688piLS3Bv1UbEwBfVdsmyuaCGqEKF4n64V23E8"
+          },
+          body: JSON.stringify({
+            model: model,
+            messages: body.messages,
+            temperature: body.temperature || 0.2
+          })
         });
+
+        if (sakelarRes.ok) {
+          const sakelarData = await sakelarRes.json();
+          return new Response(JSON.stringify(sakelarData), {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          });
+        }
+
+        const errText = await sakelarRes.text();
+        throw new Error(`Sakelar API failed (${sakelarRes.status}): ${errText}`);
       } catch (err) {
         return new Response(JSON.stringify({ error: err.message }), {
           status: 500,
