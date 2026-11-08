@@ -407,26 +407,85 @@
           </div>
         </div>
 
-        <!-- Hero Card (Matching Reference UI Orange Card with Arrow) -->
-        <div class="hero-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[160px] cursor-pointer"
-             onclick="switchView('workout')">
-          <div class="flex items-start justify-between z-10">
-            <div>
-              <h3 class="text-2xl font-black text-white leading-tight">Stronger Body<br>Starts Here</h3>
-              <div class="flex items-center space-x-3 text-xs text-white/90 font-bold mt-2">
-                <span class="flex items-center"><i class="ph-bold ph-timer mr-1"></i> 20 menit</span>
-                <span class="flex items-center"><i class="ph-bold ph-crown mr-1"></i> Semua Level</span>
+        <!-- 3-Card Action Grid (Gym, Foto Piring, Tanya AI) -->
+        <div class="grid grid-cols-2 gap-3 min-h-[220px]">
+          <!-- Kartu 1: Gym (Kiri - Tinggi Penuh) -->
+          <div class="hero-card p-4 sm:p-5 relative overflow-hidden flex flex-col justify-between cursor-pointer active:scale-[0.98] transition-all rounded-[28px] shadow-lg shadow-[#FF991C]/25"
+               onclick="switchView('workout')">
+            <div class="flex items-start justify-between z-10">
+              <span class="inline-flex items-center text-[10px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-white">
+                <i class="ph-bold ph-barbell mr-1"></i> Gym
+              </span>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-xs shrink-0">
+                <i class="ph-bold ph-arrow-up-right"></i>
               </div>
             </div>
-            <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-lg">
-              <i class="ph-bold ph-arrow-up-right"></i>
+
+            <div class="z-10 my-2">
+              <h3 class="text-base sm:text-lg font-black text-white leading-tight">Stronger Body<br>Starts Here</h3>
+              <div class="flex items-center space-x-2 text-[10px] text-white/90 font-bold mt-1.5">
+                <span class="flex items-center"><i class="ph-bold ph-timer mr-1"></i> 20 menit</span>
+                <span>•</span>
+                <span>Semua Level</span>
+              </div>
+            </div>
+
+            <p class="text-[10px] sm:text-[11px] text-white/85 font-medium leading-snug z-10">
+              Katalog 200+ latihan gym terstruktur dengan perhitungan kalori otomatis
+            </p>
+
+            <!-- Watermark Dumbbell Transparan -->
+            <i class="ph-bold ph-barbell absolute -right-4 -bottom-4 text-white/20 text-8xl pointer-events-none transform -rotate-12"></i>
+          </div>
+
+          <!-- Kolom Kanan: 2 Kartu Menumpuk (Foto Piring & Tanya AI) -->
+          <div class="flex flex-col gap-3">
+            <!-- Kartu 2: Foto Piring -->
+            <div class="hero-card p-3.5 sm:p-4 relative overflow-hidden flex flex-col justify-between flex-1 cursor-pointer active:scale-[0.98] transition-all rounded-[24px] shadow-md shadow-[#FF991C]/20"
+                 onclick="switchView('logger'); switchLogTab('camera');">
+              <div class="flex items-start justify-between z-10">
+                <span class="inline-flex items-center text-[9px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-white">
+                  <i class="ph-bold ph-camera mr-1"></i> Foto Piring
+                </span>
+                <div class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-[10px] shrink-0">
+                  <i class="ph-bold ph-arrow-up-right"></i>
+                </div>
+              </div>
+
+              <div class="z-10 mt-1.5">
+                <h4 class="text-xs sm:text-sm font-black text-white leading-tight">Scan Gizi AI</h4>
+                <p class="text-[9.5px] sm:text-[10px] text-white/85 font-medium leading-tight mt-0.5">
+                  Foto makanan & kenali kalori otomatis
+                </p>
+              </div>
+
+              <!-- Watermark Kamera Transparan -->
+              <i class="ph-bold ph-camera absolute -right-2 -bottom-2 text-white/20 text-6xl pointer-events-none transform rotate-12"></i>
+            </div>
+
+            <!-- Kartu 3: Tanya AI -->
+            <div class="hero-card p-3.5 sm:p-4 relative overflow-hidden flex flex-col justify-between flex-1 cursor-pointer active:scale-[0.98] transition-all rounded-[24px] shadow-md shadow-[#FF991C]/20"
+                 onclick="switchView('chat')">
+              <div class="flex items-start justify-between z-10">
+                <span class="inline-flex items-center text-[9px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-white">
+                  <i class="ph-bold ph-sparkle mr-1"></i> Tanya AI
+                </span>
+                <div class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-[10px] shrink-0">
+                  <i class="ph-bold ph-arrow-up-right"></i>
+                </div>
+              </div>
+
+              <div class="z-10 mt-1.5">
+                <h4 class="text-xs sm:text-sm font-black text-white leading-tight">Coach Sandow</h4>
+                <p class="text-[9.5px] sm:text-[10px] text-white/85 font-medium leading-tight mt-0.5">
+                  Konsultasi diet & motivasi personal
+                </p>
+              </div>
+
+              <!-- Watermark Chat AI Transparan -->
+              <i class="ph-bold ph-chat-circle-dots absolute -right-2 -bottom-2 text-white/20 text-6xl pointer-events-none transform -rotate-6"></i>
             </div>
           </div>
-          <p class="text-[11px] text-white/80 font-medium z-10 mt-3">
-            Katalog 200+ latihan gym terstruktur dengan perhitungan kalori otomatis
-          </p>
-          <!-- Subtle watermark icon in bg -->
-          <i class="ph-bold ph-barbell absolute -right-4 -bottom-6 text-white/15 text-9xl pointer-events-none"></i>
         </div>
 
         <!-- Activity Bento Grid: Water + Weight + Fasting -->
