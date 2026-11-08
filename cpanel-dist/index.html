@@ -54,6 +54,12 @@
   <!-- ZXing Barcode Scanner Library -->
   <script src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
 
+  <!-- Supabase JS Client for Auth & OAuth -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Database Pangan Indonesia TKPI 2019 (darya-nutrition-db) -->
+  <script src="foods.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 
@@ -122,59 +128,108 @@
       <span id="toast-message" class="text-xs font-bold tracking-wide">Notifikasi</span>
     </div>
 
-    <!-- ==================== SCREEN: LOGIN ==================== -->
-    <div id="screen-login" class="absolute inset-0 z-50 bg-[#F8F9FA] flex flex-col justify-between p-8">
-      <div class="flex-1 flex flex-col justify-center">
+    <!-- ==================== SCREEN: LOGIN / SIGN UP ==================== -->
+    <div id="screen-login" class="absolute inset-0 z-50 bg-[#F8F9FA] flex flex-col justify-between p-6 sm:p-8 overflow-y-auto no-scrollbar">
+      <div class="my-auto py-2">
         <!-- Logo & Header -->
-        <div class="text-center mb-8">
-          <div class="w-24 h-24 mx-auto mb-4 flex items-center justify-center drop-shadow-md">
+        <div class="text-center mb-6">
+          <div class="w-20 h-20 mx-auto mb-3 flex items-center justify-center drop-shadow-md">
             <img src="logo.png" alt="CalorAI Logo" class="w-full h-full object-contain">
           </div>
-          <h1 class="text-3xl font-extrabold text-[#191A1D] tracking-tight">Calor<span class="text-[#FF991C]">AI</span>
-          </h1>
-          <p class="text-xs text-gray-500 mt-2 font-medium">Nutrisi, Diet & Latihan Fisik Personal</p>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#191A1D] tracking-tight">Calor<span class="text-[#FF991C]">AI</span></h1>
+          <p class="text-xs text-gray-500 mt-1 font-medium">Nutrisi, Diet & Latihan Fisik Personal</p>
         </div>
 
-        <!-- Form Login -->
-        <div class="space-y-4">
-          <div>
-            <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">Username</label>
+        <!-- Auth Mode Switcher (Masuk vs Daftar) -->
+        <div class="bg-gray-200/70 p-1 rounded-2xl flex mb-4 text-xs font-bold">
+          <button id="tab-auth-login" onclick="switchAuthTab('login')"
+            class="flex-1 py-2.5 rounded-xl transition-all bg-white text-[#191A1D] shadow-xs">
+            Masuk
+          </button>
+          <button id="tab-auth-signup" onclick="switchAuthTab('signup')"
+            class="flex-1 py-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-800">
+            Daftar Akun
+          </button>
+        </div>
+
+        <!-- Google / Gmail OAuth Button via Supabase -->
+        <button onclick="handleGoogleLogin()"
+          class="w-full bg-white border border-gray-200 hover:border-gray-300 text-gray-700 active:scale-[0.98] transition-all py-3 px-4 rounded-2xl font-bold text-xs shadow-xs flex items-center justify-center space-x-2.5 mb-3.5">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Lanjutkan dengan Akun Google</span>
+        </button>
+
+        <!-- Divider -->
+        <div class="flex items-center my-3">
+          <div class="flex-1 border-t border-gray-200/80"></div>
+          <span class="px-3 text-[10px] uppercase tracking-wider font-bold text-gray-400">atau dengan email</span>
+          <div class="flex-1 border-t border-gray-200/80"></div>
+        </div>
+
+        <!-- Form Email & Password -->
+        <div class="space-y-3">
+          <!-- Nama Lengkap (Khusus Sign Up) -->
+          <div id="field-auth-name" class="hidden">
+            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 ml-1">Nama Lengkap</label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
                 <i class="ph-bold ph-user text-base"></i>
               </span>
-              <input type="text" id="login-username" value="admin"
-                class="w-full pl-11 pr-4 py-3.5 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-sm transition-all font-semibold text-gray-800 shadow-sm"
-                placeholder="Username kamu">
+              <input type="text" id="auth-name"
+                class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
+                placeholder="Nama lengkap kamu">
             </div>
           </div>
+
           <div>
-            <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">Password</label>
+            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 ml-1">Email</label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                <i class="ph-bold ph-envelope-simple text-base"></i>
+              </span>
+              <input type="email" id="auth-email" value="admin@calorai.id"
+                class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
+                placeholder="nama@email.com">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 ml-1">Password</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
                 <i class="ph-bold ph-lock text-base"></i>
               </span>
-              <input type="password" id="login-password" value="123"
-                class="w-full pl-11 pr-4 py-3.5 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-sm transition-all font-semibold text-gray-800 shadow-sm"
+              <input type="password" id="auth-password" value="123456"
+                class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
                 placeholder="••••••••">
             </div>
           </div>
-          <button onclick="handleLogin()"
-            class="w-full bg-[#FF991C] active:scale-[0.98] transition-transform text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#FF991C]/30 hover:bg-[#e68512] text-sm">
-            Masuk ke Aplikasi
+
+          <!-- Submit Button -->
+          <button id="btn-auth-submit" onclick="handleAuthSubmit()"
+            class="w-full bg-[#FF991C] active:scale-[0.98] transition-transform text-white py-3.5 rounded-2xl font-bold shadow-lg shadow-[#FF991C]/30 hover:bg-[#e68512] text-xs">
+            Masuk dengan Email
           </button>
+
+          <!-- Guest Demo Button -->
           <button onclick="handleGuestLogin()"
-            class="w-full bg-white border border-gray-200 text-gray-700 active:scale-[0.98] transition-transform py-3.5 rounded-2xl font-bold hover:bg-gray-50 text-xs shadow-xs flex items-center justify-center space-x-1.5">
+            class="w-full bg-white border border-gray-200 text-gray-600 active:scale-[0.98] transition-transform py-3 rounded-2xl font-bold hover:bg-gray-50 text-[11px] shadow-xs flex items-center justify-center space-x-1.5">
             <i class="ph-bold ph-sparkle text-[#FF991C]"></i>
             <span>Coba Langsung (Akses Tamu / Demo)</span>
           </button>
         </div>
       </div>
-      <!-- Info Demo -->
-      <div class="bg-white border border-gray-100 rounded-2xl p-4 text-center shadow-sm">
-        <p class="text-xs text-gray-400">Akun Demo Default:</p>
-        <p class="text-xs font-bold text-gray-700 mt-1">Username: <span class="text-[#FF991C]">admin</span> | Password:
-          <span class="text-[#FF991C]">123</span>
+
+      <!-- Footer Info -->
+      <div class="text-center pt-3 pb-1">
+        <p class="text-[10px] text-gray-400 flex items-center justify-center space-x-1">
+          <i class="ph-bold ph-shield-check text-[#FF991C]"></i>
+          <span>Autentikasi terenkripsi aman via Supabase</span>
         </p>
       </div>
     </div>
@@ -1091,6 +1146,15 @@
           </button>
         </div>
 
+        <!-- Section 3: Akun & Logout -->
+        <div class="pt-1">
+          <button onclick="handleLogout()"
+            class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 py-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center space-x-2 shadow-xs">
+            <i class="ph-bold ph-sign-out text-base text-gray-400"></i>
+            <span>Keluar dari Akun (Logout)</span>
+          </button>
+        </div>
+
       </div>
     </div>
 
@@ -1098,6 +1162,21 @@
 
   <!-- ==================== FRONTEND JAVASCRIPT SYSTEM ==================== -->
   <script>
+    // ==================== SUPABASE CONFIGURATION ====================
+    const SUPABASE_CONFIG = {
+      url: "https://yxydabqmsjijgnrymkle.supabase.co",
+      anonKey: "sb_publishable_jXjCgAT5zqBtbr3pA3qNOQ_YBpo4gh6"
+    };
+
+    let supabase = null;
+    try {
+      if (window.supabase) {
+        supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+      }
+    } catch (err) {
+      console.warn("Supabase init error:", err);
+    }
+
     const CF_AI_ENDPOINT = "/api/ai";
 
     // 1. STATE MANAGEMENT APLIKASI
@@ -1147,16 +1226,14 @@
       ]
     };
 
-    // Preloaded Food DB
-    const mockFoodDB = [
-      { name: "Nasi Putih (1 Porsi / 150g)", calories: 204, protein: 4, carbs: 44, fat: 0.5 },
-      { name: "Dada Ayam Panggang (100g)", calories: 165, protein: 31, carbs: 0, fat: 3.6 },
-      { name: "Telur Rebus (1 Butir)", calories: 78, protein: 6, carbs: 0.6, fat: 5 },
-      { name: "Tahu Goreng (1 Potong)", calories: 35, protein: 3, carbs: 1.5, fat: 2.5 },
-      { name: "Tempe Goreng (1 Potong)", calories: 50, protein: 4, carbs: 3, fat: 3 },
-      { name: "Alpukat Fresh (1 Buah)", calories: 160, protein: 2, carbs: 8.5, fat: 14.7 },
-      { name: "Susu UHT Full Cream (250ml)", calories: 150, protein: 8, carbs: 12, fat: 8 },
-      { name: "Oatmeal Instan (1 Mangkuk)", calories: 150, protein: 5, carbs: 27, fat: 3 }
+    // Preloaded Food DB: 78 Pangan Indonesia TKPI 2019 (darya-nutrition-db) + Pilihan Populer
+    const mockFoodDB = (window.mockFoodDB && window.mockFoodDB.length > 0) ? window.mockFoodDB : [
+      { name: "Nasi Putih (per 100g)", group: "Serealia", calories: 180, protein: 3, carbs: 39.8, fat: 0.3, fiber: 0.2, aliases: ["nasi"], source: "TKPI 2019" },
+      { name: "Tempe Goreng (per 100g)", group: "Kacang-kacangan", calories: 236, protein: 18.2, carbs: 12.7, fat: 14.5, fiber: 2.8, aliases: ["tempe"], source: "TKPI 2019" },
+      { name: "Tahu Goreng (per 100g)", group: "Kacang-kacangan", calories: 115, protein: 9.7, carbs: 2.5, fat: 8.5, fiber: 0.5, aliases: ["tahu"], source: "TKPI 2019" },
+      { name: "Telur Dadar (per 100g)", group: "Telur", calories: 193, protein: 11.2, carbs: 1.4, fat: 15.6, fiber: 0, aliases: ["telur"], source: "TKPI 2019" },
+      { name: "Ayam Goreng Kalasan (per 100g)", group: "Daging & Unggas", calories: 246, protein: 29.8, carbs: 0, fat: 14.0, fiber: 0, aliases: ["ayam goreng"], source: "TKPI 2019" },
+      { name: "Mie Bakso (per 100g)", group: "Olahan Mie", calories: 172, protein: 8.5, carbs: 21.0, fat: 6.2, fiber: 1.2, aliases: ["bakso"], source: "TKPI 2019" }
     ];
 
     // Preloaded 30+ Exercises (wger inspired)
@@ -1264,37 +1341,239 @@
       }
     }
 
-    function checkSession() {
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        state.user = JSON.parse(savedUser);
-        document.getElementById('screen-login').classList.add('hidden');
-        renderDashboard();
+    // ==================== SUPABASE AUTH SYSTEM ====================
+    let authTab = 'login'; // 'login' or 'signup'
+
+    function switchAuthTab(tab) {
+      authTab = tab;
+      const tabLogin = document.getElementById('tab-auth-login');
+      const tabSignup = document.getElementById('tab-auth-signup');
+      const nameField = document.getElementById('field-auth-name');
+      const submitBtn = document.getElementById('btn-auth-submit');
+
+      if (tab === 'login') {
+        tabLogin.className = "flex-1 py-2.5 rounded-xl transition-all bg-white text-[#191A1D] shadow-xs";
+        tabSignup.className = "flex-1 py-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-800";
+        nameField.classList.add('hidden');
+        submitBtn.innerText = "Masuk dengan Email";
       } else {
-        document.getElementById('screen-login').classList.remove('hidden');
+        tabSignup.className = "flex-1 py-2.5 rounded-xl transition-all bg-white text-[#191A1D] shadow-xs";
+        tabLogin.className = "flex-1 py-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-800";
+        nameField.classList.remove('hidden');
+        submitBtn.innerText = "Daftar Akun Baru";
       }
     }
 
-    function handleGuestLogin() {
-      state.user = { username: 'guest', name: 'Martin Buttler' };
+    async function handleAuthSubmit() {
+      if (authTab === 'login') {
+        await handleEmailLogin();
+      } else {
+        await handleEmailSignUp();
+      }
+    }
+
+    async function handleEmailLogin() {
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+
+      if (!email || !password) {
+        showToast("Masukkan email dan password kamu!", false);
+        return;
+      }
+
+      if (!supabase) {
+        state.user = { email, name: email.split('@')[0] };
+        localStorage.setItem('user', JSON.stringify(state.user));
+        document.getElementById('screen-login').classList.add('hidden');
+        showToast("Masuk berhasil (Demo Lokal)!");
+        renderDashboard();
+        return;
+      }
+
+      showToast("Memverifikasi akun...");
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+        if (error) {
+          showToast("Gagal masuk: " + error.message, false);
+          return;
+        }
+
+        if (data.session && data.session.user) {
+          setUserFromSupabase(data.session.user);
+          document.getElementById('screen-login').classList.add('hidden');
+          showToast("Selamat datang kembali!");
+          renderDashboard();
+        }
+      } catch (err) {
+        showToast("Gagal masuk: " + err.message, false);
+      }
+    }
+
+    async function handleEmailSignUp() {
+      const name = document.getElementById('auth-name').value.trim();
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+
+      if (!name || !email || !password) {
+        showToast("Harap isi semua kolom pendaftaran!", false);
+        return;
+      }
+
+      if (password.length < 6) {
+        showToast("Password minimal 6 karakter!", false);
+        return;
+      }
+
+      if (!supabase) {
+        state.user = { email, name };
+        localStorage.setItem('user', JSON.stringify(state.user));
+        document.getElementById('screen-login').classList.add('hidden');
+        showToast("Pendaftaran berhasil!");
+        renderDashboard();
+        return;
+      }
+
+      showToast("Mendaftarkan akun ke Supabase...");
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: { full_name: name }
+          }
+        });
+
+        if (error) {
+          showToast("Pendaftaran gagal: " + error.message, false);
+          return;
+        }
+
+        if (data.session && data.session.user) {
+          setUserFromSupabase(data.session.user);
+          document.getElementById('screen-login').classList.add('hidden');
+          showToast("Akun berhasil dibuat!");
+          renderDashboard();
+        } else {
+          showToast("Akun terdaftar! Silakan periksa email untuk konfirmasi.");
+          switchAuthTab('login');
+        }
+      } catch (err) {
+        showToast("Gagal mendaftar: " + err.message, false);
+      }
+    }
+
+    async function handleGoogleLogin() {
+      if (!supabase) {
+        showToast("Supabase client belum siap", false);
+        return;
+      }
+
+      showToast("Menghubungkan ke Akun Google...");
+      try {
+        const redirectUrl = window.location.origin + window.location.pathname;
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: redirectUrl
+          }
+        });
+        if (error) {
+          showToast("Google Auth error: " + error.message, false);
+        }
+      } catch (err) {
+        showToast("Gagal koneksi Google: " + err.message, false);
+      }
+    }
+
+    function setUserFromSupabase(u) {
+      const meta = u.user_metadata || {};
+      const fullName = meta.full_name || meta.name || (u.email ? u.email.split('@')[0] : 'Member');
+      const avatar = meta.avatar_url || meta.picture || null;
+      state.user = {
+        id: u.id,
+        email: u.email,
+        name: fullName,
+        avatar: avatar,
+        provider: u.app_metadata?.provider || 'supabase'
+      };
       localStorage.setItem('user', JSON.stringify(state.user));
+      updateUserUI();
+    }
+
+    function updateUserUI() {
+      if (!state.user) return;
+      const headerName = document.getElementById('header-user-name');
+      if (headerName) headerName.innerText = state.user.name;
+
+      if (state.user.avatar) {
+        const avatarImg = document.querySelector('header img');
+        if (avatarImg) avatarImg.src = state.user.avatar;
+      }
+    }
+
+    async function handleLogout() {
+      showToast("Sedang keluar...");
+      try {
+        if (supabase) await supabase.auth.signOut();
+      } catch (e) {}
+      localStorage.removeItem('user');
+      state.user = null;
+      closeProfileSettingsModal();
+      document.getElementById('screen-login').classList.remove('hidden');
+      showToast("Anda telah keluar.");
+    }
+
+    function handleGuestLogin() {
+      state.user = { id: 'guest', username: 'guest', name: 'Martin Buttler (Tamu)' };
+      localStorage.setItem('user', JSON.stringify(state.user));
+      updateUserUI();
       document.getElementById('screen-login').classList.add('hidden');
-      showToast("Selamat datang di CalorAI!");
+      showToast("Selamat datang di CalorAI (Mode Tamu)!");
       renderDashboard();
     }
 
-    function handleLogin() {
-      const u = document.getElementById('login-username').value;
-      const p = document.getElementById('login-password').value;
+    async function checkSession() {
+      // 1. Check Supabase active session (handles Google redirect with access_token)
+      if (supabase) {
+        try {
+          const { data, error } = await supabase.auth.getSession();
+          if (data && data.session && data.session.user) {
+            setUserFromSupabase(data.session.user);
+            document.getElementById('screen-login').classList.add('hidden');
+            renderDashboard();
+            return;
+          }
+        } catch (e) {
+          console.warn("Supabase session check error:", e);
+        }
 
-      if (u === 'admin' && p === '123') {
-        state.user = { username: 'admin', name: 'Martin Buttler' };
-        localStorage.setItem('user', JSON.stringify(state.user));
-        document.getElementById('screen-login').classList.add('hidden');
-        showToast("Masuk berhasil! Selamat datang kembali.");
-        renderDashboard();
+        // Listen for auth state change (OAuth callback)
+        supabase.auth.onAuthStateChange((event, session) => {
+          if (session && session.user) {
+            setUserFromSupabase(session.user);
+            document.getElementById('screen-login').classList.add('hidden');
+            renderDashboard();
+          }
+        });
+      }
+
+      // 2. Check local saved user
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        try {
+          state.user = JSON.parse(savedUser);
+          updateUserUI();
+          document.getElementById('screen-login').classList.add('hidden');
+          renderDashboard();
+        } catch (e) {
+          document.getElementById('screen-login').classList.remove('hidden');
+        }
       } else {
-        showToast("Username atau Password salah!", false);
+        document.getElementById('screen-login').classList.remove('hidden');
       }
     }
 
@@ -1352,6 +1631,10 @@
       } else {
         stopCamera();
         stopBarcodeScanner();
+      }
+
+      if (tab === 'manual') {
+        renderDefaultFoodList();
       }
     }
 
@@ -1825,33 +2108,73 @@
       isBarcodeScanning = true;
     }
 
-    // ==================== MANUAL & ONLINE FOOD SEARCH ====================
+    // ==================== MANUAL & ONLINE FOOD SEARCH (TKPI 2019) ====================
+    function renderFoodItemHTML(f) {
+      const safeName = (f.name || '').replace(/'/g, "\\'");
+      return `
+        <div class="py-2.5 px-3 bg-white border border-gray-100 rounded-2xl mb-2 flex items-center justify-between shadow-xs hover:border-[#FF991C]/40 transition-all">
+          <div class="pr-2 flex-1">
+            <div class="flex items-center space-x-1.5 flex-wrap">
+              <p class="font-extrabold text-xs text-[#191A1D]">${f.name}</p>
+              <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-amber-50 text-[#FF991C] border border-[#FF991C]/20 shrink-0">
+                ${f.group || 'TKPI 2019'}
+              </span>
+            </div>
+            <p class="text-[10px] text-gray-400 font-semibold mt-0.5">
+              P: <span class="text-gray-700">${f.protein}g</span> • K: <span class="text-gray-700">${f.carbs}g</span> • L: <span class="text-gray-700">${f.fat}g</span>
+              ${f.fiber ? `• Serat: <span class="text-gray-700">${f.fiber}g</span>` : ''}
+            </p>
+          </div>
+          <button onclick="logManualFood('${safeName}', ${f.calories}, ${f.protein}, ${f.carbs}, ${f.fat})"
+            class="shrink-0 bg-[#FFF5E9] hover:bg-[#FF991C] hover:text-white text-[#FF991C] px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-2xs active:scale-95">
+            + ${f.calories} kkal
+          </button>
+        </div>
+      `;
+    }
+
+    function renderDefaultFoodList() {
+      const resultsContainer = document.getElementById('manual-search-results');
+      if (!resultsContainer) return;
+      const db = window.mockFoodDB || mockFoodDB || [];
+      const featured = db.slice(0, 15);
+      resultsContainer.innerHTML = `
+        <div class="pt-1 pb-2 flex items-center justify-between text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+          <span>Pangan Indonesia (TKPI 2019 Kemenkes)</span>
+          <span class="text-[10px] text-[#FF991C] font-extrabold">${db.length} Pangan</span>
+        </div>
+      ` + featured.map(f => renderFoodItemHTML(f)).join('');
+    }
+
     function handleManualSearch() {
-      const q = document.getElementById('manual-search-input').value.toLowerCase().trim();
+      const inputEl = document.getElementById('manual-search-input');
+      const q = inputEl.value.toLowerCase().trim();
       const resultsContainer = document.getElementById('manual-search-results');
       if (!q) {
-        resultsContainer.innerHTML = '';
+        renderDefaultFoodList();
         return;
       }
 
-      const matches = mockFoodDB.filter(f => f.name.toLowerCase().includes(q));
+      const db = window.mockFoodDB || mockFoodDB || [];
+      const matches = db.filter(f => {
+        const nameMatch = (f.name || '').toLowerCase().includes(q);
+        const groupMatch = (f.group || '').toLowerCase().includes(q);
+        const aliasMatch = (f.aliases || []).some(a => a.toLowerCase().includes(q));
+        return nameMatch || groupMatch || aliasMatch;
+      });
+
       if (matches.length > 0) {
-        resultsContainer.innerHTML = matches.map(f => `
-          <div class="py-2.5 flex items-center justify-between">
-            <div>
-              <p class="font-extrabold text-xs text-[#191A1D]">${f.name}</p>
-              <p class="text-[10px] text-gray-400 font-semibold">P: ${f.protein}g • K: ${f.carbs}g • L: ${f.fat}g</p>
-            </div>
-            <button onclick="logManualFood('${f.name}', ${f.calories}, ${f.protein}, ${f.carbs}, ${f.fat})"
-              class="bg-[#FFF5E9] hover:bg-[#FF991C] hover:text-white text-[#FF991C] px-3 py-1 rounded-xl text-xs font-bold transition-all">
-              + ${f.calories} kkal
-            </button>
+        resultsContainer.innerHTML = `
+          <div class="pt-1 pb-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+            Hasil pencarian (${matches.length} ditemukan):
           </div>
-        `).join('');
+        ` + matches.map(f => renderFoodItemHTML(f)).join('');
       } else {
         resultsContainer.innerHTML = `
-          <div class="py-3 text-center text-xs text-gray-400">
-            Tidak ada di database lokal. Klik tombol <strong>Cari Online</strong> di atas.
+          <div class="py-4 text-center text-xs text-gray-400 bg-white rounded-2xl border border-gray-100 p-4">
+            <i class="ph-bold ph-magnifying-glass text-xl mb-1 text-gray-300"></i>
+            <p>Tidak ditemukan di database lokal TKPI.</p>
+            <p class="text-[11px] text-gray-400 mt-1">Coba tekan tombol <strong>Cari Online</strong> untuk 100k+ produk kemasan internasional.</p>
           </div>
         `;
       }

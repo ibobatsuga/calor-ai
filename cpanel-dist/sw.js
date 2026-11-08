@@ -1,12 +1,14 @@
-const CACHE_NAME = 'calorai-v2.2';
+const CACHE_NAME = 'calorai-v2.3';
 const STATIC_ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
+  './foods.js',
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/@phosphor-icons/web',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://unpkg.com/@zxing/library@latest/umd/index.min.js'
+  'https://unpkg.com/@zxing/library@latest/umd/index.min.js',
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'
 ];
 
 self.addEventListener('install', (event) => {
