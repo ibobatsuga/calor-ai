@@ -192,7 +192,7 @@
               <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
                 <i class="ph-bold ph-envelope-simple text-base"></i>
               </span>
-              <input type="email" id="auth-email" value="admin@calorai.id"
+              <input type="email" id="auth-email"
                 class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
                 placeholder="nama@email.com">
             </div>
@@ -204,7 +204,7 @@
               <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
                 <i class="ph-bold ph-lock text-base"></i>
               </span>
-              <input type="password" id="auth-password" value="123456"
+              <input type="password" id="auth-password"
                 class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
                 placeholder="••••••••">
             </div>
@@ -1168,10 +1168,10 @@
       anonKey: "sb_publishable_jXjCgAT5zqBtbr3pA3qNOQ_YBpo4gh6"
     };
 
-    let supabase = null;
+    let supabaseClient = null;
     try {
-      if (window.supabase) {
-        supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
       }
     } catch (err) {
       console.warn("Supabase init error:", err);
@@ -1181,7 +1181,7 @@
 
     // 1. STATE MANAGEMENT APLIKASI
     const state = {
-      user: { username: 'admin', name: 'Martin Buttler' },
+      user: null,
       todayLogs: [],
       todayWorkouts: [],
       weightHistory: [
@@ -1381,7 +1381,7 @@
         return;
       }
 
-      if (!supabase) {
+      if (!supabaseClient) {
         state.user = { email, name: email.split('@')[0] };
         localStorage.setItem('user', JSON.stringify(state.user));
         document.getElementById('screen-login').classList.add('hidden');
@@ -1392,7 +1392,7 @@
 
       showToast("Memverifikasi akun...");
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
           email: email,
           password: password
         });
@@ -1428,7 +1428,7 @@
         return;
       }
 
-      if (!supabase) {
+      if (!supabaseClient) {
         state.user = { email, name };
         localStorage.setItem('user', JSON.stringify(state.user));
         document.getElementById('screen-login').classList.add('hidden');
@@ -1439,7 +1439,7 @@
 
       showToast("Mendaftarkan akun ke Supabase...");
       try {
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await supabaseClient.auth.signUp({
           email: email,
           password: password,
           options: {
@@ -1467,15 +1467,15 @@
     }
 
     async function handleGoogleLogin() {
-      if (!supabase) {
-        showToast("Supabase client belum siap", false);
+      if (!supabaseClient) {
+        showToast("Layanan autentikasi belum siap, silakan coba lagi.", false);
         return;
       }
 
       showToast("Menghubungkan ke Akun Google...");
       try {
         const redirectUrl = window.location.origin + window.location.pathname;
-        const { data, error } = await supabase.auth.signInWithOAuth({
+        const { data, error } = await supabaseClient.auth.signInWithOAuth({
           provider: 'google',
           options: {
             redirectTo: redirectUrl
@@ -1518,7 +1518,7 @@
     async function handleLogout() {
       showToast("Sedang keluar...");
       try {
-        if (supabase) await supabase.auth.signOut();
+        if (supabaseClient) await supabaseClient.auth.signOut();
       } catch (e) {}
       localStorage.removeItem('user');
       state.user = null;
@@ -1528,7 +1528,7 @@
     }
 
     function handleGuestLogin() {
-      state.user = { id: 'guest', username: 'guest', name: 'Martin Buttler (Tamu)' };
+      state.user = { id: 'guest', username: 'guest', name: 'Pengguna Tamu' };
       localStorage.setItem('user', JSON.stringify(state.user));
       updateUserUI();
       document.getElementById('screen-login').classList.add('hidden');
@@ -1538,9 +1538,9 @@
 
     async function checkSession() {
       // 1. Check Supabase active session (handles Google redirect with access_token)
-      if (supabase) {
+      if (supabaseClient) {
         try {
-          const { data, error } = await supabase.auth.getSession();
+          const { data, error } = await supabaseClient.auth.getSession();
           if (data && data.session && data.session.user) {
             setUserFromSupabase(data.session.user);
             document.getElementById('screen-login').classList.add('hidden');
@@ -1552,7 +1552,7 @@
         }
 
         // Listen for auth state change (OAuth callback)
-        supabase.auth.onAuthStateChange((event, session) => {
+        supabaseClient.auth.onAuthStateChange((event, session) => {
           if (session && session.user) {
             setUserFromSupabase(session.user);
             document.getElementById('screen-login').classList.add('hidden');
