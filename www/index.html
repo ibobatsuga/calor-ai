@@ -66,7 +66,15 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 
-    body {
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-tap-highlight-color: transparent;
       background-color: #F4F5F7;
@@ -167,10 +175,10 @@
   </style>
 </head>
 
-<body class="m-0 p-0 flex justify-center min-h-[100dvh]">
+<body class="m-0 p-0 flex justify-center h-full h-[100dvh] fixed inset-0 overflow-hidden">
 
   <!-- Mobile Container Shell -->
-  <div class="w-full max-w-[540px] mx-auto h-[100dvh] bg-[#F8F9FA] flex flex-col overflow-hidden relative shadow-2xl">
+  <div class="w-full max-w-[540px] mx-auto h-full h-[100dvh] bg-[#F8F9FA] flex flex-col overflow-hidden relative shadow-2xl">
 
     <!-- ==================== TOAST NOTIFICATION ==================== -->
     <div id="toast"
@@ -1717,6 +1725,10 @@
 
     // ==================== NAVIGATION & VIEWS ====================
     function switchView(viewName) {
+      window.scrollTo(0, 0);
+      const mainEl = document.querySelector('main');
+      if (mainEl) mainEl.scrollTop = 0;
+
       document.querySelectorAll('.view-panel').forEach(v => v.classList.add('hidden'));
       const target = document.getElementById('view-' + viewName);
       if (target) target.classList.remove('hidden');
@@ -2202,8 +2214,12 @@
       document.getElementById('scanned-portion-label').innerText = "100";
       updateScannedPortion();
 
-      document.getElementById('barcode-result-card').classList.remove('hidden');
-      document.getElementById('barcode-result-card').scrollIntoView({ behavior: 'smooth' });
+      const resCard = document.getElementById('barcode-result-card');
+      resCard.classList.remove('hidden');
+      const mainEl = document.querySelector('main');
+      if (mainEl && resCard) {
+        mainEl.scrollTo({ top: resCard.offsetTop - 15, behavior: 'smooth' });
+      }
     }
 
     function updateScannedPortion() {
@@ -2863,8 +2879,12 @@
       document.getElementById('extracted-carbs').innerText = log.carbs + "g";
       document.getElementById('extracted-fat').innerText = log.fat + "g";
 
-      document.getElementById('ai-extraction-panel').classList.remove('hidden');
-      document.getElementById('ai-extraction-panel').scrollIntoView({ behavior: 'smooth' });
+      const extPanel = document.getElementById('ai-extraction-panel');
+      extPanel.classList.remove('hidden');
+      const mainEl = document.querySelector('main');
+      if (mainEl && extPanel) {
+        mainEl.scrollTo({ top: extPanel.offsetTop - 15, behavior: 'smooth' });
+      }
     }
 
     function closeExtractionPanel() {
@@ -3089,6 +3109,19 @@ PEDOMAN COACH SANDOW & ATURAN FORMAT TAMPILAN (SANGAT PENTING):
       showToast(`Program diet diperbarui ke ${days} hari (${target} kkal)!`);
       switchView('home');
     }
+
+    // ==================== VIEWPORT LOCK & ANTI-OFFSET GUARDS ====================
+    window.addEventListener('scroll', () => {
+      if (window.scrollY !== 0 || window.scrollX !== 0) {
+        window.scrollTo(0, 0);
+      }
+    }, { passive: true });
+
+    document.addEventListener('focusout', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+        setTimeout(() => window.scrollTo(0, 0), 50);
+      }
+    });
   </script>
 </body>
 </html>
