@@ -587,7 +587,7 @@
           </div>
         </div>
 
-        <!-- Tab 3: Barcode Scanner Sub-Menu (Open Food Facts) -->
+        <!-- Tab 3: Pindai Barcode Produk -->
         <div id="log-tab-barcode" class="space-y-3 hidden">
           <!-- Barcode Viewfinder Card -->
           <div class="app-card p-5 space-y-4 text-center">
@@ -603,8 +603,7 @@
               </div>
 
               <!-- Status Indicator -->
-              <div class="absolute bottom-2 inset-x-3 bg-black/70 backdrop-blur-md p-2 rounded-xl text-[10px] flex justify-between items-center z-10">
-                <span class="text-[#FF991C] font-bold">Open Food Facts Engine</span>
+              <div class="absolute bottom-2 inset-x-3 bg-black/70 backdrop-blur-md p-2 rounded-xl text-[10px] flex items-center justify-center z-10">
                 <span id="barcode-status-text" class="text-white font-medium">Kamera aktif mendeteksi...</span>
               </div>
             </div>
@@ -685,7 +684,7 @@
           </div>
         </div>
 
-        <!-- Tab 4: Manual & Open Food Facts Search -->
+        <!-- Tab 4: Pencarian Database Makanan -->
         <div id="log-tab-manual" class="space-y-3 hidden">
           <div class="app-card p-5 space-y-3">
             <div class="flex space-x-2">
@@ -2030,7 +2029,7 @@
     }
 
     async function lookupBarcode(barcode) {
-      showToast("Mencari info produk di Open Food Facts...");
+      showToast("Mencari info produk...");
       const statusText = document.getElementById('barcode-status-text');
       statusText.innerText = `Memeriksa ${barcode}...`;
 
@@ -2059,7 +2058,7 @@
           displayBarcodeResult(state.scannedProduct);
           showToast("Produk berhasil diidentifikasi!");
         } else {
-          showToast("Barcode tidak terdaftar di database Open Food Facts.", false);
+          showToast("Barcode tidak terdaftar di database produk.", false);
           statusText.innerText = "Produk tidak ditemukan.";
         }
       } catch (err) {
@@ -2205,7 +2204,7 @@
       const statusEl = document.getElementById('online-search-status');
       const resultsContainer = document.getElementById('manual-search-results');
       statusEl.classList.remove('hidden');
-      statusEl.innerText = `Mencari '${q}' di Open Food Facts...`;
+      statusEl.innerText = `Mencari '${q}' di database...`;
 
       try {
         const res = await fetch(`/api/search-food?q=${encodeURIComponent(q)}`);
@@ -2236,7 +2235,7 @@
             `;
           }).join('');
         } else {
-          resultsContainer.innerHTML = `<div class="py-3 text-center text-xs text-gray-400">Tidak ada produk ditemukan di Open Food Facts.</div>`;
+          resultsContainer.innerHTML = `<div class="py-3 text-center text-xs text-gray-400">Tidak ada produk ditemukan di database.</div>`;
         }
       } catch (err) {
         statusEl.innerText = "Pencarian online gagal: " + err.message;
