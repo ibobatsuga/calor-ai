@@ -526,7 +526,7 @@
           </div>
         </div>
 
-        <!-- Tab 2: Camera Vision AI -->
+        <!-- Tab 2: Foto Makanan AI -->
         <div id="log-tab-camera" class="space-y-3 hidden">
           <div class="app-card p-5 space-y-4 text-center">
             <div class="flex items-center justify-between">
@@ -562,8 +562,7 @@
               </div>
 
               <!-- Overlay -->
-              <div class="absolute bottom-2.5 inset-x-3 bg-black/60 backdrop-blur-md p-2 rounded-xl text-[10px] flex justify-between items-center z-10">
-                <span class="font-bold text-[#FF991C]">Cloudflare Vision AI</span>
+              <div class="absolute bottom-2.5 inset-x-3 bg-black/60 backdrop-blur-md p-2 rounded-xl text-[10px] flex items-center justify-center z-10">
                 <span id="camera-status-label" class="font-semibold text-white">Siap mengambil foto</span>
               </div>
             </div>
@@ -2559,7 +2558,7 @@
       }
     }
 
-    // ==================== CAMERA VISION AI ====================
+    // ==================== FOTO MAKANAN & ANALISIS AI ====================
     let cameraStreamObj = null;
 
     async function startCamera() {
