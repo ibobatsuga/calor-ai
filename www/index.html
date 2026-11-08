@@ -961,17 +961,21 @@
 
         <!-- Suggestions -->
         <div class="bg-gray-50 py-2 px-3 flex space-x-2 overflow-x-auto no-scrollbar border-t border-gray-100">
-          <button onclick="sendQuickMessage('Resep sarapan tinggi protein dibawah 300 kkal')"
-            class="bg-white text-gray-600 border border-gray-200/80 px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0">
-            Resep Sarapan &lt;300 kkal
+          <button onclick="sendQuickMessage('Berapa sisa kalori dan makronutrisi saya hari ini?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            📊 Cek Sisa Kalori Hari Ini
           </button>
-          <button onclick="sendQuickMessage('Berapa kalori ideal untuk menurunkan berat badan saya?')"
-            class="bg-white text-gray-600 border border-gray-200/80 px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0">
-            Hitung Kalori Ideal
+          <button onclick="sendQuickMessage('Evaluasi makanan yang sudah saya catat hari ini, apakah gizinya sudah seimbang?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🥗 Evaluasi Menu Hari Ini
           </button>
-          <button onclick="sendQuickMessage('Latihan apa yang paling cepat membakar lemak perut?')"
-            class="bg-white text-gray-600 border border-gray-200/80 px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0">
-            Latihan Bakar Lemak
+          <button onclick="sendQuickMessage('Rekomendasikan menu makan sehat khas Indonesia sesuai sisa kalori dan kebutuhan protein saya')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🍗 Ide Menu Sesuai Target
+          </button>
+          <button onclick="sendQuickMessage('Berdasarkan data profil fisik dan tujuan saya, program latihan apa yang disarankan hari ini?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🏋️ Saran Latihan Sesuai Profil
           </button>
         </div>
 
@@ -1181,6 +1185,15 @@
     // 1. STATE MANAGEMENT APLIKASI
     const state = {
       user: null,
+      profile: {
+        gender: 'male',
+        age: 26,
+        height: 172,
+        weight: 68.5,
+        activity: '1.375',
+        goalOffset: -500,
+        goalText: 'Turun Berat Sehat (Defisit 500 kkal)'
+      },
       todayLogs: [],
       todayWorkouts: [],
       weightHistory: [
@@ -1213,16 +1226,7 @@
       },
       extractedLog: null,
       scannedProduct: null,
-      chatHistory: [
-        {
-          role: "system",
-          content: "Anda adalah Coach Sandow, spesialis gizi dan pelatih kebugaran personal dari CalorAI. Tugas Anda membantu pengguna dengan rekomendasi diet, perhitungan kalori, resep sehat, teknik latihan gym, dan motivasi ramah ringkas dalam Bahasa Indonesia yang berenergi dan aplikatif."
-        },
-        {
-          role: "assistant",
-          content: "Halo! Saya Coach Sandow, pelatih kebugaran & gizi personal kamu di CalorAI. Tanyakan apa saja tentang kalori makanan, tips diet, atau program latihan kamu hari ini! 🔥"
-        }
-      ]
+      chatHistory: []
     };
 
     // Preloaded Food DB: 78 Pangan Indonesia TKPI 2019 (darya-nutrition-db) + Pilihan Populer
@@ -1266,6 +1270,7 @@
       try {
         localStorage.setItem('calorai_state_v2', JSON.stringify({
           user: state.user,
+          profile: state.profile,
           todayLogs: state.todayLogs,
           todayWorkouts: state.todayWorkouts,
           weightHistory: state.weightHistory,
@@ -1288,6 +1293,15 @@
         if (saved) {
           const parsed = JSON.parse(saved);
           Object.assign(state, parsed);
+
+          if (state.profile) {
+            const g = document.getElementById('calc-gender'); if (g && state.profile.gender) g.value = state.profile.gender;
+            const a = document.getElementById('calc-age'); if (a && state.profile.age) a.value = state.profile.age;
+            const h = document.getElementById('calc-height'); if (h && state.profile.height) h.value = state.profile.height;
+            const w = document.getElementById('calc-weight'); if (w && state.profile.weight) w.value = state.profile.weight;
+            const act = document.getElementById('calc-activity'); if (act && state.profile.activity) act.value = state.profile.activity;
+            const goal = document.getElementById('calc-goal'); if (goal && state.profile.goalOffset) goal.value = state.profile.goalOffset;
+          }
         }
       } catch (e) {
         console.warn('Storage load error:', e);
@@ -1610,6 +1624,7 @@
 
       state.activeView = viewName;
       if (viewName === 'home') renderDashboard();
+      if (viewName === 'chat') renderChatHistory();
 
       // Stop hardware streams when leaving logger view
       if (viewName !== 'logger') {
@@ -2326,6 +2341,11 @@
       const weight = parseFloat(document.getElementById('calc-weight').value) || 68;
       const activity = parseFloat(document.getElementById('calc-activity').value) || 1.375;
       const goalOffset = parseFloat(document.getElementById('calc-goal').value) || -500;
+      const goalSelect = document.getElementById('calc-goal');
+      const goalText = goalSelect ? goalSelect.options[goalSelect.selectedIndex].text : "Defisit Sehat";
+
+      // Save profile metadata
+      state.profile = { gender, age, height, weight, activity, goalOffset, goalText };
 
       // Mifflin-St Jeor Formula
       let bmr = (10 * weight) + (6.25 * height) - (5 * age);
@@ -2337,11 +2357,12 @@
 
       state.targetCalories = finalTarget;
       state.currentWeight = weight;
-      // Macro Recommendations (Protein: 2g/kg, Fat: 0.8g/kg, Carbs: sisa)
+      // Macro Recommendations (Protein: 2g/kg, Fat: 0.85g/kg, Carbs: sisa)
       state.targetProtein = Math.round(weight * 2.0);
       state.targetFat = Math.round(weight * 0.85);
       state.targetCarbs = Math.max(50, Math.round((finalTarget - (state.targetProtein * 4 + state.targetFat * 9)) / 4));
 
+      saveState();
       renderDashboard();
       closeProfileSettingsModal();
       showToast(`Target Kalori Ilmiah diterapkan: ${finalTarget} kkal!`);
@@ -2753,7 +2774,90 @@
       switchView('home');
     }
 
-    // ==================== COACH SANDOW CHAT ====================
+    // ==================== COACH SANDOW CHAT & PROFILE INTEGRATION ====================
+    function getCoachSandowSystemPrompt() {
+      const user = state.user || {};
+      const userName = user.name || "Kawan";
+
+      // Profile & Physical Metrics
+      const weight = state.currentWeight || 68.5;
+      const gender = (state.profile && state.profile.gender) || (document.getElementById('calc-gender') ? document.getElementById('calc-gender').value : 'male');
+      const age = (state.profile && state.profile.age) || (document.getElementById('calc-age') ? document.getElementById('calc-age').value : 26);
+      const height = (state.profile && state.profile.height) || (document.getElementById('calc-height') ? document.getElementById('calc-height').value : 172);
+      const activity = (state.profile && state.profile.activity) || (document.getElementById('calc-activity') ? document.getElementById('calc-activity').value : '1.375');
+      const goal = (state.profile && state.profile.goalText) || (document.getElementById('calc-goal') ? document.getElementById('calc-goal').options[document.getElementById('calc-goal').selectedIndex]?.text : "Turun Berat Sehat (Defisit 500 kkal)");
+
+      // Today Nutrition Progress
+      const totalCal = state.todayLogs.reduce((acc, l) => acc + (Number(l.calories) || 0), 0);
+      const totalProt = state.todayLogs.reduce((acc, l) => acc + (Number(l.protein) || 0), 0);
+      const totalCarbs = state.todayLogs.reduce((acc, l) => acc + (Number(l.carbs) || 0), 0);
+      const totalFat = state.todayLogs.reduce((acc, l) => acc + (Number(l.fat) || 0), 0);
+      const remainingCal = Math.max(0, state.targetCalories - totalCal);
+
+      // Today Meals Summary
+      const mealsSummary = state.todayLogs.length > 0 
+        ? state.todayLogs.map(l => `- ${l.name} (${l.meal || 'Makanan'}): ${l.calories} kkal (P: ${l.protein}g, K: ${l.carbs}g, L: ${l.fat}g)`).join('\n')
+        : "Belum ada makanan yang dicatat hari ini.";
+
+      // Today Workouts Summary
+      const workoutsSummary = state.todayWorkouts.length > 0
+        ? state.todayWorkouts.map(w => `- ${w.name}: ${w.sets || 3} set, total repetisi/beban`).join('\n')
+        : "Belum ada latihan fisik yang dicatat hari ini.";
+
+      // Water & Fasting Status
+      const water = state.waterDrank || 0;
+      const fastingStatus = state.fasting && state.fasting.isActive 
+        ? `Sedang Puasa Intermittent (${state.fasting.targetHours} Jam)` 
+        : "Jendela Makan / Tidak Puasa Aktif";
+
+      return `Anda adalah Coach Sandow, spesialis nutrisi klinis & pelatih kebugaran personal eksklusif dari CalorAI.
+Tugas Anda mendampingi pengguna secara personal, hangat, akurat, dan berenergi tinggi dalam Bahasa Indonesia.
+
+DATA PROFIL & REAL-TIME PENGGUNA YANG ANDA BIMBING SAAT INI:
+- Nama Pengguna: ${userName}
+- Jenis Kelamin: ${gender === 'male' || gender === 'pria' ? 'Pria' : 'Wanita'}
+- Usia: ${age} tahun | Tinggi Badan: ${height} cm | Berat Badan Saat Ini: ${weight} kg
+- Target Kalori Harian: ${state.targetCalories} kkal (Protein: ${state.targetProtein}g, Karbohidrat: ${state.targetCarbs}g, Lemak: ${state.targetFat}g)
+- Tujuan Program Diet: ${goal}
+- Asupan Terkini Hari Ini: ${totalCal} kkal sudah masuk (Sisa kuota: ${remainingCal} kkal dari target ${state.targetCalories} kkal)
+- Makronutrisi Hari Ini: Protein ${totalProt}g / ${state.targetProtein}g, Karbohidrat ${totalCarbs}g / ${state.targetCarbs}g, Lemak ${totalFat}g / ${state.targetFat}g
+- Konsumsi Air Hari Ini: ${water} Liter
+- Status Puasa: ${fastingStatus}
+- Daftar Makanan yang Sudah Masuk Hari Ini:
+${mealsSummary}
+- Catatan Latihan Fisik Hari Ini:
+${workoutsSummary}
+
+PEDOMAN COACH SANDOW:
+1. Sapa atau sebut nama ${userName} secara personal dan akrab. Anda mengenal profil fisiknya dan apa yang dia makan hari ini.
+2. Selalu gunakan data angka di atas secara cerdas dan kontekstual saat menjawab (misalnya menyebutkan sisa kuota kalorinya, makanan apa yang baru saja dia catat, kebutuhan proteinnya, atau rekomendasi sesuai berat badannya).
+3. Berikan saran menu praktis berbahan lokal Indonesia (tempe, tahu, telur, ikan tongkol, dada ayam, sayur bayam/kangkung, buah pepaya/pisang, dll.).
+4. Gaya bicara: Enerjik, ramah, profesional, memberi solusi langkah demi langkah, dan tidak berbelit-belit.`;
+    }
+
+    function renderChatHistory() {
+      const container = document.getElementById('chat-messages');
+      if (!container) return;
+
+      const userName = (state.user && state.user.name) ? state.user.name : "Kawan";
+
+      if (!state.chatHistory || state.chatHistory.length === 0) {
+        state.chatHistory = [
+          {
+            role: "assistant",
+            content: `Halo ${userName}! Saya Coach Sandow, pelatih gizi & kebugaran personal kamu di CalorAI. Saya sudah memegang data profilmu (Target: ${state.targetCalories} kkal/hari). Ada yang ingin kamu konsultasikan tentang menu makan atau latihan hari ini? 🔥`
+          }
+        ];
+      }
+
+      container.innerHTML = "";
+      state.chatHistory.forEach(msg => {
+        if (msg.role === 'user') appendChatMessage(msg.content, false);
+        else if (msg.role === 'assistant') appendChatMessage(msg.content, true);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
     function sendQuickMessage(text) {
       document.getElementById('chat-input').value = text;
       sendChatMessage();
@@ -2771,7 +2875,14 @@
       const loadingId = appendChatLoading();
 
       try {
-        const botReply = await callLunaAI(state.chatHistory, 0.7);
+        const dynamicSystemPrompt = getCoachSandowSystemPrompt();
+        const convo = state.chatHistory.filter(m => m.role !== 'system');
+        const messages = [
+          { role: "system", content: dynamicSystemPrompt },
+          ...convo
+        ];
+
+        const botReply = await callLunaAI(messages, 0.7);
         removeChatLoading(loadingId);
         appendChatMessage(botReply, true);
         state.chatHistory.push({ role: "assistant", content: botReply });
