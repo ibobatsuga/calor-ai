@@ -896,7 +896,7 @@
             <h4 class="font-bold text-[#191A1D] text-sm">Coach Sandow</h4>
             <p class="text-[10px] font-semibold text-emerald-500 flex items-center">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
-              Konsultan Diet AI Aktif • GPT Luna 6.0
+              Konsultan Diet AI Aktif
             </p>
           </div>
         </div>
@@ -1138,11 +1138,11 @@
       chatHistory: [
         {
           role: "system",
-          content: "Anda adalah Coach Sandow, spesialis gizi dan pelatih kebugaran personal dari CalorAI ditenagai model AI canggih GPT Luna 6.0. Tugas Anda membantu pengguna dengan rekomendasi diet, perhitungan kalori, resep sehat, teknik latihan gym, dan motivasi ramah ringkas dalam Bahasa Indonesia yang berenergi dan aplikatif."
+          content: "Anda adalah Coach Sandow, spesialis gizi dan pelatih kebugaran personal dari CalorAI. Tugas Anda membantu pengguna dengan rekomendasi diet, perhitungan kalori, resep sehat, teknik latihan gym, dan motivasi ramah ringkas dalam Bahasa Indonesia yang berenergi dan aplikatif."
         },
         {
           role: "assistant",
-          content: "Halo! Saya Coach Sandow, pelatih kebugaran & gizi CalorAI (ditenagai GPT Luna 6.0). Tanyakan apa saja tentang kalori makanan, tips diet, atau program latihan kamu hari ini! 🔥"
+          content: "Halo! Saya Coach Sandow, pelatih kebugaran & gizi personal kamu di CalorAI. Tanyakan apa saja tentang kalori makanan, tips diet, atau program latihan kamu hari ini! 🔥"
         }
       ]
     };
@@ -2141,7 +2141,7 @@
         console.error("Fallback /api/ai failed:", fbErr);
       }
 
-      throw new Error("Gagal terhubung ke layanan GPT Luna 6.0.");
+      throw new Error("Gagal terhubung ke layanan AI.");
     }
 
     function parseAIJson(text) {
@@ -2186,13 +2186,13 @@
         return;
       }
 
-      showToast("Menganalisis gizi via GPT Luna 6.0...");
+      showToast("Menganalisis gizi via AI...");
 
       try {
         const messages = [
           {
             role: "system",
-            content: `Anda adalah pakar nutrisi AI CalorAI ditenagai model GPT Luna 6.0. Ekstraksi makanan dan taksir nilai gizinya secara akurat. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN TANPA TEKS LAIN:
+            content: `Anda adalah pakar nutrisi AI CalorAI. Ekstraksi makanan dan taksir nilai gizinya secara akurat. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN TANPA TEKS LAIN:
 {"name":"Nama Makanan Lengkap","calories":300,"protein":15,"carbs":40,"fat":8}`
           },
           {
@@ -2213,7 +2213,7 @@
         };
 
         displayExtractionPanel();
-        showToast("Analisis GPT Luna 6.0 selesai!");
+        showToast("Analisis AI selesai!");
       } catch (err) {
         console.error(err);
         showToast("Gagal analisis NLP: " + err.message, false);
@@ -2302,7 +2302,7 @@
     }
 
     async function snapFoodImage() {
-      showToast("Menganalisis foto piring via GPT Luna 6.0 Vision...");
+      showToast("Menganalisis foto piring via AI...");
       try {
         // If camera stream is currently active, capture current frame onto canvas
         const video = document.getElementById('camera-stream');
@@ -2337,7 +2337,7 @@
           messages = [
             {
               role: "system",
-              content: `Anda adalah pakar nutrisi AI CalorAI ditenagai model GPT Luna 6.0 Vision. Analisis foto makanan ini secara akurat dan taksir nilai gizinya. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
+              content: `Anda adalah pakar nutrisi AI CalorAI. Analisis foto makanan ini secara akurat dan taksir nilai gizinya. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
 {"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
             },
             {
@@ -2358,7 +2358,7 @@
           messages = [
             {
               role: "system",
-              content: `Anda adalah pakar nutrisi AI CalorAI ditenagai model GPT Luna 6.0. Taksir kalori dan makronutrisi dari nama makanan ini. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
+              content: `Anda adalah pakar nutrisi AI CalorAI. Taksir kalori dan makronutrisi dari nama makanan ini. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
 {"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
             },
             {
@@ -2380,7 +2380,7 @@
         };
 
         displayExtractionPanel();
-        showToast("Foto berhasil dianalisis dengan GPT Luna 6.0!");
+        showToast("Foto berhasil dianalisis!");
       } catch (err) {
         console.error(err);
         showToast("Analisis gagal: " + err.message, false);
@@ -2440,7 +2440,7 @@
         state.chatHistory.push({ role: "assistant", content: botReply });
       } catch (err) {
         removeChatLoading(loadingId);
-        appendChatMessage("Maaf, koneksi ke Coach Sandow AI (GPT Luna 6.0) sedang terganggu. Coba ulangi sesaat lagi.", true);
+        appendChatMessage("Maaf, koneksi ke Coach Sandow AI sedang terganggu. Coba ulangi sesaat lagi.", true);
       }
     }
 
