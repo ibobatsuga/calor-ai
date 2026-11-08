@@ -1,0 +1,3181 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>CalorAI - Kesehatan, Gizi & Fitnes Personal</title>
+  
+  <!-- PWA Meta Tags & Favicon -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FF991C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#FF991C',
+              dark: '#e68512',
+              light: '#FFF5E9',
+              50: '#FFF9F2',
+              100: '#FFF0DE',
+              500: '#FF991C',
+              600: '#e68512',
+            },
+            dark: {
+              DEFAULT: '#191A1D',
+              surface: '#22252A',
+              muted: '#8A9099'
+            }
+          },
+          borderRadius: {
+            '2xl': '20px',
+            '3xl': '28px',
+            '4xl': '36px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Phosphor Icons & FontAwesome -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- ZXing Barcode Scanner Library -->
+  <script src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
+
+  <!-- Supabase JS Client for Auth & OAuth -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Markdown Parser for Coach Sandow Chat -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Database Pangan Indonesia TKPI 2019 (darya-nutrition-db) -->
+  <script src="foods.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      background-color: #F4F5F7;
+    }
+
+    /* Hide scrollbars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Soft card shadow matching fitness reference */
+    .app-card {
+      background: #FFFFFF;
+      border-radius: 28px;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(240, 242, 245, 0.9);
+    }
+
+    /* Orange Hero Card gradient */
+    .hero-card {
+      background: linear-gradient(135deg, #FF991C 0%, #FF8500 100%);
+      border-radius: 32px;
+      color: #FFFFFF;
+      box-shadow: 0 12px 28px -6px rgba(255, 153, 28, 0.35);
+    }
+
+    /* Wave effect for water */
+    @keyframes wave {
+      0% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(-4px) scaleY(1.05); }
+      100% { transform: translateY(0) scaleY(1); }
+    }
+    .wave-effect {
+      animation: wave 3.5s ease-in-out infinite;
+    }
+
+    /* Scanner laser animation */
+    @keyframes scanline {
+      0% { top: 10%; opacity: 0.8; }
+      50% { top: 90%; opacity: 1; }
+      100% { top: 10%; opacity: 0.8; }
+    }
+    .scan-laser {
+      animation: scanline 2.2s ease-in-out infinite;
+    }
+
+    /* Coach Sandow Chatbot Bubble & Markdown Styler */
+    .chat-bot-bubble {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #2D3139;
+      word-break: break-word;
+    }
+    .chat-bot-bubble h1, .chat-bot-bubble h2 {
+      font-size: 13px;
+      font-weight: 800;
+      color: #191A1D;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .chat-bot-bubble h3, .chat-bot-bubble h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF991C;
+      margin-top: 8px;
+      margin-bottom: 3px;
+    }
+    .chat-bot-bubble p {
+      margin-bottom: 8px;
+    }
+    .chat-bot-bubble p:last-child {
+      margin-bottom: 0;
+    }
+    .chat-bot-bubble ul, .chat-bot-bubble ol {
+      margin-left: 18px;
+      margin-bottom: 8px;
+      list-style-type: disc;
+    }
+    .chat-bot-bubble li {
+      margin-bottom: 3px;
+      line-height: 1.45;
+    }
+    .chat-bot-bubble strong {
+      font-weight: 800;
+      color: #111827;
+    }
+    .chat-bot-bubble hr {
+      border: 0;
+      border-top: 1px dashed rgba(0,0,0,0.12);
+      margin: 8px 0;
+    }
+  </style>
+</head>
+
+<body class="m-0 p-0 flex justify-center h-full h-[100dvh] fixed inset-0 overflow-hidden">
+
+  <!-- Mobile Container Shell -->
+  <div class="w-full max-w-[540px] mx-auto h-full h-[100dvh] bg-[#F8F9FA] flex flex-col overflow-hidden relative shadow-2xl">
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast"
+      class="absolute top-5 left-1/2 -translate-x-1/2 z-[100] bg-[#191A1D] text-white px-5 py-3 rounded-full shadow-xl flex items-center space-x-2.5 transition-all duration-300 transform -translate-y-20 opacity-0 pointer-events-none">
+      <i id="toast-icon" class="ph-bold ph-check-circle text-lg text-[#FF991C]"></i>
+      <span id="toast-message" class="text-xs font-bold tracking-wide">Notifikasi</span>
+    </div>
+
+    <!-- ==================== SCREEN: LOGIN / SIGN UP ==================== -->
+    <div id="screen-login" class="absolute inset-0 z-50 bg-[#F8F9FA] flex flex-col justify-between p-6 sm:p-8 overflow-y-auto no-scrollbar">
+      <div class="my-auto py-2">
+        <!-- Logo & Header -->
+        <div class="text-center mb-6">
+          <div class="w-20 h-20 mx-auto mb-3 flex items-center justify-center drop-shadow-md">
+            <img src="logo.png" alt="CalorAI Logo" class="w-full h-full object-contain">
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#191A1D] tracking-tight">Calor<span class="text-[#FF991C]">AI</span></h1>
+          <p class="text-xs text-gray-500 mt-1 font-medium">Nutrisi, Diet & Latihan Fisik Personal</p>
+        </div>
+
+        <!-- Auth Mode Switcher (Masuk vs Daftar) -->
+        <div class="bg-gray-200/70 p-1 rounded-2xl flex mb-4 text-xs font-bold">
+          <button id="tab-auth-login" onclick="switchAuthTab('login')"
+            class="flex-1 py-2.5 rounded-xl transition-all bg-white text-[#191A1D] shadow-xs">
+            Masuk
+          </button>
+          <button id="tab-auth-signup" onclick="switchAuthTab('signup')"
+            class="flex-1 py-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-800">
+            Daftar Akun
+          </button>
+        </div>
+
+        <!-- Google / Gmail OAuth Button via Supabase -->
+        <button onclick="handleGoogleLogin()"
+          class="w-full bg-white border border-gray-200 hover:border-gray-300 text-gray-700 active:scale-[0.98] transition-all py-3 px-4 rounded-2xl font-bold text-xs shadow-xs flex items-center justify-center space-x-2.5 mb-3.5">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Lanjutkan dengan Akun Google</span>
+        </button>
+
+        <!-- Divider -->
+        <div class="flex items-center my-3">
+          <div class="flex-1 border-t border-gray-200/80"></div>
+          <span class="px-3 text-[10px] uppercase tracking-wider font-bold text-gray-400">atau dengan email</span>
+          <div class="flex-1 border-t border-gray-200/80"></div>
+        </div>
+
+        <!-- Form Email & Password -->
+        <div class="space-y-3">
+          <!-- Nama Lengkap (Khusus Sign Up) -->
+          <div id="field-auth-name" class="hidden">
+            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 ml-1">Nama Lengkap</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                <i class="ph-bold ph-user text-base"></i>
+              </span>
+              <input type="text" id="auth-name"
+                class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
+                placeholder="Nama lengkap kamu">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 ml-1">Email</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                <i class="ph-bold ph-envelope-simple text-base"></i>
+              </span>
+              <input type="email" id="auth-email"
+                class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
+                placeholder="nama@email.com">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 ml-1">Password</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                <i class="ph-bold ph-lock text-base"></i>
+              </span>
+              <input type="password" id="auth-password"
+                class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
+                placeholder="••••••••">
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button id="btn-auth-submit" onclick="handleAuthSubmit()"
+            class="w-full bg-[#FF991C] active:scale-[0.98] transition-transform text-white py-3.5 rounded-2xl font-bold shadow-lg shadow-[#FF991C]/30 hover:bg-[#e68512] text-xs">
+            Masuk dengan Email
+          </button>
+
+          <!-- Guest Demo Button -->
+          <button onclick="handleGuestLogin()"
+            class="w-full bg-white border border-gray-200 text-gray-600 active:scale-[0.98] transition-transform py-3 rounded-2xl font-bold hover:bg-gray-50 text-[11px] shadow-xs flex items-center justify-center space-x-1.5">
+            <i class="ph-bold ph-sparkle text-[#FF991C]"></i>
+            <span>Coba Langsung (Akses Tamu / Demo)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <div class="text-center pt-3 pb-1">
+        <p class="text-[10px] text-gray-400 flex items-center justify-center space-x-1">
+          <i class="ph-bold ph-shield-check text-[#FF991C]"></i>
+          <span>Autentikasi terenkripsi aman via Supabase</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== TOP BAR (MATCHING REFERENCE UI) ==================== -->
+    <header class="flex-none z-30 bg-[#F8F9FA]/90 backdrop-blur-md px-6 pt-5 pb-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3.5">
+        <div onclick="openProfileSettingsModal()" title="Profil & Kalkulator BMR/TDEE"
+          class="w-11 h-11 rounded-full bg-white border border-gray-200/80 p-0.5 shadow-sm cursor-pointer active:scale-95 transition-all">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+            alt="Avatar" class="w-full h-full object-cover rounded-full">
+        </div>
+        <div>
+          <p class="text-[11px] font-semibold text-gray-400 leading-tight">Halo Selamat Datang,</p>
+          <h2 id="header-user-name" class="text-lg font-extrabold text-[#191A1D] tracking-tight leading-tight">
+            Martin Buttler
+          </h2>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <!-- Settings & Backup Button -->
+        <button onclick="openProfileSettingsModal()"
+          class="w-10 h-10 bg-white border border-gray-200/80 hover:bg-gray-50 rounded-full flex items-center justify-center text-gray-700 shadow-sm transition-all"
+          title="Pengaturan BMR, TDEE & Backup Data">
+          <i class="ph-bold ph-sliders-horizontal text-lg"></i>
+        </button>
+        <!-- Midnight Cron Trigger -->
+        <button onclick="triggerMidnightCronSimulation()"
+          class="w-10 h-10 bg-white border border-gray-200/80 hover:bg-gray-50 rounded-full flex items-center justify-center text-[#FF991C] shadow-sm transition-all relative"
+          title="Simulasi Midnight Calibration">
+          <i class="ph-bold ph-clock-clockwise text-lg"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== MAIN SCROLLABLE BODY ==================== -->
+    <main class="flex-1 overflow-y-auto no-scrollbar pb-24 px-5 space-y-4">
+
+      <!-- ==================== VIEW 1: DASHBOARD ==================== -->
+      <div id="view-home" class="view-panel space-y-4">
+
+        <!-- Progress Speedometer / Arch Gauge Card (Matching Reference UI) -->
+        <div class="app-card p-5">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Progress Hari Ini</span>
+              <h3 id="dashboard-target-plan" class="text-base font-extrabold text-[#191A1D]">Target Nutrisi & Kalori</h3>
+              <p class="text-[11px] font-medium text-gray-500 flex items-center mt-0.5 space-x-2">
+                <span><i class="ph-bold ph-fire text-[#FF991C] mr-0.5"></i> <span id="summary-target-cal">2,125</span> kkal</span>
+                <span>•</span>
+                <span id="summary-diet-goal" class="text-[#FF991C] font-bold">Defisit 500 kkal</span>
+              </p>
+            </div>
+
+            <!-- Gauge Meter Graphic -->
+            <div class="relative w-28 h-20 flex flex-col items-center justify-end">
+              <svg class="w-28 h-20 overflow-visible" viewBox="0 0 100 60">
+                <!-- Background Arch -->
+                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#E5E7EB" stroke-width="8" stroke-linecap="round"/>
+                <!-- Value Arch -->
+                <path id="gauge-arc" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#FF991C" stroke-width="8" stroke-linecap="round"
+                  stroke-dasharray="125.6" stroke-dashoffset="40" class="transition-all duration-1000"/>
+              </svg>
+              <div class="absolute bottom-1 text-center">
+                <span id="gauge-percentage" class="text-xl font-black text-[#191A1D]">68%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calorie Numbers & Balance Pills -->
+          <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+            <div>
+              <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Sisa Jatah Kalori</p>
+              <div class="flex items-baseline space-x-1.5 mt-0.5">
+                <span id="calories-remaining" class="text-2xl font-black text-[#191A1D]">1,250</span>
+                <span class="text-xs font-semibold text-gray-400">kkal</span>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-2 text-[11px]">
+              <span class="bg-gray-100/80 px-2.5 py-1 rounded-xl font-bold text-gray-600">
+                Makanan: <strong id="total-consumed" class="text-gray-900">875</strong>
+              </span>
+              <span class="bg-[#FFF5E9] px-2.5 py-1 rounded-xl font-bold text-[#FF991C]">
+                Latihan: <strong id="total-burned" class="text-[#FF991C]">-0</strong>
+              </span>
+            </div>
+          </div>
+
+          <!-- Dynamic Macros Bar -->
+          <div class="mt-3.5 space-y-1.5" id="macros-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Recommendation Filter Chips (Matching Reference UI) -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Aksi Cepat</span>
+            <button onclick="switchView('workout')" class="text-xs font-bold text-[#FF991C] hover:underline">Semua Latihan &rarr;</button>
+          </div>
+          <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-0.5">
+            <button onclick="quickAddWorkout('Biceps Curl', 15, 80)"
+              class="bg-[#FF991C] text-white px-4 py-2 rounded-full text-xs font-bold shrink-0 flex items-center space-x-1.5 shadow-sm active:scale-95 transition-all">
+              <i class="ph-bold ph-barbell"></i>
+              <span>Biceps curl</span>
+            </button>
+            <button onclick="quickAddWorkout('Pull Up', 12, 95)"
+              class="bg-white border border-gray-200/80 text-gray-700 hover:border-[#FF991C] px-4 py-2 rounded-full text-xs font-bold shrink-0 flex items-center space-x-1.5 active:scale-95 transition-all">
+              <i class="ph-bold ph-person-simple-walk"></i>
+              <span>Pull Up</span>
+            </button>
+            <button onclick="quickAddWorkout('Sit Up Core', 15, 75)"
+              class="bg-white border border-gray-200/80 text-gray-700 hover:border-[#FF991C] px-4 py-2 rounded-full text-xs font-bold shrink-0 flex items-center space-x-1.5 active:scale-95 transition-all">
+              <i class="ph-bold ph-sneaker-move"></i>
+              <span>Sit Up</span>
+            </button>
+            <button onclick="switchView('logger'); switchLogTab('barcode');"
+              class="bg-white border border-gray-200/80 text-gray-700 hover:border-[#FF991C] px-4 py-2 rounded-full text-xs font-bold shrink-0 flex items-center space-x-1.5 active:scale-95 transition-all">
+              <i class="ph-bold ph-barcode"></i>
+              <span>Scan Barcode</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-Card Action Grid (Gym, Foto Piring, Tanya AI) -->
+        <div class="grid grid-cols-2 gap-3 min-h-[220px]">
+          <!-- Kartu 1: Gym (Kiri - Tinggi Penuh) -->
+          <div class="hero-card p-4 sm:p-5 relative overflow-hidden flex flex-col justify-between cursor-pointer active:scale-[0.98] transition-all rounded-[28px] shadow-lg shadow-[#FF991C]/25"
+               onclick="switchView('workout')">
+            <div class="flex items-start justify-between z-10">
+              <span class="inline-flex items-center text-[10px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-white">
+                <i class="ph-bold ph-barbell mr-1"></i> Gym
+              </span>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-xs shrink-0">
+                <i class="ph-bold ph-arrow-up-right"></i>
+              </div>
+            </div>
+
+            <div class="z-10 my-2">
+              <h3 class="text-base sm:text-lg font-black text-white leading-tight">Stronger Body<br>Starts Here</h3>
+              <div class="flex items-center space-x-2 text-[10px] text-white/90 font-bold mt-1.5">
+                <span class="flex items-center"><i class="ph-bold ph-timer mr-1"></i> 20 menit</span>
+                <span>•</span>
+                <span>Semua Level</span>
+              </div>
+            </div>
+
+            <p class="text-[10px] sm:text-[11px] text-white/85 font-medium leading-snug z-10">
+              Katalog 200+ latihan gym terstruktur dengan perhitungan kalori otomatis
+            </p>
+
+            <!-- Watermark Dumbbell Transparan -->
+            <i class="ph-bold ph-barbell absolute -right-4 -bottom-4 text-white/20 text-8xl pointer-events-none transform -rotate-12"></i>
+          </div>
+
+          <!-- Kolom Kanan: 2 Kartu Menumpuk (Foto Piring & Tanya AI) -->
+          <div class="flex flex-col gap-3">
+            <!-- Kartu 2: Foto Piring -->
+            <div class="hero-card p-3.5 sm:p-4 relative overflow-hidden flex flex-col justify-between flex-1 cursor-pointer active:scale-[0.98] transition-all rounded-[24px] shadow-md shadow-[#FF991C]/20"
+                 onclick="switchView('logger'); switchLogTab('camera');">
+              <div class="flex items-start justify-between z-10">
+                <span class="inline-flex items-center text-[9px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-white">
+                  <i class="ph-bold ph-camera mr-1"></i> Foto Piring
+                </span>
+                <div class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-[10px] shrink-0">
+                  <i class="ph-bold ph-arrow-up-right"></i>
+                </div>
+              </div>
+
+              <div class="z-10 mt-1.5">
+                <h4 class="text-xs sm:text-sm font-black text-white leading-tight">Scan Gizi AI</h4>
+                <p class="text-[9.5px] sm:text-[10px] text-white/85 font-medium leading-tight mt-0.5">
+                  Foto makanan & kenali kalori otomatis
+                </p>
+              </div>
+
+              <!-- Watermark Kamera Transparan -->
+              <i class="ph-bold ph-camera absolute -right-2 -bottom-2 text-white/20 text-6xl pointer-events-none transform rotate-12"></i>
+            </div>
+
+            <!-- Kartu 3: Tanya AI -->
+            <div class="hero-card p-3.5 sm:p-4 relative overflow-hidden flex flex-col justify-between flex-1 cursor-pointer active:scale-[0.98] transition-all rounded-[24px] shadow-md shadow-[#FF991C]/20"
+                 onclick="switchView('chat')">
+              <div class="flex items-start justify-between z-10">
+                <span class="inline-flex items-center text-[9px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-white">
+                  <i class="ph-bold ph-sparkle mr-1"></i> Tanya AI
+                </span>
+                <div class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-[10px] shrink-0">
+                  <i class="ph-bold ph-arrow-up-right"></i>
+                </div>
+              </div>
+
+              <div class="z-10 mt-1.5">
+                <h4 class="text-xs sm:text-sm font-black text-white leading-tight">Coach Sandow</h4>
+                <p class="text-[9.5px] sm:text-[10px] text-white/85 font-medium leading-tight mt-0.5">
+                  Konsultasi diet & motivasi personal
+                </p>
+              </div>
+
+              <!-- Watermark Chat AI Transparan -->
+              <i class="ph-bold ph-chat-circle-dots absolute -right-2 -bottom-2 text-white/20 text-6xl pointer-events-none transform -rotate-6"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Bento Grid: Water + Weight + Fasting -->
+        <div class="space-y-2">
+          <span class="text-xs font-bold text-gray-500 uppercase tracking-wider px-1">Aktivitas & Hidrasi</span>
+          <div class="grid grid-cols-2 gap-3.5">
+
+            <!-- Bento 1: Water Tracker -->
+            <div class="app-card p-4 flex flex-col justify-between relative overflow-hidden h-[165px]">
+              <div class="z-10">
+                <div class="flex items-center space-x-1.5 text-sky-600 text-xs font-bold">
+                  <i class="ph-bold ph-drop"></i>
+                  <span>Water Tracker</span>
+                </div>
+                <h4 id="water-count" class="text-2xl font-black text-[#191A1D] mt-1.5">1.2 L</h4>
+                <p class="text-[10px] text-gray-400 font-semibold">Target: 2.5 Liter</p>
+              </div>
+              <!-- Wave Visual Background -->
+              <div class="absolute inset-x-0 bottom-0 h-14 bg-sky-100/60 wave-effect pointer-events-none rounded-b-[28px]"></div>
+              <!-- Action Button -->
+              <button onclick="addWater()"
+                class="z-10 w-full bg-sky-50 hover:bg-sky-100 text-sky-700 py-2 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1 active:scale-95 transition-all border border-sky-200/50">
+                <i class="ph-bold ph-plus"></i>
+                <span>+ 250 ml</span>
+              </button>
+            </div>
+
+            <!-- Bento 2: Weight Tracker -->
+            <div class="app-card p-4 flex flex-col justify-between h-[165px]">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-400 font-bold">Berat Aktual</span>
+                  <button onclick="openWeightModal()" class="text-[#FF991C] hover:text-[#e68512]">
+                    <i class="ph-bold ph-pencil-simple-line text-sm"></i>
+                  </button>
+                </div>
+                <div class="flex items-baseline space-x-1 mt-1.5">
+                  <span id="current-weight" class="text-2xl font-black text-[#191A1D]">68.5</span>
+                  <span class="text-xs font-bold text-gray-400">kg</span>
+                </div>
+                <p class="text-[10px] text-emerald-600 font-bold mt-0.5">&darr; -0.3 kg minggu ini</p>
+              </div>
+
+              <!-- Mini sparkline SVG -->
+              <div class="h-10 w-full flex items-end">
+                <svg class="w-full h-8" viewBox="0 0 100 30">
+                  <path d="M 0 25 Q 25 10 50 18 T 100 8" fill="none" stroke="#FF991C" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <button onclick="openWeightModal()"
+                class="w-full bg-gray-50 hover:bg-gray-100 text-gray-700 py-2 rounded-2xl text-xs font-bold text-center active:scale-95 transition-all">
+                Update Timbangan
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Recent Logs: Makanan Hari Ini -->
+        <div class="app-card p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-[#191A1D] text-sm flex items-center space-x-1.5">
+              <i class="ph-bold ph-fork-knife text-[#FF991C]"></i>
+              <span>Catatan Makanan Hari Ini</span>
+            </h3>
+            <button onclick="switchView('logger')" class="text-xs font-bold text-[#FF991C] hover:underline">
+              + Catat Makanan
+            </button>
+          </div>
+
+          <div id="recent-logs-list" class="space-y-2">
+            <!-- Diisi via JS -->
+          </div>
+        </div>
+
+        <!-- Recent Workouts: Latihan Hari Ini -->
+        <div class="app-card p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-[#191A1D] text-sm flex items-center space-x-1.5">
+              <i class="ph-bold ph-barbell text-[#FF991C]"></i>
+              <span>Latihan Fisik Hari Ini</span>
+            </h3>
+            <button onclick="switchView('workout')" class="text-xs font-bold text-[#FF991C] hover:underline">
+              + Catat Gym
+            </button>
+          </div>
+
+          <div id="recent-workouts-list" class="space-y-2">
+            <!-- Diisi via JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== VIEW 2: SMART LOGGER (FOOD) ==================== -->
+      <div id="view-logger" class="view-panel space-y-4 hidden">
+        <div class="text-center pt-2">
+          <h3 class="text-xl font-extrabold text-[#191A1D]">Pencatatan Gizi & Makanan</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Tulis bebas, foto makanan, atau cari database</p>
+        </div>
+
+        <!-- 4-Way Sub-Menu Tabs inside Catat Gizi -->
+        <div class="grid grid-cols-4 gap-1 bg-gray-200/60 p-1 rounded-2xl">
+          <button onclick="switchLogTab('nlp')" id="btn-tab-nlp"
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all bg-white text-[#FF991C] shadow-sm">
+            AI Teks
+          </button>
+          <button onclick="switchLogTab('camera')" id="btn-tab-camera"
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900">
+            Foto Piring
+          </button>
+          <button onclick="switchLogTab('barcode')" id="btn-tab-barcode"
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900">
+            Scan Barcode
+          </button>
+          <button onclick="switchLogTab('manual')" id="btn-tab-manual"
+            class="py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900">
+            Cari Database
+          </button>
+        </div>
+
+        <!-- Tab 1: NLP & Voice Logging (Fud AI inspired) -->
+        <div id="log-tab-nlp" class="space-y-3">
+          <div class="app-card p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2 text-[#FF991C] text-xs font-bold uppercase tracking-wider">
+                <i class="ph-bold ph-sparkle text-base"></i>
+                <span>Natural Language Input</span>
+              </div>
+              <!-- Voice Recognition Mic Button -->
+              <button type="button" id="btn-voice-nlp" onclick="toggleVoiceLogging()"
+                class="flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#FFF5E9] text-[#FF991C] hover:bg-[#FFE8CC] transition-all border border-[#FF991C]/30 active:scale-95 shadow-sm">
+                <i class="ph-bold ph-microphone text-sm" id="mic-icon"></i>
+                <span id="mic-label">Bicara (Voice)</span>
+              </button>
+            </div>
+
+            <textarea id="nlp-textarea"
+              class="w-full h-32 p-4 bg-gray-50 border border-gray-200/80 rounded-2xl text-xs focus:outline-none focus:ring-2 focus:ring-[#FF991C] font-medium text-gray-800"
+              placeholder="Contoh: 'Tadi sarapan 1 mangkok bubur ayam tanpa kerupuk dan 1 butir telur rebus' atau tekan tombol Bicara di atas!"></textarea>
+
+            <button onclick="processNLP()"
+              class="w-full bg-[#FF991C] hover:bg-[#e68512] active:scale-[0.99] text-white py-3.5 rounded-2xl font-bold flex items-center justify-center space-x-2 text-xs shadow-md shadow-[#FF991C]/25 transition-all">
+              <i class="ph-bold ph-magic-wand text-base"></i>
+              <span>Ekstraksi Gizi dengan AI</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Foto Makanan AI -->
+        <div id="log-tab-camera" class="space-y-3 hidden">
+          <div class="app-card p-5 space-y-4 text-center">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2 text-[#FF991C] text-xs font-bold uppercase tracking-wider">
+                <i class="ph-bold ph-camera text-base"></i>
+                <span>Foto Makanan Langsung</span>
+              </div>
+              <button onclick="document.getElementById('camera-file-input').click()"
+                class="text-[11px] font-bold text-gray-600 hover:text-gray-900 border border-gray-200 px-3 py-1 rounded-full transition-all">
+                Unggah File
+              </button>
+            </div>
+
+            <!-- Viewfinder -->
+            <div class="w-full aspect-video bg-gray-900 rounded-2xl relative overflow-hidden flex flex-col items-center justify-center text-white">
+              <video id="camera-stream" autoplay playsinline class="absolute inset-0 w-full h-full object-cover hidden"></video>
+              <div id="camera-preview" class="absolute inset-0 bg-cover bg-center hidden"></div>
+              
+              <div id="camera-placeholder" class="z-10 flex flex-col items-center justify-center p-4">
+                <i class="ph-bold ph-camera-slash text-3xl text-gray-400 mb-2"></i>
+                <p class="text-xs text-gray-400">Kamera siap diaktifkan</p>
+                <button onclick="startCamera()"
+                  class="mt-2.5 bg-white/10 hover:bg-white/20 px-4 py-1.5 rounded-full text-xs font-bold transition-all border border-white/20">
+                  Buka Kamera
+                </button>
+              </div>
+
+              <canvas id="camera-canvas" class="hidden"></canvas>
+
+              <!-- Crosshair -->
+              <div class="absolute w-24 h-24 border-2 border-white/60 border-dashed rounded-2xl pointer-events-none flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-[#FF991C] rounded-full animate-ping"></div>
+              </div>
+
+              <!-- Overlay -->
+              <div class="absolute bottom-2.5 inset-x-3 bg-black/60 backdrop-blur-md p-2 rounded-xl text-[10px] flex items-center justify-center z-10">
+                <span id="camera-status-label" class="font-semibold text-white">Siap mengambil foto</span>
+              </div>
+            </div>
+
+            <input type="file" id="camera-file-input" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+
+            <!-- Presets -->
+            <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
+              <button onclick="setCameraPreset('steak', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80', 'Steak Sapi Panggang')"
+                class="bg-[#FFF5E9] border border-[#FF991C]/30 text-[#FF991C] px-3 py-1.5 rounded-full text-xs font-bold shrink-0">Steak Sapi</button>
+              <button onclick="setCameraPreset('salad', 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&q=80', 'Salad Sayuran Alpukat')"
+                class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full text-xs font-bold shrink-0">Fresh Salad</button>
+              <button onclick="setCameraPreset('pancake', 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=300&q=80', 'Pancake Pisang Cokelat')"
+                class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full text-xs font-bold shrink-0">Pancake</button>
+            </div>
+
+            <button onclick="snapFoodImage()"
+              class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold flex items-center justify-center space-x-2 text-xs shadow-md shadow-[#FF991C]/25 transition-all">
+              <i class="ph-bold ph-aperture text-base"></i>
+              <span>Foto & Analisis Gizi</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 3: Pindai Barcode Produk -->
+        <div id="log-tab-barcode" class="space-y-3 hidden">
+          <!-- Barcode Viewfinder Card -->
+          <div class="app-card p-5 space-y-4 text-center">
+            <div class="w-full aspect-[4/3] bg-black rounded-2xl relative overflow-hidden flex flex-col items-center justify-center text-white">
+              <video id="barcode-scanner-video" class="absolute inset-0 w-full h-full object-cover"></video>
+
+              <!-- Laser Scanning Line -->
+              <div class="absolute inset-x-8 h-0.5 bg-[#FF991C] shadow-[0_0_12px_#FF991C] scan-laser z-20"></div>
+
+              <!-- Target Reticle Box -->
+              <div class="w-48 h-28 border-2 border-white/80 rounded-2xl relative z-10 flex items-center justify-center">
+                <span class="text-[10px] bg-black/60 px-2 py-0.5 rounded text-white font-mono">Posisikan Barcode di Sini</span>
+              </div>
+
+              <!-- Status Indicator -->
+              <div class="absolute bottom-2 inset-x-3 bg-black/70 backdrop-blur-md p-2 rounded-xl text-[10px] flex items-center justify-center z-10">
+                <span id="barcode-status-text" class="text-white font-medium">Kamera aktif mendeteksi...</span>
+              </div>
+            </div>
+
+            <!-- Controls & Manual Barcode Input Fallback -->
+            <div class="space-y-2 pt-1">
+              <div class="flex space-x-2">
+                <input type="text" id="manual-barcode-input" placeholder="Atau ketik angka barcode (8992761...)"
+                  class="flex-1 px-3.5 py-2.5 bg-gray-50 border border-gray-200/80 rounded-xl text-xs font-mono text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+                <button onclick="handleManualBarcodeSubmit()"
+                  class="bg-[#191A1D] text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-black active:scale-95 transition-all">
+                  Cek
+                </button>
+              </div>
+              
+              <button onclick="toggleBarcodeCamera()" id="btn-toggle-barcode-cam"
+                class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5">
+                <i class="ph-bold ph-camera-rotate"></i>
+                <span>Ganti Kamera / Refresh Scanner</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Scanned Product Result Card -->
+          <div id="barcode-result-card" class="app-card p-5 space-y-4 hidden border-2 border-[#FF991C]">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-emerald-600 font-bold uppercase tracking-wider flex items-center">
+                <i class="ph-bold ph-check-circle mr-1"></i> Produk Ditemukan!
+              </span>
+              <button onclick="closeBarcodeResult()" class="text-gray-400 hover:text-gray-600 text-sm">
+                <i class="ph-bold ph-x"></i>
+              </button>
+            </div>
+
+            <div class="flex items-start space-x-3.5">
+              <div id="scanned-product-img" class="w-16 h-16 rounded-xl bg-gray-100 bg-cover bg-center shrink-0 border border-gray-200"></div>
+              <div class="flex-1">
+                <h4 id="scanned-product-name" class="font-extrabold text-[#191A1D] text-sm">Indomie Goreng Original</h4>
+                <p id="scanned-product-brand" class="text-xs text-gray-500 font-medium">Indofood</p>
+                <p class="text-[10px] text-gray-400 mt-1">Barcode: <span id="scanned-product-code" class="font-mono">8992761111018</span></p>
+              </div>
+            </div>
+
+            <!-- Gram / Portion Slider -->
+            <div class="bg-[#F8F9FA] p-3.5 rounded-2xl space-y-2 border border-gray-100">
+              <div class="flex justify-between text-xs font-bold">
+                <span class="text-gray-600">Porsi Dikonsumsi:</span>
+                <span class="text-[#FF991C]"><span id="scanned-portion-label">100</span> gram / ml</span>
+              </div>
+              <input type="range" id="scanned-portion-slider" min="10" max="500" step="10" value="100" oninput="updateScannedPortion()"
+                class="w-full accent-[#FF991C]">
+
+              <!-- Scaled Nutrition Grid -->
+              <div class="grid grid-cols-4 gap-1.5 text-center text-[10px] font-bold pt-1">
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Kalori</p>
+                  <p class="text-xs font-black text-[#FF991C]" id="scanned-scaled-cal">380</p>
+                </div>
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Protein</p>
+                  <p class="text-xs font-black text-gray-800" id="scanned-scaled-p">8g</p>
+                </div>
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Karbo</p>
+                  <p class="text-xs font-black text-gray-800" id="scanned-scaled-c">54g</p>
+                </div>
+                <div class="bg-white p-2 rounded-xl shadow-xs">
+                  <p class="text-gray-400 text-[9px]">Lemak</p>
+                  <p class="text-xs font-black text-gray-800" id="scanned-scaled-f">14g</p>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="commitScannedFood()"
+              class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold text-xs shadow-md shadow-[#FF991C]/25 transition-all">
+              Tambahkan ke Log Nutrisi
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 4: Pencarian Database Makanan -->
+        <div id="log-tab-manual" class="space-y-3 hidden">
+          <div class="app-card p-5 space-y-3">
+            <div class="flex space-x-2">
+              <div class="relative flex-1">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                  <i class="ph-bold ph-magnifying-glass"></i>
+                </span>
+                <input type="text" id="manual-search-input" onkeyup="handleManualSearch()"
+                  class="w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-200/80 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#FF991C] text-xs font-semibold text-gray-800"
+                  placeholder="Cari makanan (Nasi, Telur, Indomie...)">
+              </div>
+              <button onclick="searchFoodOnline()"
+                class="bg-[#191A1D] text-white px-3.5 py-3 rounded-2xl text-xs font-bold shrink-0 hover:bg-black active:scale-95 transition-all flex items-center space-x-1 shadow-sm">
+                <i class="ph-bold ph-globe"></i>
+                <span>Cari Online</span>
+              </button>
+            </div>
+            
+            <div id="online-search-status" class="text-[11px] text-gray-400 font-medium hidden"></div>
+
+            <div class="divide-y divide-gray-100 max-h-60 overflow-y-auto no-scrollbar" id="manual-search-results">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Validation Output Panel -->
+        <div id="ai-extraction-panel" class="app-card p-5 space-y-4 hidden border-2 border-[#FF991C]/40">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-[#FF991C] font-bold uppercase tracking-wider flex items-center">
+              <i class="ph-bold ph-check-circle mr-1 text-sm"></i> Nutrisi Terdeteksi AI
+            </span>
+            <button onclick="closeExtractionPanel()" class="text-gray-400 hover:text-gray-600 text-sm">
+              <i class="ph-bold ph-x"></i>
+            </button>
+          </div>
+
+          <div class="bg-[#F8F9FA] p-4 rounded-2xl space-y-3 border border-gray-100">
+            <div class="flex justify-between items-center">
+              <div>
+                <h4 id="extracted-food-name" class="font-extrabold text-[#191A1D] text-sm">Steak Sapi Panggang</h4>
+                <p class="text-[10px] text-gray-400 font-medium">Hasil estimasi AI & database gizi</p>
+              </div>
+              <div class="text-right">
+                <span id="extracted-calories" class="text-xl font-black text-[#FF991C]">250</span>
+                <span class="text-xs font-semibold text-gray-500">kkal</span>
+              </div>
+            </div>
+
+            <!-- Macros -->
+            <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
+              <div class="bg-[#FFF5E9] p-2.5 rounded-xl text-[#FF991C]">
+                <p class="text-[9px] uppercase tracking-wider">Protein</p>
+                <p class="text-sm font-black mt-0.5" id="extracted-protein">24g</p>
+              </div>
+              <div class="bg-amber-50 p-2.5 rounded-xl text-amber-700">
+                <p class="text-[9px] uppercase tracking-wider">Karbo</p>
+                <p class="text-sm font-black mt-0.5" id="extracted-carbs">12g</p>
+              </div>
+              <div class="bg-rose-50 p-2.5 rounded-xl text-rose-700">
+                <p class="text-[9px] uppercase tracking-wider">Lemak</p>
+                <p class="text-sm font-black mt-0.5" id="extracted-fat">8g</p>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="commitAILog()"
+            class="w-full bg-[#191A1D] hover:bg-black text-white py-3.5 rounded-2xl font-bold text-xs shadow-md transition-all active:scale-[0.99]">
+            Simpan ke Log Makanan Hari Ini
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ==================== VIEW 3: GYM & WORKOUT (STAGE 3) ==================== -->
+      <div id="view-workout" class="view-panel space-y-4 hidden">
+        <div class="text-center pt-2">
+          <h3 class="text-xl font-extrabold text-[#191A1D]">Olahraga & Latihan Fisik</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Katalog 200+ latihan gym wger & pencatat kalori terbakar</p>
+        </div>
+
+        <!-- Muscle Filter Chips (Matching Reference UI Pills) -->
+        <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
+          <button onclick="filterWorkoutCategory('all')" id="cat-all"
+            class="workout-cat-btn bg-[#FF991C] text-white px-4 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm">
+            Semua
+          </button>
+          <button onclick="filterWorkoutCategory('chest')" id="cat-chest"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Dada (Chest)
+          </button>
+          <button onclick="filterWorkoutCategory('back')" id="cat-back"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Punggung (Back)
+          </button>
+          <button onclick="filterWorkoutCategory('legs')" id="cat-legs"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Kaki (Legs)
+          </button>
+          <button onclick="filterWorkoutCategory('arms')" id="cat-arms"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Lengan (Arms)
+          </button>
+          <button onclick="filterWorkoutCategory('core')" id="cat-core"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Perut (Core)
+          </button>
+          <button onclick="filterWorkoutCategory('cardio')" id="cat-cardio"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Kardio
+          </button>
+        </div>
+
+        <!-- Workout Form Input Card -->
+        <div class="app-card p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Catat Latihan Baru</span>
+            <span id="calc-burn-preview" class="text-xs font-extrabold text-[#FF991C]">Est. Terbakar: ~0 kkal</span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1">Nama Latihan</label>
+              <select id="workout-select-exercise" onchange="handleExerciseSelectChange()"
+                class="w-full p-3 bg-gray-50 border border-gray-200/80 rounded-2xl text-xs font-bold text-gray-800 focus:ring-2 focus:ring-[#FF991C] focus:outline-none">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <!-- Parameters Grid -->
+            <div class="grid grid-cols-3 gap-2.5">
+              <div>
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Beban (kg)</label>
+                <input type="number" id="workout-weight" value="20" oninput="updateWorkoutBurnPreview()"
+                  class="w-full p-2.5 bg-gray-50 border border-gray-200/80 rounded-xl text-center text-xs font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Reps</label>
+                <input type="number" id="workout-reps" value="12" oninput="updateWorkoutBurnPreview()"
+                  class="w-full p-2.5 bg-gray-50 border border-gray-200/80 rounded-xl text-center text-xs font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Sets / Menit</label>
+                <input type="number" id="workout-sets" value="3" oninput="updateWorkoutBurnPreview()"
+                  class="w-full p-2.5 bg-gray-50 border border-gray-200/80 rounded-xl text-center text-xs font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+              </div>
+            </div>
+
+            <button onclick="commitWorkoutLog()"
+              class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold text-xs shadow-md shadow-[#FF991C]/25 transition-all flex items-center justify-center space-x-2 active:scale-[0.99]">
+              <i class="ph-bold ph-plus-circle text-base"></i>
+              <span>Simpan & Kurangi Sisa Kalori</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Exercise Catalog Grid (from wger) -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Katalog Gerakan Populer</span>
+            <span class="text-[11px] text-gray-400 font-semibold" id="catalog-count-label">30 Gerakan</span>
+          </div>
+          <div id="exercise-catalog-grid" class="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto no-scrollbar">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== VIEW 4: DIET & FASTING ==================== -->
+      <div id="view-diet" class="view-panel space-y-4 hidden">
+        
+        <!-- Period Switcher Pills (Matching Reference UI: Day / Weekly / Monthly) -->
+        <div class="flex justify-center">
+          <div class="inline-flex bg-white p-1 rounded-full border border-gray-200/80 shadow-xs">
+            <button class="px-5 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-800">Day</button>
+            <button class="px-5 py-1.5 rounded-full text-xs font-bold bg-[#FF991C] text-white shadow-xs">Weekly</button>
+            <button class="px-5 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-800">Monthly</button>
+          </div>
+        </div>
+
+        <!-- Fasting Timer Widget (Eatshimo inspired) -->
+        <div class="hero-card p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
+                <i class="ph-bold ph-timer text-lg"></i>
+              </div>
+              <span class="text-xs font-bold uppercase tracking-wider text-white/90">Intermittent Fasting</span>
+            </div>
+            <span id="fasting-status-badge" class="bg-white/20 px-3 py-1 rounded-full text-[10px] font-black uppercase text-white">
+              Jendela Makan
+            </span>
+          </div>
+
+          <div>
+            <h4 id="fasting-timer-display" class="text-3xl font-black text-white tracking-tight">16 : 00 : 00</h4>
+            <p id="fasting-timer-subtitle" class="text-xs text-white/80 mt-1 font-medium">Target: 16 Jam Puasa (Metode 16:8 LeanGains)</p>
+          </div>
+
+          <div class="flex space-x-2 pt-1">
+            <button id="btn-toggle-fasting" onclick="toggleFasting()"
+              class="flex-1 bg-white text-[#191A1D] py-3 rounded-2xl text-xs font-extrabold hover:bg-gray-100 active:scale-95 transition-all shadow-md">
+              Mulai Puasa
+            </button>
+            <button onclick="setFastingPreset(16)"
+              class="bg-white/20 hover:bg-white/30 text-white px-3.5 py-3 rounded-2xl text-xs font-bold transition-all">
+              16:8
+            </button>
+            <button onclick="setFastingPreset(18)"
+              class="bg-white/20 hover:bg-white/30 text-white px-3.5 py-3 rounded-2xl text-xs font-bold transition-all">
+              18:6
+            </button>
+          </div>
+        </div>
+
+        <!-- Program Management -->
+        <div class="app-card p-5 space-y-3">
+          <h4 class="font-extrabold text-[#191A1D] text-sm">Pilih Program Diet</h4>
+
+          <div class="space-y-2.5">
+            <div onclick="changeDietProgram(30, 2125)"
+              class="hover:border-[#FF991C] border-2 border-transparent bg-gray-50 rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-[#FFF5E9] flex items-center justify-center text-[#FF991C]">
+                  <i class="ph-bold ph-fire text-lg"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-xs text-[#191A1D]">30-Day Shred & Fat Burner</p>
+                  <p class="text-[10px] text-gray-400">Target defisit bertahap untuk pembakaran lemak</p>
+                </div>
+              </div>
+              <span class="text-xs font-black text-gray-700">2,125 kkal</span>
+            </div>
+
+            <div onclick="changeDietProgram(60, 2350)"
+              class="hover:border-[#FF991C] border-2 border-transparent bg-gray-50 rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                  <i class="ph-bold ph-barbell text-lg"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-xs text-[#191A1D]">60-Day Lean Muscle Bulk</p>
+                  <p class="text-[10px] text-gray-400">Surplus terkontrol & protein tinggi</p>
+                </div>
+              </div>
+              <span class="text-xs font-black text-gray-700">2,350 kkal</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== VIEW 6: COACH SANDOW AI ==================== -->
+      <div id="view-chat" class="view-panel flex flex-col h-[75dvh] app-card overflow-hidden hidden">
+        <!-- Chat Header -->
+        <div class="bg-white p-4 border-b border-gray-100 flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-full bg-[#FFF5E9] border border-[#FF991C]/30 p-1 flex items-center justify-center shadow-sm">
+            <img src="logo.png" alt="CalorAI" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h4 class="font-bold text-[#191A1D] text-sm">Coach Sandow</h4>
+            <p class="text-[10px] font-semibold text-emerald-500 flex items-center">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
+              Konsultan Diet AI Aktif
+            </p>
+          </div>
+        </div>
+
+        <!-- Chat Stream -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 no-scrollbar text-xs">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Suggestions -->
+        <div class="bg-gray-50 py-2 px-3 flex space-x-2 overflow-x-auto no-scrollbar border-t border-gray-100">
+          <button onclick="sendQuickMessage('Berapa sisa kalori dan makronutrisi saya hari ini?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            📊 Cek Sisa Kalori Hari Ini
+          </button>
+          <button onclick="sendQuickMessage('Evaluasi makanan yang sudah saya catat hari ini, apakah gizinya sudah seimbang?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🥗 Evaluasi Menu Hari Ini
+          </button>
+          <button onclick="sendQuickMessage('Rekomendasikan menu makan sehat khas Indonesia sesuai sisa kalori dan kebutuhan protein saya')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🍗 Ide Menu Sesuai Target
+          </button>
+          <button onclick="sendQuickMessage('Berdasarkan data profil fisik dan tujuan saya, program latihan apa yang disarankan hari ini?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🏋️ Saran Latihan Sesuai Profil
+          </button>
+        </div>
+
+        <!-- Input Bar -->
+        <div class="bg-white p-3 flex items-center space-x-2 border-t border-gray-100">
+          <input type="text" id="chat-input" onkeyup="if(event.key === 'Enter') sendChatMessage()"
+            class="flex-1 bg-gray-50 border border-gray-200/80 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-[#FF991C] font-semibold text-gray-800"
+            placeholder="Tanyakan pola makan atau latihan...">
+          <button onclick="sendChatMessage()"
+            class="w-10 h-10 bg-[#FF991C] hover:bg-[#e68512] text-white rounded-2xl flex items-center justify-center shadow-md shadow-[#FF991C]/25 active:scale-95 transition-all">
+            <i class="ph-bold ph-paper-plane-tilt text-base"></i>
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ==================== FLOATING BOTTOM NAVIGATION BAR ==================== -->
+    <nav class="absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-gray-100/80 py-2.5 px-3 flex items-center justify-between z-40">
+      <button onclick="switchView('home')" id="nav-home"
+        class="flex flex-col items-center space-y-1 text-[#FF991C] transition-colors flex-1">
+        <i class="ph-bold ph-house-line text-xl"></i>
+        <span class="text-[9px] font-bold">Dashboard</span>
+      </button>
+
+      <button onclick="switchView('logger')" id="nav-logger"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors flex-1">
+        <i class="ph-bold ph-plus-circle text-xl"></i>
+        <span class="text-[9px] font-bold">Catat Gizi</span>
+      </button>
+
+      <button onclick="switchView('workout')" id="nav-workout"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors flex-1">
+        <i class="ph-bold ph-barbell text-xl"></i>
+        <span class="text-[9px] font-bold">Gym & Fit</span>
+      </button>
+
+      <button onclick="switchView('diet')" id="nav-diet"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors flex-1">
+        <i class="ph-bold ph-calendar text-xl"></i>
+        <span class="text-[9px] font-bold">Rencana</span>
+      </button>
+
+      <button onclick="switchView('chat')" id="nav-chat"
+        class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-600 transition-colors flex-1">
+        <i class="ph-bold ph-chat-circle text-xl"></i>
+        <span class="text-[9px] font-bold">Tanya AI</span>
+      </button>
+    </nav>
+
+    <!-- ==================== MODAL 1: UPDATE WEIGHT ==================== -->
+    <div id="weight-modal"
+      class="absolute inset-0 bg-black/50 z-50 flex items-end justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+      <div class="bg-white w-full rounded-t-[32px] p-6 space-y-4 transform translate-y-full transition-transform duration-300">
+        <div class="flex justify-between items-center">
+          <h4 class="font-extrabold text-[#191A1D] text-base">Catat Berat Badan Baru</h4>
+          <button onclick="closeWeightModal()" class="text-gray-400 hover:text-gray-600"><i class="ph-bold ph-x text-lg"></i></button>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center space-x-3 bg-gray-50 border border-gray-200/80 rounded-2xl px-4 py-3">
+            <span class="text-xs font-bold text-gray-500 uppercase">Berat (kg):</span>
+            <input type="number" id="new-weight-input" step="0.1"
+              class="flex-1 bg-transparent border-none text-right font-black text-[#191A1D] text-xl focus:outline-none"
+              placeholder="68.5">
+          </div>
+
+          <button onclick="saveWeight()"
+            class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold shadow-md shadow-[#FF991C]/25 text-xs">
+            Simpan Berat Badan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL 2: PROFILE, BMR/TDEE & DATA BACKUP ==================== -->
+    <div id="profile-modal"
+      class="absolute inset-0 bg-black/50 z-50 flex items-end justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+      <div class="bg-white w-full max-h-[85vh] overflow-y-auto no-scrollbar rounded-t-[36px] p-6 space-y-5 transform translate-y-full transition-transform duration-300">
+        <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+          <div>
+            <h4 class="font-extrabold text-[#191A1D] text-base">Profil & Kedaulatan Data</h4>
+            <p class="text-[10px] text-gray-400 font-medium">Kalkulator BMR/TDEE Ilmiah & Backup Lokal</p>
+          </div>
+          <button onclick="closeProfileSettingsModal()" class="text-gray-400 hover:text-gray-600">
+            <i class="ph-bold ph-x text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Section 1: Dynamic Mifflin-St Jeor Calculator (Open Macros inspired) -->
+        <div class="space-y-3 bg-[#F8F9FA] p-4 rounded-2xl border border-gray-100">
+          <span class="text-xs font-bold text-[#FF991C] uppercase tracking-wider flex items-center">
+            <i class="ph-bold ph-calculator mr-1"></i> Kalkulator Kalori Ilmiah (Mifflin-St Jeor)
+          </span>
+
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Gender</label>
+              <select id="calc-gender" class="w-full p-2 bg-white border border-gray-200 rounded-xl font-bold">
+                <option value="male">Pria</option>
+                <option value="female">Wanita</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Usia (Tahun)</label>
+              <input type="number" id="calc-age" value="26" class="w-full p-2 bg-white border border-gray-200 rounded-xl font-bold text-center">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tinggi (cm)</label>
+              <input type="number" id="calc-height" value="172" class="w-full p-2 bg-white border border-gray-200 rounded-xl font-bold text-center">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Berat (kg)</label>
+              <input type="number" id="calc-weight" value="68.5" step="0.1" class="w-full p-2 bg-white border border-gray-200 rounded-xl font-bold text-center">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tingkat Aktivitas Harian</label>
+            <select id="calc-activity" class="w-full p-2 bg-white border border-gray-200 rounded-xl font-bold text-xs">
+              <option value="1.2">Sedentary (Banyak duduk / minim gerak)</option>
+              <option value="1.375" selected>Ringan (Olahraga 1-3 hari/minggu)</option>
+              <option value="1.55">Moderat (Olahraga 3-5 hari/minggu)</option>
+              <option value="1.725">Aktif (Latihan intensif 6-7 hari/minggu)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tujuan Diet</label>
+            <select id="calc-goal" class="w-full p-2 bg-white border border-gray-200 rounded-xl font-bold text-xs">
+              <option value="-500" selected>Turun Berat Sehat (Defisit 500 kkal)</option>
+              <option value="-750">Turun Cepat / Shred (Defisit 750 kkal)</option>
+              <option value="0">Jaga Berat Badan / Maintenance</option>
+              <option value="300">Naik Berat Bersih / Lean Bulk (+300 kkal)</option>
+            </select>
+          </div>
+
+          <button onclick="applyCalculatedTDEE()"
+            class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3 rounded-xl font-bold text-xs shadow-sm transition-all">
+            Hitung & Terapkan Target Kalori Otomatis
+          </button>
+        </div>
+
+        <!-- Section 2: Data Sovereignty (Eatshimo Backup & Restore JSON) -->
+        <div class="space-y-3 bg-[#F8F9FA] p-4 rounded-2xl border border-gray-100">
+          <span class="text-xs font-bold text-[#191A1D] uppercase tracking-wider flex items-center">
+            <i class="ph-bold ph-database mr-1 text-[#FF991C]"></i> Backup & Kedaulatan Data Lokal
+          </span>
+          <p class="text-[11px] text-gray-500">Data Anda tersimpan di perangkat lokal. Ekspor file cadangan secara berkala agar tidak hilang saat cache dibersihkan.</p>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="exportDataJSON()"
+              class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-800 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center space-x-1 shadow-xs">
+              <i class="ph-bold ph-download-simple"></i>
+              <span>Ekspor JSON</span>
+            </button>
+
+            <button onclick="document.getElementById('import-json-file').click()"
+              class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-800 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center space-x-1 shadow-xs">
+              <i class="ph-bold ph-upload-simple"></i>
+              <span>Impor JSON</span>
+            </button>
+          </div>
+          
+          <input type="file" id="import-json-file" accept=".json" class="hidden" onchange="importDataJSON(event)">
+
+          <button onclick="resetAllDataConfirmation()"
+            class="w-full bg-red-50 hover:bg-red-100 text-red-600 py-2.5 rounded-xl text-xs font-bold transition-all">
+            Hapus / Reset Seluruh Data Lokal
+          </button>
+        </div>
+
+        <!-- Section 3: Akun & Logout -->
+        <div class="pt-1">
+          <div id="modal-account-info" class="text-center pb-2 text-[11px] text-gray-500 font-medium"></div>
+          <button onclick="handleLogout()"
+            class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 py-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center space-x-2 shadow-xs">
+            <i class="ph-bold ph-sign-out text-base text-gray-400"></i>
+            <span>Keluar dari Akun (Logout)</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== FRONTEND JAVASCRIPT SYSTEM ==================== -->
+  <script>
+    // ==================== SUPABASE CONFIGURATION ====================
+    const SUPABASE_CONFIG = {
+      url: "https://yxydabqmsjijgnrymkle.supabase.co",
+      anonKey: "sb_publishable_jXjCgAT5zqBtbr3pA3qNOQ_YBpo4gh6"
+    };
+
+    let supabaseClient = null;
+    try {
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+      }
+    } catch (err) {
+      console.warn("Supabase init error:", err);
+    }
+
+    const CF_AI_ENDPOINT = "/api/ai";
+
+    // 1. STATE MANAGEMENT APLIKASI
+    const state = {
+      user: null,
+      profile: {
+        gender: 'male',
+        age: 26,
+        height: 172,
+        weight: 68.5,
+        activity: '1.375',
+        goalOffset: -500,
+        goalText: 'Turun Berat Sehat (Defisit 500 kkal)'
+      },
+      todayLogs: [],
+      todayWorkouts: [],
+      weightHistory: [
+        { date: '08 Jul', weight: 70.0, autoFilled: false },
+        { date: '09 Jul', weight: 69.5, autoFilled: false },
+        { date: '10 Jul', weight: 69.5, autoFilled: true },
+        { date: '11 Jul', weight: 69.2, autoFilled: false },
+        { date: '12 Jul', weight: 69.0, autoFilled: false },
+        { date: '13 Jul', weight: 68.8, autoFilled: true },
+        { date: '14 Jul', weight: 68.5, autoFilled: false }
+      ],
+      waterDrank: 1.2,
+      targetCalories: 2125,
+      targetProtein: 140,
+      targetCarbs: 230,
+      targetFat: 65,
+      currentWeight: 68.5,
+      activePlanDays: 30,
+      activeView: 'home',
+      activeLogTab: 'nlp',
+      fasting: {
+        isActive: false,
+        startTime: null,
+        targetHours: 16
+      },
+      cameraPreset: {
+        id: 'steak',
+        img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80',
+        name: 'Steak Sapi Panggang'
+      },
+      extractedLog: null,
+      scannedProduct: null,
+      chatHistory: []
+    };
+
+    // Preloaded Food DB: 78 Pangan Indonesia TKPI 2019 (darya-nutrition-db) + Pilihan Populer
+    const mockFoodDB = (window.mockFoodDB && window.mockFoodDB.length > 0) ? window.mockFoodDB : [
+      { name: "Nasi Putih (per 100g)", group: "Serealia", calories: 180, protein: 3, carbs: 39.8, fat: 0.3, fiber: 0.2, aliases: ["nasi"], source: "TKPI 2019" },
+      { name: "Tempe Goreng (per 100g)", group: "Kacang-kacangan", calories: 236, protein: 18.2, carbs: 12.7, fat: 14.5, fiber: 2.8, aliases: ["tempe"], source: "TKPI 2019" },
+      { name: "Tahu Goreng (per 100g)", group: "Kacang-kacangan", calories: 115, protein: 9.7, carbs: 2.5, fat: 8.5, fiber: 0.5, aliases: ["tahu"], source: "TKPI 2019" },
+      { name: "Telur Dadar (per 100g)", group: "Telur", calories: 193, protein: 11.2, carbs: 1.4, fat: 15.6, fiber: 0, aliases: ["telur"], source: "TKPI 2019" },
+      { name: "Ayam Goreng Kalasan (per 100g)", group: "Daging & Unggas", calories: 246, protein: 29.8, carbs: 0, fat: 14.0, fiber: 0, aliases: ["ayam goreng"], source: "TKPI 2019" },
+      { name: "Mie Bakso (per 100g)", group: "Olahan Mie", calories: 172, protein: 8.5, carbs: 21.0, fat: 6.2, fiber: 1.2, aliases: ["bakso"], source: "TKPI 2019" }
+    ];
+
+    // Preloaded 30+ Exercises (wger inspired)
+    const exerciseCatalog = [
+      { id: 1, name: "Barbell Bench Press", category: "chest", met: 6.0, desc: "Latihan utama otot dada dan trisep" },
+      { id: 2, name: "Dumbbell Incline Press", category: "chest", met: 5.5, desc: "Melatih dada bagian atas" },
+      { id: 3, name: "Push Up", category: "chest", met: 4.5, desc: "Latihan dada bodyweight" },
+      { id: 4, name: "Chest Fly Machine", category: "chest", met: 4.0, desc: "Isolasi serat otot dada" },
+      { id: 5, name: "Barbell Deadlift", category: "back", met: 8.0, desc: "Latihan posterior chain terkuat" },
+      { id: 6, name: "Lat Pulldown", category: "back", met: 5.0, desc: "Melatih otot latissimus dorsi" },
+      { id: 7, name: "Barbell Bent-over Row", category: "back", met: 6.0, desc: "Ketebalan punggung tengah" },
+      { id: 8, name: "Pull Up", category: "back", met: 7.5, desc: "Bodyweight pull untuk punggung lebar" },
+      { id: 9, name: "Barbell Squat", category: "legs", met: 7.5, desc: "Latihan kaki nomor 1 untuk paha & glutes" },
+      { id: 10, name: "Leg Press Machine", category: "legs", met: 6.0, desc: "Beban aman untuk kuadrisep" },
+      { id: 11, name: "Romanian Deadlift", category: "legs", met: 6.0, desc: "Fokus hamstring dan glutes" },
+      { id: 12, name: "Calf Raises", category: "legs", met: 3.5, desc: "Melatih otot betis" },
+      { id: 13, name: "Overhead Shoulder Press", category: "arms", met: 5.5, desc: "Melatih bahu anterior & medial" },
+      { id: 14, name: "Dumbbell Lateral Raise", category: "arms", met: 4.0, desc: "Bahu samping untuk siluet V-taper" },
+      { id: 15, name: "Biceps Barbell Curl", category: "arms", met: 4.5, desc: "Pembentukan puncak bisep" },
+      { id: 16, name: "Triceps Rope Pushdown", category: "arms", met: 4.0, desc: "Isolasi trisep bagian lateral" },
+      { id: 17, name: "Plank Hold", category: "core", met: 3.8, desc: "Stabilitas otot perut dalam" },
+      { id: 18, name: "Hanging Leg Raise", category: "core", met: 5.0, desc: "Otot perut bawah" },
+      { id: 19, name: "Cable Woodchopper", category: "core", met: 4.5, desc: "Otot obliques samping" },
+      { id: 20, name: "Treadmill Running (Jogging)", category: "cardio", met: 9.0, desc: "Kardio pembakar lemak cepat" },
+      { id: 21, name: "Stationary Bicycle", category: "cardio", met: 7.0, desc: "Kardio ramah persendian lutut" },
+      { id: 22, name: "Jump Rope (Lompat Tali)", category: "cardio", met: 10.0, desc: "Kardio intensitas tinggi (HIIT)" }
+    ];
+
+    // ==================== PERSISTENCE (Eatshimo Local-First) ====================
+    function saveState() {
+      try {
+        localStorage.setItem('calorai_state_v2', JSON.stringify({
+          user: state.user,
+          profile: state.profile,
+          todayLogs: state.todayLogs,
+          todayWorkouts: state.todayWorkouts,
+          weightHistory: state.weightHistory,
+          waterDrank: state.waterDrank,
+          targetCalories: state.targetCalories,
+          targetProtein: state.targetProtein,
+          targetCarbs: state.targetCarbs,
+          targetFat: state.targetFat,
+          currentWeight: state.currentWeight,
+          fasting: state.fasting
+        }));
+      } catch (e) {
+        console.warn('Storage save failed:', e);
+      }
+    }
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem('calorai_state_v2');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          Object.assign(state, parsed);
+
+          if (state.profile) {
+            const g = document.getElementById('calc-gender'); if (g && state.profile.gender) g.value = state.profile.gender;
+            const a = document.getElementById('calc-age'); if (a && state.profile.age) a.value = state.profile.age;
+            const h = document.getElementById('calc-height'); if (h && state.profile.height) h.value = state.profile.height;
+            const w = document.getElementById('calc-weight'); if (w && state.profile.weight) w.value = state.profile.weight;
+            const act = document.getElementById('calc-activity'); if (act && state.profile.activity) act.value = state.profile.activity;
+            const goal = document.getElementById('calc-goal'); if (goal && state.profile.goalOffset) goal.value = state.profile.goalOffset;
+          }
+        }
+      } catch (e) {
+        console.warn('Storage load error:', e);
+      }
+    }
+
+    // ==================== TOAST NOTIFICATION ====================
+    function showToast(msg, isSuccess = true) {
+      const toast = document.getElementById('toast');
+      const icon = document.getElementById('toast-icon');
+      const message = document.getElementById('toast-message');
+
+      message.innerText = msg;
+      icon.className = isSuccess ? "ph-bold ph-check-circle text-lg text-[#FF991C]" : "ph-bold ph-warning-circle text-lg text-rose-500";
+      toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-20');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-20');
+      }, 3000);
+    }
+
+    // ==================== RUNTIME & SESSION ====================
+    window.onload = function () {
+      loadState();
+      populateExerciseDropdown();
+      renderExerciseCatalog('all');
+      checkSession();
+      initPWA();
+      setInterval(updateFastingTimerDisplay, 1000);
+    };
+
+    function initPWA() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js?v=2.2')
+          .then(reg => {
+            console.log('CalorAI Service Worker Registered v2.2');
+            reg.update();
+            reg.onupdatefound = () => {
+              const installingWorker = reg.installing;
+              installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  window.location.reload();
+                }
+              };
+            };
+          })
+          .catch(err => console.log('SW registration notice:', err));
+      }
+    }
+
+    // ==================== SUPABASE AUTH SYSTEM ====================
+    let authTab = 'login'; // 'login' or 'signup'
+
+    function switchAuthTab(tab) {
+      authTab = tab;
+      const tabLogin = document.getElementById('tab-auth-login');
+      const tabSignup = document.getElementById('tab-auth-signup');
+      const nameField = document.getElementById('field-auth-name');
+      const submitBtn = document.getElementById('btn-auth-submit');
+
+      if (tab === 'login') {
+        tabLogin.className = "flex-1 py-2.5 rounded-xl transition-all bg-white text-[#191A1D] shadow-xs";
+        tabSignup.className = "flex-1 py-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-800";
+        nameField.classList.add('hidden');
+        submitBtn.innerText = "Masuk dengan Email";
+      } else {
+        tabSignup.className = "flex-1 py-2.5 rounded-xl transition-all bg-white text-[#191A1D] shadow-xs";
+        tabLogin.className = "flex-1 py-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-800";
+        nameField.classList.remove('hidden');
+        submitBtn.innerText = "Daftar Akun Baru";
+      }
+    }
+
+    async function handleAuthSubmit() {
+      if (authTab === 'login') {
+        await handleEmailLogin();
+      } else {
+        await handleEmailSignUp();
+      }
+    }
+
+    async function handleEmailLogin() {
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+
+      if (!email || !password) {
+        showToast("Masukkan email dan password kamu!", false);
+        return;
+      }
+
+      if (!supabaseClient) {
+        state.user = { email, name: email.split('@')[0] };
+        localStorage.setItem('user', JSON.stringify(state.user));
+        document.getElementById('screen-login').classList.add('hidden');
+        showToast("Masuk berhasil (Demo Lokal)!");
+        renderDashboard();
+        return;
+      }
+
+      showToast("Memverifikasi akun...");
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+        if (error) {
+          showToast("Gagal masuk: " + error.message, false);
+          return;
+        }
+
+        if (data.session && data.session.user) {
+          setUserFromSupabase(data.session.user);
+          document.getElementById('screen-login').classList.add('hidden');
+          showToast("Selamat datang kembali!");
+          renderDashboard();
+        }
+      } catch (err) {
+        showToast("Gagal masuk: " + err.message, false);
+      }
+    }
+
+    async function handleEmailSignUp() {
+      const name = document.getElementById('auth-name').value.trim();
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+
+      if (!name || !email || !password) {
+        showToast("Harap isi semua kolom pendaftaran!", false);
+        return;
+      }
+
+      if (password.length < 6) {
+        showToast("Password minimal 6 karakter!", false);
+        return;
+      }
+
+      if (!supabaseClient) {
+        state.user = { email, name };
+        localStorage.setItem('user', JSON.stringify(state.user));
+        document.getElementById('screen-login').classList.add('hidden');
+        showToast("Pendaftaran berhasil!");
+        renderDashboard();
+        return;
+      }
+
+      showToast("Mendaftarkan akun ke Supabase...");
+      try {
+        const { data, error } = await supabaseClient.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: { full_name: name }
+          }
+        });
+
+        if (error) {
+          showToast("Pendaftaran gagal: " + error.message, false);
+          return;
+        }
+
+        if (data.session && data.session.user) {
+          setUserFromSupabase(data.session.user);
+          document.getElementById('screen-login').classList.add('hidden');
+          showToast("Akun berhasil dibuat!");
+          renderDashboard();
+        } else {
+          showToast("Akun terdaftar! Silakan periksa email untuk konfirmasi.");
+          switchAuthTab('login');
+        }
+      } catch (err) {
+        showToast("Gagal mendaftar: " + err.message, false);
+      }
+    }
+
+    async function handleGoogleLogin() {
+      if (!supabaseClient) {
+        showToast("Layanan autentikasi belum siap, silakan coba lagi.", false);
+        return;
+      }
+
+      showToast("Menghubungkan ke Akun Google...");
+      try {
+        const redirectUrl = window.location.origin + window.location.pathname;
+        const { data, error } = await supabaseClient.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: redirectUrl
+          }
+        });
+        if (error) {
+          showToast("Google Auth error: " + error.message, false);
+        }
+      } catch (err) {
+        showToast("Gagal koneksi Google: " + err.message, false);
+      }
+    }
+
+    function setUserFromSupabase(u) {
+      const meta = u.user_metadata || {};
+      const fullName = meta.full_name || meta.name || (u.email ? u.email.split('@')[0] : 'Member');
+      const avatar = meta.avatar_url || meta.picture || null;
+      state.user = {
+        id: u.id,
+        email: u.email,
+        name: fullName,
+        avatar: avatar,
+        provider: u.app_metadata?.provider || 'supabase'
+      };
+      localStorage.setItem('user', JSON.stringify(state.user));
+      updateUserUI();
+    }
+
+    function updateUserUI() {
+      if (!state.user) return;
+      const headerName = document.getElementById('header-user-name');
+      if (headerName) headerName.innerText = state.user.name;
+
+      if (state.user.avatar) {
+        const avatarImg = document.querySelector('header img');
+        if (avatarImg) avatarImg.src = state.user.avatar;
+      }
+
+      const accInfo = document.getElementById('modal-account-info');
+      if (accInfo) {
+        accInfo.innerText = state.user.email ? `Akun: ${state.user.email}` : `Akun: ${state.user.name}`;
+      }
+    }
+
+    async function handleLogout() {
+      showToast("Sedang keluar...");
+      try {
+        if (supabaseClient) await supabaseClient.auth.signOut();
+      } catch (e) {}
+      localStorage.removeItem('user');
+      state.user = null;
+      closeProfileSettingsModal();
+      document.getElementById('screen-login').classList.remove('hidden');
+      showToast("Anda telah keluar.");
+    }
+
+    function handleGuestLogin() {
+      state.user = { id: 'guest', username: 'guest', name: 'Pengguna Tamu' };
+      localStorage.setItem('user', JSON.stringify(state.user));
+      updateUserUI();
+      document.getElementById('screen-login').classList.add('hidden');
+      showToast("Selamat datang di CalorAI (Mode Tamu)!");
+      renderDashboard();
+    }
+
+    async function checkSession() {
+      // 1. Check Supabase active session (handles Google redirect with access_token)
+      if (supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient.auth.getSession();
+          if (data && data.session && data.session.user) {
+            setUserFromSupabase(data.session.user);
+            document.getElementById('screen-login').classList.add('hidden');
+            renderDashboard();
+            if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('error'))) {
+              setTimeout(() => {
+                window.history.replaceState(null, '', window.location.pathname);
+              }, 300);
+            }
+            return;
+          }
+        } catch (e) {
+          console.warn("Supabase session check error:", e);
+        }
+
+        // Listen for auth state change (OAuth callback)
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+          if (session && session.user) {
+            setUserFromSupabase(session.user);
+            document.getElementById('screen-login').classList.add('hidden');
+            renderDashboard();
+            if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('error'))) {
+              setTimeout(() => {
+                window.history.replaceState(null, '', window.location.pathname);
+              }, 300);
+            }
+          }
+        });
+      }
+
+      // 2. Check local saved user
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        try {
+          state.user = JSON.parse(savedUser);
+          updateUserUI();
+          document.getElementById('screen-login').classList.add('hidden');
+          renderDashboard();
+        } catch (e) {
+          document.getElementById('screen-login').classList.remove('hidden');
+        }
+      } else {
+        document.getElementById('screen-login').classList.remove('hidden');
+      }
+    }
+
+    // ==================== NAVIGATION & VIEWS ====================
+    function switchView(viewName) {
+      window.scrollTo(0, 0);
+      const mainEl = document.querySelector('main');
+      if (mainEl) mainEl.scrollTop = 0;
+
+      document.querySelectorAll('.view-panel').forEach(v => v.classList.add('hidden'));
+      const target = document.getElementById('view-' + viewName);
+      if (target) target.classList.remove('hidden');
+
+      // Update Nav Class
+      document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.add('text-gray-400');
+        btn.classList.remove('text-[#FF991C]');
+      });
+      const activeNav = document.getElementById('nav-' + viewName);
+      if (activeNav) {
+        activeNav.classList.remove('text-gray-400');
+        activeNav.classList.add('text-[#FF991C]');
+      }
+
+      state.activeView = viewName;
+      if (viewName === 'home') renderDashboard();
+      if (viewName === 'chat') renderChatHistory();
+
+      // Stop hardware streams when leaving logger view
+      if (viewName !== 'logger') {
+        stopCamera();
+        stopBarcodeScanner();
+      } else {
+        if (state.activeLogTab === 'camera') startCamera();
+        else if (state.activeLogTab === 'barcode') startBarcodeScanner();
+      }
+    }
+
+    function switchLogTab(tab) {
+      state.activeLogTab = tab;
+      ['nlp', 'camera', 'barcode', 'manual'].forEach(t => {
+        const el = document.getElementById('log-tab-' + t);
+        const btn = document.getElementById('btn-tab-' + t);
+        if (t === tab) {
+          if (el) el.classList.remove('hidden');
+          if (btn) btn.className = "py-2.5 rounded-xl text-[11px] font-bold text-center transition-all bg-white text-[#FF991C] shadow-sm";
+        } else {
+          if (el) el.classList.add('hidden');
+          if (btn) btn.className = "py-2.5 rounded-xl text-[11px] font-bold text-center transition-all text-gray-600 hover:text-gray-900";
+        }
+      });
+
+      // Camera lifecycle control
+      if (tab === 'camera') {
+        stopBarcodeScanner();
+        startCamera();
+      } else if (tab === 'barcode') {
+        stopCamera();
+        startBarcodeScanner();
+      } else {
+        stopCamera();
+        stopBarcodeScanner();
+      }
+
+      if (tab === 'manual') {
+        renderDefaultFoodList();
+      }
+    }
+
+    // ==================== DASHBOARD RENDERING ====================
+    function renderDashboard() {
+      // 1. Calculate Food Calories & Macros
+      let totalCal = 0, totalP = 0, totalC = 0, totalF = 0;
+      state.todayLogs.forEach(l => {
+        totalCal += l.calories;
+        totalP += l.protein;
+        totalC += l.carbs;
+        totalF += l.fat;
+      });
+
+      // 2. Calculate Burned Calories from Workouts
+      let totalBurned = 0;
+      state.todayWorkouts.forEach(w => {
+        totalBurned += (w.caloriesBurned || 0);
+      });
+
+      // Sisa = Target - Makanan + Olahraga
+      const remaining = Math.max(0, state.targetCalories - totalCal + totalBurned);
+      document.getElementById('calories-remaining').innerText = remaining.toLocaleString();
+      document.getElementById('summary-target-cal').innerText = state.targetCalories.toLocaleString();
+      document.getElementById('total-consumed').innerText = totalCal.toLocaleString() + " kkal";
+      document.getElementById('total-burned').innerText = "-" + totalBurned.toLocaleString() + " kkal";
+
+      // Progress Arch Gauge
+      const ratio = Math.min(1.0, totalCal / state.targetCalories);
+      const percentage = Math.round(ratio * 100);
+      document.getElementById('gauge-percentage').innerText = percentage + "%";
+      
+      const arc = document.getElementById('gauge-arc');
+      if (arc) {
+        const fullLength = 125.6; // Circumference of semicircle r=40
+        arc.style.strokeDashoffset = fullLength - (fullLength * ratio);
+      }
+
+      // Macros Bar
+      const targetP = state.targetProtein || 140;
+      const targetC = state.targetCarbs || 230;
+      const targetF = state.targetFat || 65;
+
+      const macros = [
+        { label: 'Protein', val: totalP, target: targetP, color: 'bg-[#FF991C]' },
+        { label: 'Karbohidrat', val: totalC, target: targetC, color: 'bg-amber-500' },
+        { label: 'Lemak', val: totalF, target: targetF, color: 'bg-rose-500' }
+      ];
+
+      const mContainer = document.getElementById('macros-container');
+      mContainer.innerHTML = macros.map(m => `
+        <div class="space-y-1">
+          <div class="flex justify-between text-[10px] font-bold text-gray-500">
+            <span>${m.label}</span>
+            <span>${m.val}g / ${m.target}g</span>
+          </div>
+          <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full ${m.color} rounded-full" style="width: ${Math.min(100, (m.val / m.target) * 100)}%"></div>
+          </div>
+        </div>
+      `).join('');
+
+      // Water & Weight
+      document.getElementById('water-count').innerText = state.waterDrank.toFixed(1) + " L";
+      document.getElementById('current-weight').innerText = state.currentWeight.toFixed(1);
+
+      // Render Food Logs
+      const listContainer = document.getElementById('recent-logs-list');
+      if (state.todayLogs.length === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-4 text-gray-400 text-xs">
+            <i class="ph-bold ph-egg-crack text-2xl block mb-1"></i>
+            Belum ada makanan dicatat hari ini.
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = state.todayLogs.map((l, idx) => `
+          <div class="flex items-center justify-between p-3 bg-[#F8F9FA] rounded-2xl border border-gray-100/80">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FFF5E9] flex items-center justify-center text-[#FF991C]">
+                <i class="ph-bold ph-fork-knife text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-extrabold text-xs text-[#191A1D]">${l.name}</h4>
+                <p class="text-[9px] text-gray-400 font-semibold">P: ${l.protein}g • K: ${l.carbs}g • L: ${l.fat}g</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-xs font-black text-[#191A1D]">${l.calories} kkal</span>
+              <button onclick="deleteLog(${idx})" class="text-gray-300 hover:text-rose-500"><i class="ph-bold ph-trash"></i></button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Workouts
+      const workoutContainer = document.getElementById('recent-workouts-list');
+      if (state.todayWorkouts.length === 0) {
+        workoutContainer.innerHTML = `
+          <div class="text-center py-3 text-gray-400 text-xs">
+            <i class="ph-bold ph-barbell text-2xl block mb-1"></i>
+            Belum ada latihan dicatat hari ini.
+          </div>
+        `;
+      } else {
+        workoutContainer.innerHTML = state.todayWorkouts.map((w, idx) => `
+          <div class="flex items-center justify-between p-3 bg-[#F8F9FA] rounded-2xl border border-gray-100/80">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-xl bg-orange-100/80 flex items-center justify-center text-[#FF991C]">
+                <i class="ph-bold ph-fire text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-extrabold text-xs text-[#191A1D]">${w.name}</h4>
+                <p class="text-[9px] text-gray-400 font-semibold">${w.sets} Set × ${w.reps} Reps (${w.weight} kg)</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-xs font-black text-[#FF991C]">-${w.caloriesBurned} kkal</span>
+              <button onclick="deleteWorkout(${idx})" class="text-gray-300 hover:text-rose-500"><i class="ph-bold ph-trash"></i></button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      saveState();
+    }
+
+    function addWater() {
+      state.waterDrank = parseFloat((state.waterDrank + 0.25).toFixed(2));
+      document.getElementById('water-count').innerText = state.waterDrank.toFixed(1) + " L";
+      showToast("Ditambahkan 250ml air mineral!");
+      saveState();
+    }
+
+    function deleteLog(idx) {
+      state.todayLogs.splice(idx, 1);
+      renderDashboard();
+      showToast("Catatan makanan dihapus.");
+    }
+
+    function deleteWorkout(idx) {
+      state.todayWorkouts.splice(idx, 1);
+      renderDashboard();
+      showToast("Catatan latihan dihapus.");
+    }
+
+    // ==================== WORKOUT LOGGING & CATALOG (STAGE 3) ====================
+    function populateExerciseDropdown() {
+      const select = document.getElementById('workout-select-exercise');
+      if (!select) return;
+      select.innerHTML = exerciseCatalog.map(ex => `
+        <option value="${ex.id}" data-category="${ex.category}" data-met="${ex.met}">${ex.name} (${ex.category.toUpperCase()})</option>
+      `).join('');
+      updateWorkoutBurnPreview();
+    }
+
+    function handleExerciseSelectChange() {
+      updateWorkoutBurnPreview();
+    }
+
+    function updateWorkoutBurnPreview() {
+      const select = document.getElementById('workout-select-exercise');
+      if (!select) return;
+      const opt = select.options[select.selectedIndex];
+      const met = parseFloat(opt ? opt.getAttribute('data-met') : 5.0) || 5.0;
+
+      const weight = parseFloat(document.getElementById('workout-weight').value) || 0;
+      const reps = parseFloat(document.getElementById('workout-reps').value) || 0;
+      const sets = parseFloat(document.getElementById('workout-sets').value) || 1;
+
+      // Estimated Burn: MET formula modified for sets & reps volume
+      const burned = Math.round((met * 3.5 * state.currentWeight / 200) * (sets * 2.5) + (weight * reps * sets * 0.02));
+      document.getElementById('calc-burn-preview').innerText = `Est. Terbakar: ~${burned} kkal`;
+      return burned;
+    }
+
+    function commitWorkoutLog() {
+      const select = document.getElementById('workout-select-exercise');
+      const opt = select.options[select.selectedIndex];
+      const name = opt ? opt.text.split(' (')[0] : "Latihan Gym";
+      const weight = parseFloat(document.getElementById('workout-weight').value) || 0;
+      const reps = parseFloat(document.getElementById('workout-reps').value) || 0;
+      const sets = parseFloat(document.getElementById('workout-sets').value) || 1;
+      const burned = updateWorkoutBurnPreview();
+
+      state.todayWorkouts.push({
+        name: name,
+        weight: weight,
+        reps: reps,
+        sets: sets,
+        caloriesBurned: burned,
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+
+      renderDashboard();
+      showToast(`Latihan berhasil dicatat (-${burned} kkal)!`);
+      switchView('home');
+    }
+
+    function quickAddWorkout(name, minutes, burned) {
+      state.todayWorkouts.push({
+        name: name,
+        weight: 0,
+        reps: 0,
+        sets: minutes,
+        caloriesBurned: burned,
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+      renderDashboard();
+      showToast(`${name} dicatat (-${burned} kkal)!`);
+    }
+
+    function filterWorkoutCategory(cat) {
+      document.querySelectorAll('.workout-cat-btn').forEach(btn => {
+        btn.className = "workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0";
+      });
+      const activeBtn = document.getElementById('cat-' + cat);
+      if (activeBtn) {
+        activeBtn.className = "workout-cat-btn bg-[#FF991C] text-white px-4 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm";
+      }
+      renderExerciseCatalog(cat);
+    }
+
+    function renderExerciseCatalog(cat) {
+      const container = document.getElementById('exercise-catalog-grid');
+      const filtered = cat === 'all' ? exerciseCatalog : exerciseCatalog.filter(e => e.category === cat);
+      document.getElementById('catalog-count-label').innerText = `${filtered.length} Gerakan`;
+
+      container.innerHTML = filtered.map(ex => `
+        <div onclick="selectCatalogExercise(${ex.id})"
+          class="bg-[#F8F9FA] hover:border-[#FF991C] border border-gray-100 p-3 rounded-2xl cursor-pointer transition-all">
+          <div class="flex items-center space-x-2">
+            <div class="w-7 h-7 rounded-lg bg-[#FFF5E9] text-[#FF991C] flex items-center justify-center text-xs font-bold">
+              <i class="ph-bold ph-barbell"></i>
+            </div>
+            <h5 class="font-extrabold text-xs text-[#191A1D] truncate">${ex.name}</h5>
+          </div>
+          <p class="text-[10px] text-gray-400 mt-1 line-clamp-1">${ex.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function selectCatalogExercise(id) {
+      const select = document.getElementById('workout-select-exercise');
+      select.value = id;
+      handleExerciseSelectChange();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast("Gerakan dipilih dari katalog!");
+    }
+
+    // ==================== VOICE RECOGNITION (STAGE 3 FUD AI) ====================
+    let speechRecognition = null;
+    let isRecordingVoice = false;
+
+    function toggleVoiceLogging() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        showToast("Browser Anda belum mendukung Web Speech Recognition.", false);
+        return;
+      }
+
+      if (isRecordingVoice) {
+        if (speechRecognition) speechRecognition.stop();
+        setVoiceUI(false);
+        return;
+      }
+
+      speechRecognition = new SpeechRecognition();
+      speechRecognition.lang = 'id-ID';
+      speechRecognition.continuous = false;
+      speechRecognition.interimResults = false;
+
+      speechRecognition.onstart = () => {
+        isRecordingVoice = true;
+        setVoiceUI(true);
+        showToast("Mendengarkan... Silakan sebutkan makanan Anda!");
+      };
+
+      speechRecognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        const textarea = document.getElementById('nlp-textarea');
+        textarea.value = transcript;
+        showToast(`Terdengar: "${transcript}"`);
+        setVoiceUI(false);
+        // Otomatis analisa setelah selesai bicara
+        processNLP();
+      };
+
+      speechRecognition.onerror = (event) => {
+        console.error("Speech error:", event.error);
+        showToast("Gagal merekam suara: " + event.error, false);
+        setVoiceUI(false);
+      };
+
+      speechRecognition.onend = () => {
+        setVoiceUI(false);
+      };
+
+      try {
+        speechRecognition.start();
+      } catch (err) {
+        setVoiceUI(false);
+      }
+    }
+
+    function setVoiceUI(recording) {
+      isRecordingVoice = recording;
+      const btn = document.getElementById('btn-voice-nlp');
+      const icon = document.getElementById('mic-icon');
+      const label = document.getElementById('mic-label');
+
+      if (recording) {
+        btn.className = "flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-rose-50 text-rose-600 border border-rose-300 animate-pulse shadow-sm";
+        icon.className = "ph-bold ph-stop text-sm";
+        label.innerText = "Mendengarkan...";
+      } else {
+        btn.className = "flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#FFF5E9] text-[#FF991C] hover:bg-[#FFE8CC] transition-all border border-[#FF991C]/30 active:scale-95 shadow-sm";
+        icon.className = "ph-bold ph-microphone text-sm";
+        label.innerText = "Bicara (Voice)";
+      }
+    }
+
+    // ==================== BARCODE SCANNER (STAGE 2) ====================
+    let codeReader = null;
+    let isBarcodeScanning = false;
+
+    async function startBarcodeScanner() {
+      const video = document.getElementById('barcode-scanner-video');
+      const statusText = document.getElementById('barcode-status-text');
+      
+      try {
+        statusText.innerText = "Menginisialisasi kamera...";
+        if (typeof ZXing !== 'undefined') {
+          codeReader = new ZXing.BrowserMultiFormatReader();
+          const videoInputDevices = await codeReader.listVideoInputDevices();
+          const selectedDeviceId = videoInputDevices.length > 1 ? videoInputDevices[videoInputDevices.length - 1].deviceId : undefined;
+
+          isBarcodeScanning = true;
+          statusText.innerText = "Mencari barcode...";
+
+          codeReader.decodeFromVideoDevice(selectedDeviceId, 'barcode-scanner-video', (result, err) => {
+            if (result && isBarcodeScanning) {
+              isBarcodeScanning = false;
+              statusText.innerText = "Barcode terdeteksi: " + result.getText();
+              lookupBarcode(result.getText());
+            }
+          });
+        } else {
+          statusText.innerText = "Ketik barcode secara manual di bawah.";
+        }
+      } catch (err) {
+        console.error("Barcode scan init error:", err);
+        statusText.innerText = "Kamera tidak tersedia. Ketik kode di bawah.";
+      }
+    }
+
+    function stopBarcodeScanner() {
+      isBarcodeScanning = false;
+      if (codeReader) {
+        codeReader.reset();
+        codeReader = null;
+      }
+    }
+
+    function toggleBarcodeCamera() {
+      stopBarcodeScanner();
+      startBarcodeScanner();
+      showToast("Kamera scanner di-refresh.");
+    }
+
+    function handleManualBarcodeSubmit() {
+      const code = document.getElementById('manual-barcode-input').value.trim();
+      if (!code) {
+        showToast("Masukkan nomor barcode terlebih dahulu!", false);
+        return;
+      }
+      lookupBarcode(code);
+    }
+
+    async function lookupBarcode(barcode) {
+      showToast("Mencari info produk...");
+      const statusText = document.getElementById('barcode-status-text');
+      statusText.innerText = `Memeriksa ${barcode}...`;
+
+      try {
+        const res = await fetch(`/api/barcode/${barcode}`);
+        if (!res.ok) throw new Error("Gagal menghubungi server database makanan.");
+        const data = await res.json();
+
+        if (data.status === 1 && data.product) {
+          const prod = data.product;
+          const nut = prod.nutriments || {};
+
+          state.scannedProduct = {
+            name: prod.product_name || prod.generic_name || "Produk Makanan Kemasan",
+            brand: prod.brands || "Merek Umum",
+            code: barcode,
+            image: prod.image_front_small_url || prod.image_url || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=150&q=80",
+            per100g: {
+              calories: Math.round(nut['energy-kcal_100g'] || nut['energy-kcal'] || (nut['energy_100g'] ? nut['energy_100g'] / 4.184 : 250)),
+              protein: Math.round(nut.proteins_100g || nut.proteins || 4),
+              carbs: Math.round(nut.carbohydrates_100g || nut.carbohydrates || 30),
+              fat: Math.round(nut.fat_100g || nut.fat || 8)
+            }
+          };
+
+          displayBarcodeResult(state.scannedProduct);
+          showToast("Produk berhasil diidentifikasi!");
+        } else {
+          showToast("Barcode tidak terdaftar di database produk.", false);
+          statusText.innerText = "Produk tidak ditemukan.";
+        }
+      } catch (err) {
+        console.error(err);
+        showToast("Gagal membaca info barcode: " + err.message, false);
+      }
+    }
+
+    function displayBarcodeResult(p) {
+      document.getElementById('scanned-product-name').innerText = p.name;
+      document.getElementById('scanned-product-brand').innerText = p.brand;
+      document.getElementById('scanned-product-code').innerText = p.code;
+      document.getElementById('scanned-product-img').style.backgroundImage = `url('${p.image}')`;
+
+      document.getElementById('scanned-portion-slider').value = 100;
+      document.getElementById('scanned-portion-label').innerText = "100";
+      updateScannedPortion();
+
+      const resCard = document.getElementById('barcode-result-card');
+      resCard.classList.remove('hidden');
+      const mainEl = document.querySelector('main');
+      if (mainEl && resCard) {
+        mainEl.scrollTo({ top: resCard.offsetTop - 15, behavior: 'smooth' });
+      }
+    }
+
+    function updateScannedPortion() {
+      if (!state.scannedProduct) return;
+      const gram = parseFloat(document.getElementById('scanned-portion-slider').value) || 100;
+      document.getElementById('scanned-portion-label').innerText = gram;
+
+      const factor = gram / 100;
+      const base = state.scannedProduct.per100g;
+
+      document.getElementById('scanned-scaled-cal').innerText = Math.round(base.calories * factor);
+      document.getElementById('scanned-scaled-p').innerText = Math.round(base.protein * factor) + "g";
+      document.getElementById('scanned-scaled-c').innerText = Math.round(base.carbs * factor) + "g";
+      document.getElementById('scanned-scaled-f').innerText = Math.round(base.fat * factor) + "g";
+    }
+
+    function commitScannedFood() {
+      if (!state.scannedProduct) return;
+      const gram = parseFloat(document.getElementById('scanned-portion-slider').value) || 100;
+      const factor = gram / 100;
+      const base = state.scannedProduct.per100g;
+
+      state.todayLogs.push({
+        name: `${state.scannedProduct.name} (${gram}g)`,
+        calories: Math.round(base.calories * factor),
+        protein: Math.round(base.protein * factor),
+        carbs: Math.round(base.carbs * factor),
+        fat: Math.round(base.fat * factor),
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+
+      closeBarcodeResult();
+      renderDashboard();
+      showToast("Makanan berhasil dicatat dari Barcode!");
+      switchView('home');
+    }
+
+    function closeBarcodeResult() {
+      document.getElementById('barcode-result-card').classList.add('hidden');
+      state.scannedProduct = null;
+      isBarcodeScanning = true;
+    }
+
+    // ==================== MANUAL & ONLINE FOOD SEARCH (TKPI 2019) ====================
+    function renderFoodItemHTML(f) {
+      const safeName = (f.name || '').replace(/'/g, "\\'");
+      return `
+        <div class="py-2.5 px-3 bg-white border border-gray-100 rounded-2xl mb-2 flex items-center justify-between shadow-xs hover:border-[#FF991C]/40 transition-all">
+          <div class="pr-2 flex-1">
+            <div class="flex items-center space-x-1.5 flex-wrap">
+              <p class="font-extrabold text-xs text-[#191A1D]">${f.name}</p>
+              <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-amber-50 text-[#FF991C] border border-[#FF991C]/20 shrink-0">
+                ${f.group || 'TKPI 2019'}
+              </span>
+            </div>
+            <p class="text-[10px] text-gray-400 font-semibold mt-0.5">
+              P: <span class="text-gray-700">${f.protein}g</span> • K: <span class="text-gray-700">${f.carbs}g</span> • L: <span class="text-gray-700">${f.fat}g</span>
+              ${f.fiber ? `• Serat: <span class="text-gray-700">${f.fiber}g</span>` : ''}
+            </p>
+          </div>
+          <button onclick="logManualFood('${safeName}', ${f.calories}, ${f.protein}, ${f.carbs}, ${f.fat})"
+            class="shrink-0 bg-[#FFF5E9] hover:bg-[#FF991C] hover:text-white text-[#FF991C] px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-2xs active:scale-95">
+            + ${f.calories} kkal
+          </button>
+        </div>
+      `;
+    }
+
+    function renderDefaultFoodList() {
+      const resultsContainer = document.getElementById('manual-search-results');
+      if (!resultsContainer) return;
+      const db = window.mockFoodDB || mockFoodDB || [];
+      const featured = db.slice(0, 15);
+      resultsContainer.innerHTML = `
+        <div class="pt-1 pb-2 flex items-center justify-between text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+          <span>Pangan Indonesia (TKPI 2019 Kemenkes)</span>
+          <span class="text-[10px] text-[#FF991C] font-extrabold">${db.length} Pangan</span>
+        </div>
+      ` + featured.map(f => renderFoodItemHTML(f)).join('');
+    }
+
+    function handleManualSearch() {
+      const inputEl = document.getElementById('manual-search-input');
+      const q = inputEl.value.toLowerCase().trim();
+      const resultsContainer = document.getElementById('manual-search-results');
+      if (!q) {
+        renderDefaultFoodList();
+        return;
+      }
+
+      const db = window.mockFoodDB || mockFoodDB || [];
+      const matches = db.filter(f => {
+        const nameMatch = (f.name || '').toLowerCase().includes(q);
+        const groupMatch = (f.group || '').toLowerCase().includes(q);
+        const aliasMatch = (f.aliases || []).some(a => a.toLowerCase().includes(q));
+        return nameMatch || groupMatch || aliasMatch;
+      });
+
+      if (matches.length > 0) {
+        resultsContainer.innerHTML = `
+          <div class="pt-1 pb-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+            Hasil pencarian (${matches.length} ditemukan):
+          </div>
+        ` + matches.map(f => renderFoodItemHTML(f)).join('');
+      } else {
+        resultsContainer.innerHTML = `
+          <div class="py-4 text-center text-xs text-gray-400 bg-white rounded-2xl border border-gray-100 p-4">
+            <i class="ph-bold ph-magnifying-glass text-xl mb-1 text-gray-300"></i>
+            <p>Tidak ditemukan di database lokal TKPI.</p>
+            <p class="text-[11px] text-gray-400 mt-1">Coba tekan tombol <strong>Cari Online</strong> untuk 100k+ produk kemasan internasional.</p>
+          </div>
+        `;
+      }
+    }
+
+    async function searchFoodOnline() {
+      const q = document.getElementById('manual-search-input').value.trim();
+      if (!q) {
+        showToast("Ketik nama makanan yang dicari!", false);
+        return;
+      }
+
+      const statusEl = document.getElementById('online-search-status');
+      const resultsContainer = document.getElementById('manual-search-results');
+      statusEl.classList.remove('hidden');
+      statusEl.innerText = `Mencari '${q}' di database...`;
+
+      try {
+        const res = await fetch(`/api/search-food?q=${encodeURIComponent(q)}`);
+        const data = await res.json();
+        statusEl.classList.add('hidden');
+
+        if (data.products && data.products.length > 0) {
+          resultsContainer.innerHTML = data.products.slice(0, 10).map(p => {
+            const name = p.product_name || p.generic_name || "Produk Makanan";
+            const brand = p.brands ? `(${p.brands})` : '';
+            const nut = p.nutriments || {};
+            const cal = Math.round(nut['energy-kcal_100g'] || (nut['energy_100g'] ? nut['energy_100g'] / 4.184 : 200));
+            const prot = Math.round(nut.proteins_100g || 4);
+            const carbs = Math.round(nut.carbohydrates_100g || 25);
+            const fat = Math.round(nut.fat_100g || 5);
+
+            return `
+              <div class="py-2.5 flex items-center justify-between border-b border-gray-50">
+                <div class="max-w-[70%]">
+                  <p class="font-extrabold text-xs text-[#191A1D] truncate">${name} ${brand}</p>
+                  <p class="text-[10px] text-gray-400">Per 100g: ${cal} kkal (P: ${prot}g, K: ${carbs}g)</p>
+                </div>
+                <button onclick="logManualFood('${name.replace(/'/g, "\'")}', ${cal}, ${prot}, ${carbs}, ${fat})"
+                  class="bg-[#FFF5E9] hover:bg-[#FF991C] hover:text-white text-[#FF991C] px-3 py-1 rounded-xl text-xs font-bold transition-all shrink-0">
+                  + Log
+                </button>
+              </div>
+            `;
+          }).join('');
+        } else {
+          resultsContainer.innerHTML = `<div class="py-3 text-center text-xs text-gray-400">Tidak ada produk ditemukan di database.</div>`;
+        }
+      } catch (err) {
+        statusEl.innerText = "Pencarian online gagal: " + err.message;
+      }
+    }
+
+    function logManualFood(name, cal, p, c, f) {
+      state.todayLogs.push({
+        name: name,
+        calories: cal,
+        protein: p,
+        carbs: c,
+        fat: f,
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+      renderDashboard();
+      showToast(`${name} berhasil dicatat!`);
+      switchView('home');
+    }
+
+    // ==================== FASTING TIMER (STAGE 1 & EATSHIMO) ====================
+    function toggleFasting() {
+      if (!state.fasting.isActive) {
+        state.fasting.isActive = true;
+        state.fasting.startTime = Date.now();
+        showToast("Intermittent Fasting dimulai! Tetap terhidrasi.");
+      } else {
+        state.fasting.isActive = false;
+        state.fasting.startTime = null;
+        showToast("Puasa diakhiri.");
+      }
+      saveState();
+      updateFastingTimerDisplay();
+    }
+
+    function setFastingPreset(hours) {
+      state.fasting.targetHours = hours;
+      document.getElementById('fasting-timer-subtitle').innerText = `Target: ${hours} Jam Puasa (Metode ${hours}:${24-hours})`;
+      showToast(`Target puasa disetel ke ${hours} jam.`);
+      saveState();
+      updateFastingTimerDisplay();
+    }
+
+    function updateFastingTimerDisplay() {
+      const display = document.getElementById('fasting-timer-display');
+      const badge = document.getElementById('fasting-status-badge');
+      const btn = document.getElementById('btn-toggle-fasting');
+
+      if (!state.fasting || !state.fasting.isActive) {
+        if (display) display.innerText = "16 : 00 : 00";
+        if (badge) badge.innerText = "Jendela Makan";
+        if (btn) btn.innerText = "Mulai Puasa";
+        return;
+      }
+
+      const elapsedMs = Date.now() - state.fasting.startTime;
+      const totalSec = Math.floor(elapsedMs / 1000);
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+
+      if (display) {
+        display.innerText = `${String(h).padStart(2, '0')} : ${String(m).padStart(2, '0')} : ${String(s).padStart(2, '0')}`;
+      }
+      if (badge) badge.innerText = "Sedang Berpuasa";
+      if (btn) btn.innerText = "Akhiri Puasa";
+    }
+
+    // ==================== BMR & TDEE SCIENTIFIC ENGINE (STAGE 1) ====================
+    function openProfileSettingsModal() {
+      const modal = document.getElementById('profile-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      modal.querySelector('div').classList.remove('translate-y-full');
+    }
+
+    function closeProfileSettingsModal() {
+      const modal = document.getElementById('profile-modal');
+      modal.querySelector('div').classList.add('translate-y-full');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function applyCalculatedTDEE() {
+      const gender = document.getElementById('calc-gender').value;
+      const age = parseFloat(document.getElementById('calc-age').value) || 25;
+      const height = parseFloat(document.getElementById('calc-height').value) || 170;
+      const weight = parseFloat(document.getElementById('calc-weight').value) || 68;
+      const activity = parseFloat(document.getElementById('calc-activity').value) || 1.375;
+      const goalOffset = parseFloat(document.getElementById('calc-goal').value) || -500;
+      const goalSelect = document.getElementById('calc-goal');
+      const goalText = goalSelect ? goalSelect.options[goalSelect.selectedIndex].text : "Defisit Sehat";
+
+      // Save profile metadata
+      state.profile = { gender, age, height, weight, activity, goalOffset, goalText };
+
+      // Mifflin-St Jeor Formula
+      let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+      if (gender === 'male') bmr += 5;
+      else bmr -= 161;
+
+      const tdee = bmr * activity;
+      const finalTarget = Math.max(1200, Math.round(tdee + goalOffset));
+
+      state.targetCalories = finalTarget;
+      state.currentWeight = weight;
+      // Macro Recommendations (Protein: 2g/kg, Fat: 0.85g/kg, Carbs: sisa)
+      state.targetProtein = Math.round(weight * 2.0);
+      state.targetFat = Math.round(weight * 0.85);
+      state.targetCarbs = Math.max(50, Math.round((finalTarget - (state.targetProtein * 4 + state.targetFat * 9)) / 4));
+
+      saveState();
+      renderDashboard();
+      closeProfileSettingsModal();
+      showToast(`Target Kalori Ilmiah diterapkan: ${finalTarget} kkal!`);
+    }
+
+    // ==================== DATA SOVEREIGNTY BACKUP/RESTORE (STAGE 1) ====================
+    function exportDataJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const dateStr = new Date().toISOString().split('T')[0];
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `calorai-backup-${dateStr}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Data cadangan berhasil diunduh!");
+    }
+
+    function importDataJSON(event) {
+      const file = event.target.files ? event.target.files[0] : null;
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed && typeof parsed === 'object') {
+            Object.assign(state, parsed);
+            saveState();
+            renderDashboard();
+            closeProfileSettingsModal();
+            showToast("Data CalorAI berhasil dipulihkan dari file!");
+          }
+        } catch (err) {
+          showToast("File JSON tidak valid!", false);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetAllDataConfirmation() {
+      if (confirm("Apakah Anda yakin ingin menghapus seluruh log dan riwayat data lokal?")) {
+        localStorage.removeItem('calorai_state_v2');
+        localStorage.removeItem('user');
+        location.reload();
+      }
+    }
+
+    // ==================== WEIGHT LOGGING ====================
+    function openWeightModal() {
+      const modal = document.getElementById('weight-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      modal.querySelector('div').classList.remove('translate-y-full');
+      document.getElementById('new-weight-input').value = state.currentWeight;
+    }
+
+    function closeWeightModal() {
+      const modal = document.getElementById('weight-modal');
+      modal.querySelector('div').classList.add('translate-y-full');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function saveWeight() {
+      const val = parseFloat(document.getElementById('new-weight-input').value);
+      if (val && val > 30 && val < 300) {
+        state.currentWeight = val;
+        state.weightHistory.push({
+          date: 'Hari ini',
+          weight: val,
+          autoFilled: false
+        });
+        closeWeightModal();
+        renderDashboard();
+        showToast("Berat badan diperbarui!");
+      } else {
+        showToast("Masukkan angka berat badan yang valid!", false);
+      }
+    }
+
+    // ==================== GPT LUNA 6.0 AI API INTEGRATION ====================
+    const SAKELAR_AI = {
+      baseURL: "https://api.sakelar.web.id/v1",
+      apiKey: "sk_live_kWr-688piLS3Bv1UbEwBfVdsmyuaCGqEKF4n64V23E8",
+      model: "gpt-6-luna"
+    };
+
+    async function callLunaAI(messages, temperature = 0.2) {
+      // 1. Direct fetch to Sakelar GPT Luna 6.0 API (CORS enabled)
+      try {
+        const response = await fetch(`${SAKELAR_AI.baseURL}/chat/completions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${SAKELAR_AI.apiKey}`
+          },
+          body: JSON.stringify({
+            model: SAKELAR_AI.model,
+            messages: messages,
+            temperature: temperature
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.choices && data.choices[0] && data.choices[0].message) {
+            return data.choices[0].message.content;
+          }
+        }
+        console.warn("Direct Sakelar API returned status:", response.status);
+      } catch (directErr) {
+        console.warn("Direct Sakelar API fetch error, attempting fallback:", directErr);
+      }
+
+      // 2. Fallback to /api/ai proxy endpoint
+      try {
+        const fallbackRes = await fetch("/api/ai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: SAKELAR_AI.model,
+            messages: messages,
+            temperature: temperature
+          })
+        });
+        if (fallbackRes.ok) {
+          const fbData = await fallbackRes.json();
+          if (fbData.choices && fbData.choices[0] && fbData.choices[0].message) {
+            return fbData.choices[0].message.content;
+          }
+        }
+      } catch (fbErr) {
+        console.error("Fallback /api/ai failed:", fbErr);
+      }
+
+      throw new Error("Gagal terhubung ke layanan AI.");
+    }
+
+    function parseAIJson(text) {
+      if (!text) throw new Error("Respons AI kosong");
+      const cleaned = text.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+
+      // Check array format first
+      const arrayMatch = cleaned.match(/\[[\s\S]*\]/);
+      if (arrayMatch) {
+        try {
+          const arr = JSON.parse(arrayMatch[0]);
+          if (Array.isArray(arr) && arr.length > 0) {
+            const totalCal = arr.reduce((sum, item) => sum + (parseInt(item.calories) || 0), 0);
+            const totalProt = arr.reduce((sum, item) => sum + (parseInt(item.protein) || 0), 0);
+            const totalCarb = arr.reduce((sum, item) => sum + (parseInt(item.carbs) || 0), 0);
+            const totalFat = arr.reduce((sum, item) => sum + (parseInt(item.fat) || 0), 0);
+            const names = arr.map(item => item.name).filter(Boolean).join(" + ");
+            return {
+              name: names || "Porsi Makanan Campur",
+              calories: totalCal,
+              protein: totalProt,
+              carbs: totalCarb,
+              fat: totalFat
+            };
+          }
+        } catch (e) {}
+      }
+
+      // Check single object format
+      const objMatch = cleaned.match(/\{[\s\S]*\}/);
+      if (objMatch) {
+        return JSON.parse(objMatch[0]);
+      }
+
+      return JSON.parse(cleaned);
+    }
+
+    async function processNLP() {
+      const text = document.getElementById('nlp-textarea').value.trim();
+      if (!text) {
+        showToast("Ketik atau sebutkan deskripsi hidangan kamu!", false);
+        return;
+      }
+
+      showToast("Menganalisis gizi via AI...");
+
+      try {
+        const messages = [
+          {
+            role: "system",
+            content: `Anda adalah pakar nutrisi AI CalorAI. Ekstraksi makanan dan taksir nilai gizinya secara akurat.
+- JIKA TEKS BUKAN TENTANG MAKANAN, balas:
+{"detected": false, "message": "Bukan makanan"}
+- JIKA ADA MAKANAN, balas satu JSON valid:
+{"detected": true, "name": "Nama Makanan Lengkap", "calories": 300, "protein": 15, "carbs": 40, "fat": 8}`
+          },
+          {
+            role: "user",
+            content: `Analisis makanan ini: "${text}"`
+          }
+        ];
+
+        const responseText = await callLunaAI(messages, 0.1);
+        const logData = parseAIJson(responseText);
+
+        const nameLower = (logData.name || "").toLowerCase();
+        const msgLower = (logData.message || "").toLowerCase();
+        if (logData.detected === false || nameLower.includes("tidak ada makanan") || nameLower.includes("bukan makanan") || msgLower.includes("bukan makanan")) {
+          showToast("Tidak dapat mengenali makanan dari teks. Sebutkan nama hidangan kamu.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        const safeCal = Number.isFinite(Number(logData.calories)) ? Math.round(Number(logData.calories)) : 0;
+        const safeProt = Number.isFinite(Number(logData.protein)) ? Math.round(Number(logData.protein)) : 0;
+        const safeCarbs = Number.isFinite(Number(logData.carbs)) ? Math.round(Number(logData.carbs)) : 0;
+        const safeFat = Number.isFinite(Number(logData.fat)) ? Math.round(Number(logData.fat)) : 0;
+
+        if (safeCal === 0 && safeProt === 0 && safeCarbs === 0 && safeFat === 0) {
+          showToast("Teks tidak terdeteksi sebagai makanan.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        state.extractedLog = {
+          name: logData.name || text,
+          calories: safeCal,
+          protein: safeProt,
+          carbs: safeCarbs,
+          fat: safeFat
+        };
+
+        displayExtractionPanel();
+        showToast("Analisis AI selesai!");
+      } catch (err) {
+        console.error(err);
+        showToast("Gagal analisis NLP: " + err.message, false);
+      }
+    }
+
+    // ==================== FOTO MAKANAN & ANALISIS AI ====================
+    let cameraStreamObj = null;
+
+    async function startCamera() {
+      const video = document.getElementById('camera-stream');
+      const placeholder = document.getElementById('camera-placeholder');
+      const preview = document.getElementById('camera-preview');
+      const statusLabel = document.getElementById('camera-status-label');
+
+      stopCamera();
+      preview.classList.add('hidden');
+      document.getElementById('camera-file-input').value = "";
+
+      try {
+        statusLabel.innerText = "Mengakses Kamera...";
+        cameraStreamObj = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' },
+          audio: false
+        });
+        video.srcObject = cameraStreamObj;
+        video.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        statusLabel.innerText = "Kamera Aktif";
+      } catch (err) {
+        console.error("Akses kamera gagal:", err);
+        statusLabel.innerText = "Kamera tidak dapat diakses";
+        video.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+        showToast("Gagal mengakses kamera perangkat Anda.", false);
+      }
+    }
+
+    function stopCamera() {
+      if (cameraStreamObj) {
+        cameraStreamObj.getTracks().forEach(track => track.stop());
+        cameraStreamObj = null;
+      }
+      const video = document.getElementById('camera-stream');
+      if (video) {
+        video.srcObject = null;
+        video.classList.add('hidden');
+      }
+    }
+
+    async function handleFileSelect(event) {
+      const file = event.target.files ? event.target.files[0] : null;
+      if (!file) return;
+
+      const video = document.getElementById('camera-stream');
+      const preview = document.getElementById('camera-preview');
+      const placeholder = document.getElementById('camera-placeholder');
+      const statusLabel = document.getElementById('camera-status-label');
+
+      stopCamera();
+      video.classList.add('hidden');
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.style.backgroundImage = `url('${e.target.result}')`;
+        preview.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        statusLabel.innerText = "Foto Terunggah: " + file.name;
+        state.cameraPreset = { id: 'custom', img: e.target.result, name: file.name };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function setCameraPreset(id, imgUrl, name) {
+      state.cameraPreset = { id, img: imgUrl, name };
+      stopCamera();
+
+      const preview = document.getElementById('camera-preview');
+      const placeholder = document.getElementById('camera-placeholder');
+      const statusLabel = document.getElementById('camera-status-label');
+
+      preview.style.backgroundImage = `url('${imgUrl}')`;
+      preview.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+      statusLabel.innerText = "Preset: " + name;
+    }
+
+    async function snapFoodImage() {
+      showToast("Menganalisis foto piring via AI...");
+      try {
+        // If camera stream is currently active, capture current frame onto canvas
+        const video = document.getElementById('camera-stream');
+        if (video && video.videoWidth > 0 && !video.classList.contains('hidden')) {
+          const canvas = document.createElement('canvas');
+          const maxDim = 800;
+          let w = video.videoWidth;
+          let h = video.videoHeight;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+            else { w = Math.round(w * maxDim / h); h = maxDim; }
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, w, h);
+          const snapUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          const preview = document.getElementById('camera-preview');
+          preview.style.backgroundImage = `url('${snapUrl}')`;
+          preview.classList.remove('hidden');
+          video.classList.add('hidden');
+          stopCamera();
+          state.cameraPreset = { id: 'live-snap', img: snapUrl, name: 'Foto Kamera Langsung' };
+        }
+
+        const promptName = state.cameraPreset ? state.cameraPreset.name : "Hidangan Sehat";
+        const hasImage = state.cameraPreset && state.cameraPreset.img;
+
+        let messages;
+        if (hasImage) {
+          messages = [
+            {
+              role: "system",
+              content: `Anda adalah pakar nutrisi AI CalorAI. Kenali apakah gambar ini adalah makanan atau bukan.
+- JIKA BUKAN MAKANAN atau tidak ada makanan di foto, HANYA BALAS:
+{"detected": false, "message": "Tidak ada makanan terdeteksi"}
+- JIKA ADA MAKANAN, taksir nilai gizinya secara akurat. HANYA BALAS:
+{"detected": true, "name": "Nama Makanan", "calories": 420, "protein": 25, "carbs": 45, "fat": 15}`
+            },
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: `Kenali makanan pada foto piring ini${promptName && promptName !== 'Foto Kamera Langsung' ? ' (' + promptName + ')' : ''} dan hitung taksiran gizinya. Jika tidak ada makanan pada foto, nyatakan tidak terdeteksi.`
+                },
+                {
+                  type: "image_url",
+                  image_url: { url: state.cameraPreset.img }
+                }
+              ]
+            }
+          ];
+        } else {
+          messages = [
+            {
+              role: "system",
+              content: `Anda adalah pakar nutrisi AI CalorAI. Kenali apakah nama hidangan ini valid sebagai makanan.
+- JIKA BUKAN MAKANAN, balas:
+{"detected": false, "message": "Bukan makanan"}
+- JIKA MAKANAN VALID, taksir gizinya:
+{"detected": true, "name": "Nama Makanan", "calories": 300, "protein": 15, "carbs": 40, "fat": 8}`
+            },
+            {
+              role: "user",
+              content: `Makanan: ${promptName}`
+            }
+          ];
+        }
+
+        const responseText = await callLunaAI(messages, 0.2);
+        const logData = parseAIJson(responseText);
+
+        // Check if food was genuinely detected
+        const nameLower = (logData.name || "").toLowerCase();
+        const msgLower = (logData.message || "").toLowerCase();
+        const isNotFood = logData.detected === false ||
+          nameLower.includes("tidak ada makanan") ||
+          nameLower.includes("bukan makanan") ||
+          msgLower.includes("tidak ada makanan") ||
+          msgLower.includes("bukan makanan");
+
+        if (isNotFood) {
+          showToast("Tidak ada makanan terdeteksi pada foto. Silakan arahkan kamera ke hidangan makanan kamu.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        const safeCal = Number.isFinite(Number(logData.calories)) ? Math.round(Number(logData.calories)) : 0;
+        const safeProt = Number.isFinite(Number(logData.protein)) ? Math.round(Number(logData.protein)) : 0;
+        const safeCarbs = Number.isFinite(Number(logData.carbs)) ? Math.round(Number(logData.carbs)) : 0;
+        const safeFat = Number.isFinite(Number(logData.fat)) ? Math.round(Number(logData.fat)) : 0;
+
+        if (safeCal === 0 && safeProt === 0 && safeCarbs === 0 && safeFat === 0) {
+          showToast("Makanan tidak dapat diidentifikasi nilainya. Coba ambil foto lebih jelas.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        state.extractedLog = {
+          name: logData.name || promptName,
+          calories: safeCal,
+          protein: safeProt,
+          carbs: safeCarbs,
+          fat: safeFat
+        };
+
+        displayExtractionPanel();
+        showToast("Foto berhasil dianalisis!");
+      } catch (err) {
+        console.error(err);
+        showToast("Analisis gagal: " + err.message, false);
+      }
+    }
+
+    function displayExtractionPanel() {
+      const log = state.extractedLog;
+      document.getElementById('extracted-food-name').innerText = log.name;
+      document.getElementById('extracted-calories').innerText = log.calories;
+      document.getElementById('extracted-protein').innerText = log.protein + "g";
+      document.getElementById('extracted-carbs').innerText = log.carbs + "g";
+      document.getElementById('extracted-fat').innerText = log.fat + "g";
+
+      const extPanel = document.getElementById('ai-extraction-panel');
+      extPanel.classList.remove('hidden');
+      const mainEl = document.querySelector('main');
+      if (mainEl && extPanel) {
+        mainEl.scrollTo({ top: extPanel.offsetTop - 15, behavior: 'smooth' });
+      }
+    }
+
+    function closeExtractionPanel() {
+      document.getElementById('ai-extraction-panel').classList.add('hidden');
+      state.extractedLog = null;
+    }
+
+    function commitAILog() {
+      if (!state.extractedLog) return;
+      state.todayLogs.push({
+        ...state.extractedLog,
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+      closeExtractionPanel();
+      renderDashboard();
+      showToast("Makanan berhasil dicatat!");
+      switchView('home');
+    }
+
+    // ==================== COACH SANDOW CHAT & PROFILE INTEGRATION ====================
+    function getCoachSandowSystemPrompt() {
+      const user = state.user || {};
+      const userName = user.name || "Kawan";
+
+      // Profile & Physical Metrics
+      const weight = state.currentWeight || 68.5;
+      const gender = (state.profile && state.profile.gender) || (document.getElementById('calc-gender') ? document.getElementById('calc-gender').value : 'male');
+      const age = (state.profile && state.profile.age) || (document.getElementById('calc-age') ? document.getElementById('calc-age').value : 26);
+      const height = (state.profile && state.profile.height) || (document.getElementById('calc-height') ? document.getElementById('calc-height').value : 172);
+      const activity = (state.profile && state.profile.activity) || (document.getElementById('calc-activity') ? document.getElementById('calc-activity').value : '1.375');
+      const goal = (state.profile && state.profile.goalText) || (document.getElementById('calc-goal') ? document.getElementById('calc-goal').options[document.getElementById('calc-goal').selectedIndex]?.text : "Turun Berat Sehat (Defisit 500 kkal)");
+
+      // Today Nutrition Progress
+      const totalCal = state.todayLogs.reduce((acc, l) => acc + (Number(l.calories) || 0), 0);
+      const totalProt = state.todayLogs.reduce((acc, l) => acc + (Number(l.protein) || 0), 0);
+      const totalCarbs = state.todayLogs.reduce((acc, l) => acc + (Number(l.carbs) || 0), 0);
+      const totalFat = state.todayLogs.reduce((acc, l) => acc + (Number(l.fat) || 0), 0);
+      const remainingCal = Math.max(0, state.targetCalories - totalCal);
+
+      // Today Meals Summary
+      const mealsSummary = state.todayLogs.length > 0 
+        ? state.todayLogs.map(l => `- ${l.name} (${l.meal || 'Makanan'}): ${l.calories} kkal (P: ${l.protein}g, K: ${l.carbs}g, L: ${l.fat}g)`).join('\n')
+        : "Belum ada makanan yang dicatat hari ini.";
+
+      // Today Workouts Summary
+      const workoutsSummary = state.todayWorkouts.length > 0
+        ? state.todayWorkouts.map(w => `- ${w.name}: ${w.sets || 3} set, total repetisi/beban`).join('\n')
+        : "Belum ada latihan fisik yang dicatat hari ini.";
+
+      // Water & Fasting Status
+      const water = state.waterDrank || 0;
+      const fastingStatus = state.fasting && state.fasting.isActive 
+        ? `Sedang Puasa Intermittent (${state.fasting.targetHours} Jam)` 
+        : "Jendela Makan / Tidak Puasa Aktif";
+
+      return `Anda adalah Coach Sandow, spesialis nutrisi klinis & pelatih kebugaran personal eksklusif dari CalorAI.
+Tugas Anda mendampingi pengguna secara personal, hangat, akurat, dan berenergi tinggi dalam Bahasa Indonesia.
+
+DATA PROFIL & REAL-TIME PENGGUNA YANG ANDA BIMBING SAAT INI:
+- Nama Pengguna: ${userName}
+- Jenis Kelamin: ${gender === 'male' || gender === 'pria' ? 'Pria' : 'Wanita'}
+- Usia: ${age} tahun | Tinggi Badan: ${height} cm | Berat Badan Saat Ini: ${weight} kg
+- Target Kalori Harian: ${state.targetCalories} kkal (Protein: ${state.targetProtein}g, Karbohidrat: ${state.targetCarbs}g, Lemak: ${state.targetFat}g)
+- Tujuan Program Diet: ${goal}
+- Asupan Terkini Hari Ini: ${totalCal} kkal sudah masuk (Sisa kuota: ${remainingCal} kkal dari target ${state.targetCalories} kkal)
+- Makronutrisi Hari Ini: Protein ${totalProt}g / ${state.targetProtein}g, Karbohidrat ${totalCarbs}g / ${state.targetCarbs}g, Lemak ${totalFat}g / ${state.targetFat}g
+- Konsumsi Air Hari Ini: ${water} Liter
+- Status Puasa: ${fastingStatus}
+- Daftar Makanan yang Sudah Masuk Hari Ini:
+${mealsSummary}
+- Catatan Latihan Fisik Hari Ini:
+${workoutsSummary}
+
+PEDOMAN COACH SANDOW & ATURAN FORMAT TAMPILAN (SANGAT PENTING):
+1. Sapa atau sebut nama ${userName} secara personal dan akrab. Anda mengenal profil fisiknya dan apa yang dia makan hari ini.
+2. FORMAT HARUS SANGAT MUDAH DIBACA DI LAYAR HP (Mobile-Friendly):
+   - JANGAN MENULIS TEKS PANJANG YANG MENUMPUK DALAM SATU PARAGRAF!
+   - Pisahkan setiap menu/bagian dengan baris kosong ganda (double newline).
+   - Gunakan bullet points (-) yang ringkas untuk setiap bahan dan porsi gramasi.
+   - Sorot angka penting (gram, kalori, protein) dengan format tebal (**200 g**, **650 kkal**, **85 g protein**).
+   - Buat judul menu singkat dan jelas (misal: "🍽️ Makan Siang (Ayam & Sayur)").
+   - Akhiri dengan ringkasan total kalori dan motivasi singkat yang bersemangat.
+3. Selalu gunakan data angka di atas secara cerdas dan kontekstual saat menjawab (misalnya menyebutkan sisa kuota kalorinya, makanan apa yang baru saja dia catat, kebutuhan proteinnya, atau rekomendasi sesuai berat badannya).
+4. Berikan saran menu praktis berbahan lokal Indonesia (tempe, tahu, telur, ikan tongkol, dada ayam, sayur bayam/kangkung, buah pepaya/pisang, dll.).
+5. Gaya bicara: Enerjik, ramah, profesional, memberi solusi langkah demi langkah, dan tidak berbelit-belit.`;
+    }
+
+    function formatChatMessage(text) {
+      if (!text) return "";
+      if (window.marked && typeof window.marked.parse === 'function') {
+        try {
+          return window.marked.parse(text, { breaks: true, gfm: true });
+        } catch (e) {
+          console.warn("Marked parse error:", e);
+        }
+      }
+      // Robust Fallback Markdown Formatter
+      return text
+        .replace(/^### (.*$)/gim, '<div class="font-bold text-[#FF991C] text-xs mt-2.5 mb-1 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-[#FF991C] mr-1.5 shrink-0"></span>$1</div>')
+        .replace(/^## (.*$)/gim, '<div class="font-extrabold text-[#191A1D] text-xs mt-3 mb-1 pb-0.5 border-b border-gray-200/80 flex items-center">$1</div>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-extrabold text-[#191A1D]">$1</strong>')
+        .replace(/^\s*-\s+(.*$)/gim, '<li class="ml-3.5 list-disc text-gray-700 my-0.5 leading-relaxed">$1</li>')
+        .replace(/(<li.*<\/li>\n?)+/g, '<ul class="my-1 space-y-0.5">$0</ul>')
+        .replace(/\n\n+/g, '<div class="my-2"></div>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function renderChatHistory() {
+      const container = document.getElementById('chat-messages');
+      if (!container) return;
+
+      const userName = (state.user && state.user.name) ? state.user.name : "Kawan";
+
+      if (!state.chatHistory || state.chatHistory.length === 0) {
+        state.chatHistory = [
+          {
+            role: "assistant",
+            content: `Halo **${userName}**! Saya Coach Sandow, pelatih gizi & kebugaran personal kamu di CalorAI.\n\nSaya memegang profilmu (Target: **${state.targetCalories} kkal/hari**). Ada yang ingin dikonsultasikan tentang sisa kuota kalori atau program latihan hari ini? 🔥`
+          }
+        ];
+      }
+
+      container.innerHTML = "";
+      state.chatHistory.forEach(msg => {
+        if (msg.role === 'user') appendChatMessage(msg.content, false);
+        else if (msg.role === 'assistant') appendChatMessage(msg.content, true);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function sendQuickMessage(text) {
+      document.getElementById('chat-input').value = text;
+      sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = "";
+      appendChatMessage(text, false);
+
+      state.chatHistory.push({ role: "user", content: text });
+      const loadingId = appendChatLoading();
+
+      try {
+        const dynamicSystemPrompt = getCoachSandowSystemPrompt();
+        const convo = state.chatHistory.filter(m => m.role !== 'system');
+        const messages = [
+          { role: "system", content: dynamicSystemPrompt },
+          ...convo
+        ];
+
+        const botReply = await callLunaAI(messages, 0.7);
+        removeChatLoading(loadingId);
+        appendChatMessage(botReply, true);
+        state.chatHistory.push({ role: "assistant", content: botReply });
+      } catch (err) {
+        removeChatLoading(loadingId);
+        appendChatMessage("Maaf, koneksi ke Coach Sandow AI sedang terganggu. Coba ulangi sesaat lagi.", true);
+      }
+    }
+
+    function appendChatMessage(text, isBot) {
+      const container = document.getElementById('chat-messages');
+      const div = document.createElement('div');
+      div.className = isBot ? "flex items-start space-x-2.5 my-1" : "flex items-end justify-end my-1";
+
+      if (isBot) {
+        div.innerHTML = `
+          <div class="w-7 h-7 rounded-full bg-[#FFF5E9] p-0.5 flex items-center justify-center shrink-0 shadow-xs border border-[#FF991C]/20 mt-0.5">
+            <img src="logo.png" alt="CalorAI" class="w-full h-full object-contain">
+          </div>
+          <div class="chat-bot-bubble bg-white border border-gray-100 text-gray-800 p-3.5 rounded-2xl rounded-tl-none max-w-[88%] shadow-xs">
+            ${formatChatMessage(text)}
+          </div>
+        `;
+      } else {
+        div.innerHTML = `
+          <div class="bg-[#FF991C] text-white p-3.5 rounded-2xl rounded-tr-none max-w-[85%] leading-relaxed font-semibold shadow-xs text-xs whitespace-pre-line">
+            ${text}
+          </div>
+        `;
+      }
+
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendChatLoading() {
+      const container = document.getElementById('chat-messages');
+      const id = 'chat-loading-' + Date.now();
+      const div = document.createElement('div');
+      div.id = id;
+      div.className = "flex items-center space-x-2 text-gray-400 text-xs italic";
+      div.innerHTML = `
+        <div class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
+          <i class="ph-bold ph-dots-three text-lg animate-pulse"></i>
+        </div>
+        <span>Coach Sandow sedang mengetik...</span>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+      return id;
+    }
+
+    function removeChatLoading(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function triggerMidnightCronSimulation() {
+      showToast("Simulasi kalibrasi tengah malam: Hari baru & sinkronisasi data!");
+      renderDashboard();
+    }
+
+    function changeDietProgram(days, target) {
+      state.activePlanDays = days;
+      state.targetCalories = target;
+      renderDashboard();
+      showToast(`Program diet diperbarui ke ${days} hari (${target} kkal)!`);
+      switchView('home');
+    }
+
+    // ==================== VIEWPORT LOCK & ANTI-OFFSET GUARDS ====================
+    window.addEventListener('scroll', () => {
+      if (window.scrollY !== 0 || window.scrollX !== 0) {
+        window.scrollTo(0, 0);
+      }
+    }, { passive: true });
+
+    document.addEventListener('focusout', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+        setTimeout(() => window.scrollTo(0, 0), 50);
+      }
+    });
+  </script>
+</body>
+</html>
