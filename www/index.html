@@ -2676,8 +2676,11 @@
         const messages = [
           {
             role: "system",
-            content: `Anda adalah pakar nutrisi AI CalorAI. Ekstraksi makanan dan taksir nilai gizinya secara akurat. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN TANPA TEKS LAIN:
-{"name":"Nama Makanan Lengkap","calories":300,"protein":15,"carbs":40,"fat":8}`
+            content: `Anda adalah pakar nutrisi AI CalorAI. Ekstraksi makanan dan taksir nilai gizinya secara akurat.
+- JIKA TEKS BUKAN TENTANG MAKANAN, balas:
+{"detected": false, "message": "Bukan makanan"}
+- JIKA ADA MAKANAN, balas satu JSON valid:
+{"detected": true, "name": "Nama Makanan Lengkap", "calories": 300, "protein": 15, "carbs": 40, "fat": 8}`
           },
           {
             role: "user",
@@ -2688,12 +2691,31 @@
         const responseText = await callLunaAI(messages, 0.1);
         const logData = parseAIJson(responseText);
 
+        const nameLower = (logData.name || "").toLowerCase();
+        const msgLower = (logData.message || "").toLowerCase();
+        if (logData.detected === false || nameLower.includes("tidak ada makanan") || nameLower.includes("bukan makanan") || msgLower.includes("bukan makanan")) {
+          showToast("Tidak dapat mengenali makanan dari teks. Sebutkan nama hidangan kamu.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        const safeCal = Number.isFinite(Number(logData.calories)) ? Math.round(Number(logData.calories)) : 0;
+        const safeProt = Number.isFinite(Number(logData.protein)) ? Math.round(Number(logData.protein)) : 0;
+        const safeCarbs = Number.isFinite(Number(logData.carbs)) ? Math.round(Number(logData.carbs)) : 0;
+        const safeFat = Number.isFinite(Number(logData.fat)) ? Math.round(Number(logData.fat)) : 0;
+
+        if (safeCal === 0 && safeProt === 0 && safeCarbs === 0 && safeFat === 0) {
+          showToast("Teks tidak terdeteksi sebagai makanan.", false);
+          closeExtractionPanel();
+          return;
+        }
+
         state.extractedLog = {
           name: logData.name || text,
-          calories: parseInt(logData.calories) || 250,
-          protein: parseInt(logData.protein) || 10,
-          carbs: parseInt(logData.carbs) || 30,
-          fat: parseInt(logData.fat) || 5
+          calories: safeCal,
+          protein: safeProt,
+          carbs: safeCarbs,
+          fat: safeFat
         };
 
         displayExtractionPanel();
@@ -2821,15 +2843,18 @@
           messages = [
             {
               role: "system",
-              content: `Anda adalah pakar nutrisi AI CalorAI. Analisis foto makanan ini secara akurat dan taksir nilai gizinya. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
-{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
+              content: `Anda adalah pakar nutrisi AI CalorAI. Kenali apakah gambar ini adalah makanan atau bukan.
+- JIKA BUKAN MAKANAN atau tidak ada makanan di foto, HANYA BALAS:
+{"detected": false, "message": "Tidak ada makanan terdeteksi"}
+- JIKA ADA MAKANAN, taksir nilai gizinya secara akurat. HANYA BALAS:
+{"detected": true, "name": "Nama Makanan", "calories": 420, "protein": 25, "carbs": 45, "fat": 15}`
             },
             {
               role: "user",
               content: [
                 {
                   type: "text",
-                  text: `Kenali makanan pada foto piring ini${promptName && promptName !== 'Foto Kamera Langsung' ? ' (' + promptName + ')' : ''} dan hitung taksiran gizinya.`
+                  text: `Kenali makanan pada foto piring ini${promptName && promptName !== 'Foto Kamera Langsung' ? ' (' + promptName + ')' : ''} dan hitung taksiran gizinya. Jika tidak ada makanan pada foto, nyatakan tidak terdeteksi.`
                 },
                 {
                   type: "image_url",
@@ -2842,8 +2867,11 @@
           messages = [
             {
               role: "system",
-              content: `Anda adalah pakar nutrisi AI CalorAI. Taksir kalori dan makronutrisi dari nama makanan ini. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
-{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
+              content: `Anda adalah pakar nutrisi AI CalorAI. Kenali apakah nama hidangan ini valid sebagai makanan.
+- JIKA BUKAN MAKANAN, balas:
+{"detected": false, "message": "Bukan makanan"}
+- JIKA MAKANAN VALID, taksir gizinya:
+{"detected": true, "name": "Nama Makanan", "calories": 300, "protein": 15, "carbs": 40, "fat": 8}`
             },
             {
               role: "user",
@@ -2855,12 +2883,38 @@
         const responseText = await callLunaAI(messages, 0.2);
         const logData = parseAIJson(responseText);
 
+        // Check if food was genuinely detected
+        const nameLower = (logData.name || "").toLowerCase();
+        const msgLower = (logData.message || "").toLowerCase();
+        const isNotFood = logData.detected === false ||
+          nameLower.includes("tidak ada makanan") ||
+          nameLower.includes("bukan makanan") ||
+          msgLower.includes("tidak ada makanan") ||
+          msgLower.includes("bukan makanan");
+
+        if (isNotFood) {
+          showToast("Tidak ada makanan terdeteksi pada foto. Silakan arahkan kamera ke hidangan makanan kamu.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        const safeCal = Number.isFinite(Number(logData.calories)) ? Math.round(Number(logData.calories)) : 0;
+        const safeProt = Number.isFinite(Number(logData.protein)) ? Math.round(Number(logData.protein)) : 0;
+        const safeCarbs = Number.isFinite(Number(logData.carbs)) ? Math.round(Number(logData.carbs)) : 0;
+        const safeFat = Number.isFinite(Number(logData.fat)) ? Math.round(Number(logData.fat)) : 0;
+
+        if (safeCal === 0 && safeProt === 0 && safeCarbs === 0 && safeFat === 0) {
+          showToast("Makanan tidak dapat diidentifikasi nilainya. Coba ambil foto lebih jelas.", false);
+          closeExtractionPanel();
+          return;
+        }
+
         state.extractedLog = {
           name: logData.name || promptName,
-          calories: parseInt(logData.calories) || 350,
-          protein: parseInt(logData.protein) || 20,
-          carbs: parseInt(logData.carbs) || 40,
-          fat: parseInt(logData.fat) || 10
+          calories: safeCal,
+          protein: safeProt,
+          carbs: safeCarbs,
+          fat: safeFat
         };
 
         displayExtractionPanel();
