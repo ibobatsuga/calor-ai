@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calorai-v2.4';
+const CACHE_NAME = 'calorai-v2.5';
 const STATIC_ASSETS = [
   './manifest.json',
   './icon-192.png',

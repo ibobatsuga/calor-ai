@@ -128,6 +128,12 @@
       animation: scanline 2.2s ease-in-out infinite;
     }
 
+    /* Workout Guide: Pure Black figures on App Brand Orange background */
+    .workout-svg-img {
+      filter: brightness(0);
+      transition: transform 0.2s ease;
+    }
+
     /* Coach Sandow Chatbot Bubble & Markdown Styler */
     .chat-bot-bubble {
       font-size: 12px;
@@ -884,7 +890,7 @@
       <div id="view-workout" class="view-panel space-y-4 hidden">
         <div class="text-center pt-2">
           <h3 class="text-xl font-extrabold text-[#191A1D]">Olahraga & Gym Guide</h3>
-          <p class="text-xs text-gray-500 mt-0.5">302 gerakan, 906 SVG transparan 512×512, 3 frame per gerakan</p>
+          <p class="text-xs text-gray-500 mt-0.5">302 Latihan Dengan Contoh Gerakan</p>
         </div>
 
         <!-- Muscle Filter Chips -->
@@ -951,10 +957,10 @@
           </div>
 
           <!-- Active Selected Exercise Visual Preview Banner -->
-          <div id="workout-selected-banner" class="bg-amber-50/70 border border-amber-200/70 rounded-2xl p-3 flex items-center space-x-3">
-            <div class="w-16 h-16 bg-white rounded-xl border border-amber-100 flex items-center justify-center p-1 relative overflow-hidden shrink-0 cursor-pointer shadow-xs" onclick="openCurrentExerciseModal()">
-              <img id="workout-banner-img" src="" alt="Latihan" class="w-full h-full object-contain">
-              <span id="workout-banner-frame" class="absolute bottom-0.5 right-0.5 bg-black/60 text-[8px] text-white px-1 rounded font-mono">F1</span>
+          <div id="workout-selected-banner" class="bg-[#FFF5E9] border border-[#FF991C]/30 rounded-2xl p-3 flex items-center space-x-3">
+            <div class="w-16 h-16 bg-[#FFE8CC] rounded-xl border border-[#FF991C]/40 flex items-center justify-center p-1.5 relative overflow-hidden shrink-0 cursor-pointer shadow-xs" onclick="openCurrentExerciseModal()">
+              <img id="workout-banner-img" src="" alt="Latihan" class="workout-svg-img w-full h-full object-contain">
+              <span id="workout-banner-frame" class="absolute bottom-0.5 right-0.5 bg-black/70 text-[8px] text-white px-1 rounded font-mono">F1</span>
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center space-x-1.5 mb-0.5">
@@ -1345,12 +1351,12 @@
         </div>
 
         <!-- 3-Frame Visual Canvas Display -->
-        <div class="bg-[#F8F9FA] border border-gray-200/80 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
+        <div class="bg-[#FFF5E9] border-2 border-[#FF991C]/30 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden shadow-inner">
           <div class="w-full h-56 flex items-center justify-center">
-            <img id="modal-ex-frame-img" src="" alt="Latihan" class="max-w-full max-h-full object-contain filter drop-shadow-sm transition-all duration-150">
+            <img id="modal-ex-frame-img" src="" alt="Latihan" class="workout-svg-img max-w-full max-h-full object-contain filter drop-shadow-sm transition-all duration-150">
           </div>
-          <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-xs border border-gray-200/80 px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-gray-700 shadow-xs flex items-center space-x-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-xs border border-[#FF991C]/30 px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-gray-800 shadow-xs flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#FF991C] animate-pulse"></span>
             <span id="modal-ex-frame-indicator">Frame 1 (Awal)</span>
           </div>
         </div>
@@ -2263,16 +2269,16 @@
              onmouseenter="startCardHoverAnim(${ex.id}, '${ex.slug}')"
              onmouseleave="stopCardHoverAnim(${ex.id}, '${ex.slug}')"
              class="bg-[#F8F9FA] hover:border-[#FF991C] border border-gray-100 p-3 rounded-2xl cursor-pointer transition-all flex flex-col justify-between group shadow-xs hover:shadow-md relative">
-          <!-- 512x512 Transparent SVG Display -->
-          <div class="relative w-full aspect-square bg-white rounded-xl border border-gray-100 flex items-center justify-center p-2 overflow-hidden mb-2 shadow-xs">
+          <!-- 512x512 Transparent SVG Display: Black figures on App Orange Background -->
+          <div class="relative w-full aspect-square bg-[#FFF5E9] rounded-xl border border-[#FF991C]/30 flex items-center justify-center p-2.5 overflow-hidden mb-2 shadow-2xs group-hover:border-[#FF991C] group-hover:bg-[#FFEED8] transition-colors">
             <img id="card-img-${ex.id}"
                  src="${ex.frames[0]}"
                  loading="lazy"
                  alt="${ex.name}"
-                 class="w-full h-full object-contain transition-transform group-hover:scale-105"
+                 class="workout-svg-img w-full h-full object-contain transition-transform group-hover:scale-105"
                  onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg'">
-            <span class="absolute top-1.5 left-1.5 bg-amber-50 text-[#FF991C] text-[9px] font-black uppercase px-1.5 py-0.5 rounded border border-amber-200/50">${ex.categoryName || ex.category}</span>
-            <span id="card-frame-tag-${ex.id}" class="absolute bottom-1 right-1.5 bg-black/50 text-[8px] font-mono text-white px-1 py-0.2 rounded opacity-75">F1</span>
+            <span class="absolute top-1.5 left-1.5 bg-white/95 text-[#FF991C] text-[9px] font-black uppercase px-1.5 py-0.5 rounded border border-[#FF991C]/30 shadow-2xs">${ex.categoryName || ex.category}</span>
+            <span id="card-frame-tag-${ex.id}" class="absolute bottom-1 right-1.5 bg-black/70 text-[8px] font-mono text-white px-1 py-0.2 rounded">F1</span>
           </div>
 
           <div class="space-y-0.5">
