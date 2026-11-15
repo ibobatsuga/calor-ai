@@ -57,13 +57,27 @@
   <!-- Supabase JS Client for Auth & OAuth -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- Markdown Parser for Coach Sandow Chat -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <!-- Database Pangan Indonesia TKPI 2019 (darya-nutrition-db) -->
   <script src="foods.js"></script>
+
+  <!-- Bryl Lim Workout Guide Catalog (302 exercises, 906 SVG frames) -->
+  <script src="exercises.js"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 
-    body {
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
       font-family: 'Plus Jakarta Sans', sans-serif;
       -webkit-tap-highlight-color: transparent;
       background-color: #F4F5F7;
@@ -113,13 +127,61 @@
     .scan-laser {
       animation: scanline 2.2s ease-in-out infinite;
     }
+
+    /* Coach Sandow Chatbot Bubble & Markdown Styler */
+    .chat-bot-bubble {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #2D3139;
+      word-break: break-word;
+    }
+    .chat-bot-bubble h1, .chat-bot-bubble h2 {
+      font-size: 13px;
+      font-weight: 800;
+      color: #191A1D;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .chat-bot-bubble h3, .chat-bot-bubble h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF991C;
+      margin-top: 8px;
+      margin-bottom: 3px;
+    }
+    .chat-bot-bubble p {
+      margin-bottom: 8px;
+    }
+    .chat-bot-bubble p:last-child {
+      margin-bottom: 0;
+    }
+    .chat-bot-bubble ul, .chat-bot-bubble ol {
+      margin-left: 18px;
+      margin-bottom: 8px;
+      list-style-type: disc;
+    }
+    .chat-bot-bubble li {
+      margin-bottom: 3px;
+      line-height: 1.45;
+    }
+    .chat-bot-bubble strong {
+      font-weight: 800;
+      color: #111827;
+    }
+    .chat-bot-bubble hr {
+      border: 0;
+      border-top: 1px dashed rgba(0,0,0,0.12);
+      margin: 8px 0;
+    }
   </style>
 </head>
 
-<body class="m-0 p-0 flex justify-center min-h-[100dvh]">
+<body class="m-0 p-0 flex justify-center h-full h-[100dvh] fixed inset-0 overflow-hidden">
 
   <!-- Mobile Container Shell -->
-  <div class="w-full max-w-[540px] mx-auto h-[100dvh] bg-[#F8F9FA] flex flex-col overflow-hidden relative shadow-2xl">
+  <div class="w-full max-w-[540px] mx-auto h-full h-[100dvh] bg-[#F8F9FA] flex flex-col overflow-hidden relative shadow-2xl">
 
     <!-- ==================== TOAST NOTIFICATION ==================== -->
     <div id="toast"
@@ -192,7 +254,7 @@
               <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
                 <i class="ph-bold ph-envelope-simple text-base"></i>
               </span>
-              <input type="email" id="auth-email" value="admin@calorai.id"
+              <input type="email" id="auth-email"
                 class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
                 placeholder="nama@email.com">
             </div>
@@ -204,7 +266,7 @@
               <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
                 <i class="ph-bold ph-lock text-base"></i>
               </span>
-              <input type="password" id="auth-password" value="123456"
+              <input type="password" id="auth-password"
                 class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200/80 rounded-2xl focus:ring-2 focus:ring-[#FF991C] focus:outline-none text-xs transition-all font-semibold text-gray-800 shadow-xs"
                 placeholder="••••••••">
             </div>
@@ -356,26 +418,85 @@
           </div>
         </div>
 
-        <!-- Hero Card (Matching Reference UI Orange Card with Arrow) -->
-        <div class="hero-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[160px] cursor-pointer"
-             onclick="switchView('workout')">
-          <div class="flex items-start justify-between z-10">
-            <div>
-              <h3 class="text-2xl font-black text-white leading-tight">Stronger Body<br>Starts Here</h3>
-              <div class="flex items-center space-x-3 text-xs text-white/90 font-bold mt-2">
-                <span class="flex items-center"><i class="ph-bold ph-timer mr-1"></i> 20 menit</span>
-                <span class="flex items-center"><i class="ph-bold ph-crown mr-1"></i> Semua Level</span>
+        <!-- 3-Card Action Grid (Gym, Foto Piring, Tanya AI) -->
+        <div class="grid grid-cols-2 gap-3 min-h-[220px]">
+          <!-- Kartu 1: Gym (Kiri - Tinggi Penuh) -->
+          <div class="hero-card p-4 sm:p-5 relative overflow-hidden flex flex-col justify-between cursor-pointer active:scale-[0.98] transition-all rounded-[28px] shadow-lg shadow-[#FF991C]/25"
+               onclick="switchView('workout')">
+            <div class="flex items-start justify-between z-10">
+              <span class="inline-flex items-center text-[10px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-white">
+                <i class="ph-bold ph-barbell mr-1"></i> Gym
+              </span>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-xs shrink-0">
+                <i class="ph-bold ph-arrow-up-right"></i>
               </div>
             </div>
-            <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-lg">
-              <i class="ph-bold ph-arrow-up-right"></i>
+
+            <div class="z-10 my-2">
+              <h3 class="text-base sm:text-lg font-black text-white leading-tight">Stronger Body<br>Starts Here</h3>
+              <div class="flex items-center space-x-2 text-[10px] text-white/90 font-bold mt-1.5">
+                <span class="flex items-center"><i class="ph-bold ph-timer mr-1"></i> 20 menit</span>
+                <span>•</span>
+                <span>Semua Level</span>
+              </div>
+            </div>
+
+            <p class="text-[10px] sm:text-[11px] text-white/85 font-medium leading-snug z-10">
+              Katalog 200+ latihan gym terstruktur dengan perhitungan kalori otomatis
+            </p>
+
+            <!-- Watermark Dumbbell Transparan -->
+            <i class="ph-bold ph-barbell absolute -right-4 -bottom-4 text-white/20 text-8xl pointer-events-none transform -rotate-12"></i>
+          </div>
+
+          <!-- Kolom Kanan: 2 Kartu Menumpuk (Foto Piring & Tanya AI) -->
+          <div class="flex flex-col gap-3">
+            <!-- Kartu 2: Foto Piring -->
+            <div class="hero-card p-3.5 sm:p-4 relative overflow-hidden flex flex-col justify-between flex-1 cursor-pointer active:scale-[0.98] transition-all rounded-[24px] shadow-md shadow-[#FF991C]/20"
+                 onclick="switchView('logger'); switchLogTab('camera');">
+              <div class="flex items-start justify-between z-10">
+                <span class="inline-flex items-center text-[9px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-white">
+                  <i class="ph-bold ph-camera mr-1"></i> Foto Piring
+                </span>
+                <div class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-[10px] shrink-0">
+                  <i class="ph-bold ph-arrow-up-right"></i>
+                </div>
+              </div>
+
+              <div class="z-10 mt-1.5">
+                <h4 class="text-xs sm:text-sm font-black text-white leading-tight">Scan Gizi AI</h4>
+                <p class="text-[9.5px] sm:text-[10px] text-white/85 font-medium leading-tight mt-0.5">
+                  Foto makanan & kenali kalori otomatis
+                </p>
+              </div>
+
+              <!-- Watermark Kamera Transparan -->
+              <i class="ph-bold ph-camera absolute -right-2 -bottom-2 text-white/20 text-6xl pointer-events-none transform rotate-12"></i>
+            </div>
+
+            <!-- Kartu 3: Tanya AI -->
+            <div class="hero-card p-3.5 sm:p-4 relative overflow-hidden flex flex-col justify-between flex-1 cursor-pointer active:scale-[0.98] transition-all rounded-[24px] shadow-md shadow-[#FF991C]/20"
+                 onclick="switchView('chat')">
+              <div class="flex items-start justify-between z-10">
+                <span class="inline-flex items-center text-[9px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-white">
+                  <i class="ph-bold ph-sparkle mr-1"></i> Tanya AI
+                </span>
+                <div class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-[10px] shrink-0">
+                  <i class="ph-bold ph-arrow-up-right"></i>
+                </div>
+              </div>
+
+              <div class="z-10 mt-1.5">
+                <h4 class="text-xs sm:text-sm font-black text-white leading-tight">Coach Sandow</h4>
+                <p class="text-[9.5px] sm:text-[10px] text-white/85 font-medium leading-tight mt-0.5">
+                  Konsultasi diet & motivasi personal
+                </p>
+              </div>
+
+              <!-- Watermark Chat AI Transparan -->
+              <i class="ph-bold ph-chat-circle-dots absolute -right-2 -bottom-2 text-white/20 text-6xl pointer-events-none transform -rotate-6"></i>
             </div>
           </div>
-          <p class="text-[11px] text-white/80 font-medium z-10 mt-3">
-            Katalog 200+ latihan gym terstruktur dengan perhitungan kalori otomatis
-          </p>
-          <!-- Subtle watermark icon in bg -->
-          <i class="ph-bold ph-barbell absolute -right-4 -bottom-6 text-white/15 text-9xl pointer-events-none"></i>
         </div>
 
         <!-- Activity Bento Grid: Water + Weight + Fasting -->
@@ -526,7 +647,7 @@
           </div>
         </div>
 
-        <!-- Tab 2: Camera Vision AI -->
+        <!-- Tab 2: Foto Makanan AI -->
         <div id="log-tab-camera" class="space-y-3 hidden">
           <div class="app-card p-5 space-y-4 text-center">
             <div class="flex items-center justify-between">
@@ -562,8 +683,7 @@
               </div>
 
               <!-- Overlay -->
-              <div class="absolute bottom-2.5 inset-x-3 bg-black/60 backdrop-blur-md p-2 rounded-xl text-[10px] flex justify-between items-center z-10">
-                <span class="font-bold text-[#FF991C]">Cloudflare Vision AI</span>
+              <div class="absolute bottom-2.5 inset-x-3 bg-black/60 backdrop-blur-md p-2 rounded-xl text-[10px] flex items-center justify-center z-10">
                 <span id="camera-status-label" class="font-semibold text-white">Siap mengambil foto</span>
               </div>
             </div>
@@ -588,7 +708,7 @@
           </div>
         </div>
 
-        <!-- Tab 3: Barcode Scanner Sub-Menu (Open Food Facts) -->
+        <!-- Tab 3: Pindai Barcode Produk -->
         <div id="log-tab-barcode" class="space-y-3 hidden">
           <!-- Barcode Viewfinder Card -->
           <div class="app-card p-5 space-y-4 text-center">
@@ -604,8 +724,7 @@
               </div>
 
               <!-- Status Indicator -->
-              <div class="absolute bottom-2 inset-x-3 bg-black/70 backdrop-blur-md p-2 rounded-xl text-[10px] flex justify-between items-center z-10">
-                <span class="text-[#FF991C] font-bold">Open Food Facts Engine</span>
+              <div class="absolute bottom-2 inset-x-3 bg-black/70 backdrop-blur-md p-2 rounded-xl text-[10px] flex items-center justify-center z-10">
                 <span id="barcode-status-text" class="text-white font-medium">Kamera aktif mendeteksi...</span>
               </div>
             </div>
@@ -686,7 +805,7 @@
           </div>
         </div>
 
-        <!-- Tab 4: Manual & Open Food Facts Search -->
+        <!-- Tab 4: Pencarian Database Makanan -->
         <div id="log-tab-manual" class="space-y-3 hidden">
           <div class="app-card p-5 space-y-3">
             <div class="flex space-x-2">
@@ -764,40 +883,64 @@
       <!-- ==================== VIEW 3: GYM & WORKOUT (STAGE 3) ==================== -->
       <div id="view-workout" class="view-panel space-y-4 hidden">
         <div class="text-center pt-2">
-          <h3 class="text-xl font-extrabold text-[#191A1D]">Olahraga & Latihan Fisik</h3>
-          <p class="text-xs text-gray-500 mt-0.5">Katalog 200+ latihan gym wger & pencatat kalori terbakar</p>
+          <h3 class="text-xl font-extrabold text-[#191A1D]">Olahraga & Gym Guide</h3>
+          <p class="text-xs text-gray-500 mt-0.5">302 gerakan, 906 SVG transparan 512×512, 3 frame per gerakan</p>
         </div>
 
-        <!-- Muscle Filter Chips (Matching Reference UI Pills) -->
+        <!-- Muscle Filter Chips -->
         <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
           <button onclick="filterWorkoutCategory('all')" id="cat-all"
             class="workout-cat-btn bg-[#FF991C] text-white px-4 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm">
-            Semua
+            Semua (302)
           </button>
           <button onclick="filterWorkoutCategory('chest')" id="cat-chest"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Dada (Chest)
+            Dada (26)
           </button>
           <button onclick="filterWorkoutCategory('back')" id="cat-back"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Punggung (Back)
+            Punggung (50)
           </button>
-          <button onclick="filterWorkoutCategory('legs')" id="cat-legs"
+          <button onclick="filterWorkoutCategory('shoulders')" id="cat-shoulders"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Kaki (Legs)
+            Bahu (26)
           </button>
           <button onclick="filterWorkoutCategory('arms')" id="cat-arms"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Lengan (Arms)
+            Lengan (35)
+          </button>
+          <button onclick="filterWorkoutCategory('legs')" id="cat-legs"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Kaki (116)
           </button>
           <button onclick="filterWorkoutCategory('core')" id="cat-core"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Perut (Core)
+            Perut (45)
           </button>
           <button onclick="filterWorkoutCategory('cardio')" id="cat-cardio"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Kardio
+            Kardio & Stretch (4)
           </button>
+        </div>
+
+        <!-- Search & Equipment Filter Bar -->
+        <div class="flex items-center space-x-2">
+          <div class="relative flex-1">
+            <i class="ph-bold ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="text" id="workout-search-input" oninput="handleWorkoutSearch(this.value)" placeholder="Cari gerakan (bench, squat, bicep, pull up)..."
+              class="w-full pl-8 pr-3 py-2 bg-white border border-gray-200/80 rounded-xl text-xs font-semibold text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+          </div>
+          <select id="workout-filter-equipment" onchange="handleWorkoutEquipmentFilter(this.value)"
+            class="py-2 px-2.5 bg-white border border-gray-200/80 rounded-xl text-[11px] font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+            <option value="all">Semua Alat</option>
+            <option value="Barbell">Barbell</option>
+            <option value="Dumbbell">Dumbbell</option>
+            <option value="Machine">Machine</option>
+            <option value="Cable">Cable</option>
+            <option value="Bodyweight">Bodyweight</option>
+            <option value="Kettlebell">Kettlebell</option>
+            <option value="Plate">Plate</option>
+          </select>
         </div>
 
         <!-- Workout Form Input Card -->
@@ -807,12 +950,31 @@
             <span id="calc-burn-preview" class="text-xs font-extrabold text-[#FF991C]">Est. Terbakar: ~0 kkal</span>
           </div>
 
+          <!-- Active Selected Exercise Visual Preview Banner -->
+          <div id="workout-selected-banner" class="bg-amber-50/70 border border-amber-200/70 rounded-2xl p-3 flex items-center space-x-3">
+            <div class="w-16 h-16 bg-white rounded-xl border border-amber-100 flex items-center justify-center p-1 relative overflow-hidden shrink-0 cursor-pointer shadow-xs" onclick="openCurrentExerciseModal()">
+              <img id="workout-banner-img" src="" alt="Latihan" class="w-full h-full object-contain">
+              <span id="workout-banner-frame" class="absolute bottom-0.5 right-0.5 bg-black/60 text-[8px] text-white px-1 rounded font-mono">F1</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center space-x-1.5 mb-0.5">
+                <span id="workout-banner-muscle" class="bg-amber-100 text-[#FF991C] px-1.5 py-0.5 rounded text-[9px] font-black uppercase">Dada</span>
+                <span id="workout-banner-equipment" class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[9px] font-bold">Barbell</span>
+              </div>
+              <h4 id="workout-banner-title" class="font-extrabold text-xs text-[#191A1D] truncate">Bench Press</h4>
+              <p id="workout-banner-meta" class="text-[10px] text-gray-500 font-medium">Animasi 3 Frame • MET 7.5</p>
+            </div>
+            <button type="button" onclick="openCurrentExerciseModal()" class="p-2 text-[#FF991C] hover:bg-amber-100/60 rounded-xl transition-colors" title="Lihat Panduan Animasi 3 Frame">
+              <i class="ph-bold ph-arrows-out-simple text-base"></i>
+            </button>
+          </div>
+
           <div class="space-y-3">
             <div>
-              <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1">Nama Latihan</label>
+              <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1">Pilih dari 302 Gerakan</label>
               <select id="workout-select-exercise" onchange="handleExerciseSelectChange()"
                 class="w-full p-3 bg-gray-50 border border-gray-200/80 rounded-2xl text-xs font-bold text-gray-800 focus:ring-2 focus:ring-[#FF991C] focus:outline-none">
-                <!-- Populated dynamically -->
+                <!-- Populated dynamically with optgroups -->
               </select>
             </div>
 
@@ -843,13 +1005,13 @@
           </div>
         </div>
 
-        <!-- Exercise Catalog Grid (from wger) -->
+        <!-- Exercise Catalog Grid (302 movements) -->
         <div class="space-y-2">
           <div class="flex items-center justify-between px-1">
-            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Katalog Gerakan Populer</span>
-            <span class="text-[11px] text-gray-400 font-semibold" id="catalog-count-label">30 Gerakan</span>
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Katalog 302 Gerakan Gym</span>
+            <span class="text-[11px] text-gray-400 font-semibold" id="catalog-count-label">302 Gerakan</span>
           </div>
-          <div id="exercise-catalog-grid" class="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto no-scrollbar">
+          <div id="exercise-catalog-grid" class="grid grid-cols-2 gap-2.5 max-h-[520px] overflow-y-auto no-scrollbar pb-6">
             <!-- Rendered by JS -->
           </div>
         </div>
@@ -963,17 +1125,21 @@
 
         <!-- Suggestions -->
         <div class="bg-gray-50 py-2 px-3 flex space-x-2 overflow-x-auto no-scrollbar border-t border-gray-100">
-          <button onclick="sendQuickMessage('Resep sarapan tinggi protein dibawah 300 kkal')"
-            class="bg-white text-gray-600 border border-gray-200/80 px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0">
-            Resep Sarapan &lt;300 kkal
+          <button onclick="sendQuickMessage('Berapa sisa kalori dan makronutrisi saya hari ini?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            📊 Cek Sisa Kalori Hari Ini
           </button>
-          <button onclick="sendQuickMessage('Berapa kalori ideal untuk menurunkan berat badan saya?')"
-            class="bg-white text-gray-600 border border-gray-200/80 px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0">
-            Hitung Kalori Ideal
+          <button onclick="sendQuickMessage('Evaluasi makanan yang sudah saya catat hari ini, apakah gizinya sudah seimbang?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🥗 Evaluasi Menu Hari Ini
           </button>
-          <button onclick="sendQuickMessage('Latihan apa yang paling cepat membakar lemak perut?')"
-            class="bg-white text-gray-600 border border-gray-200/80 px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0">
-            Latihan Bakar Lemak
+          <button onclick="sendQuickMessage('Rekomendasikan menu makan sehat khas Indonesia sesuai sisa kalori dan kebutuhan protein saya')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🍗 Ide Menu Sesuai Target
+          </button>
+          <button onclick="sendQuickMessage('Berdasarkan data profil fisik dan tujuan saya, program latihan apa yang disarankan hari ini?')"
+            class="bg-white text-gray-700 border border-gray-200/80 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap shrink-0 hover:border-[#FF991C] hover:text-[#FF991C] transition-all">
+            🏋️ Saran Latihan Sesuai Profil
           </button>
         </div>
 
@@ -1148,6 +1314,7 @@
 
         <!-- Section 3: Akun & Logout -->
         <div class="pt-1">
+          <div id="modal-account-info" class="text-center pb-2 text-[11px] text-gray-500 font-medium"></div>
           <button onclick="handleLogout()"
             class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 py-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center space-x-2 shadow-xs">
             <i class="ph-bold ph-sign-out text-base text-gray-400"></i>
@@ -1155,6 +1322,91 @@
           </button>
         </div>
 
+      </div>
+    </div>
+
+    <!-- ==================== MODAL 3: EXERCISE DETAIL & 3-FRAME ANIMATOR ==================== -->
+    <div id="exercise-detail-modal"
+      class="absolute inset-0 bg-black/50 z-50 flex items-end justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+      <div class="bg-white w-full max-h-[88vh] overflow-y-auto no-scrollbar rounded-t-[36px] p-6 space-y-4 transform translate-y-full transition-transform duration-300">
+        <!-- Header -->
+        <div class="flex justify-between items-start pb-2 border-b border-gray-100">
+          <div class="pr-2 flex-1">
+            <div class="flex items-center space-x-1.5 mb-1 flex-wrap gap-y-1">
+              <span id="modal-ex-muscle-badge" class="bg-amber-100 text-[#FF991C] px-2 py-0.5 rounded-md text-[10px] font-black uppercase">Dada</span>
+              <span id="modal-ex-equip-badge" class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md text-[10px] font-bold">Barbell</span>
+              <span id="modal-ex-met-badge" class="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md text-[10px] font-bold">MET 7.5</span>
+            </div>
+            <h4 id="modal-ex-title" class="font-extrabold text-[#191A1D] text-lg leading-tight">Bench Press</h4>
+          </div>
+          <button onclick="closeExerciseDetailModal()" class="text-gray-400 hover:text-gray-600 p-1">
+            <i class="ph-bold ph-x text-xl"></i>
+          </button>
+        </div>
+
+        <!-- 3-Frame Visual Canvas Display -->
+        <div class="bg-[#F8F9FA] border border-gray-200/80 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
+          <div class="w-full h-56 flex items-center justify-center">
+            <img id="modal-ex-frame-img" src="" alt="Latihan" class="max-w-full max-h-full object-contain filter drop-shadow-sm transition-all duration-150">
+          </div>
+          <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-xs border border-gray-200/80 px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-gray-700 shadow-xs flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="modal-ex-frame-indicator">Frame 1 (Awal)</span>
+          </div>
+        </div>
+
+        <!-- Frame Controls & Stepper -->
+        <div class="space-y-2">
+          <div class="flex items-center space-x-2">
+            <button id="modal-frame-btn-1" onclick="setModalFrame(1)"
+              class="flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-[#FF991C] text-white border-[#FF991C]">
+              1. Awal
+            </button>
+            <button id="modal-frame-btn-2" onclick="setModalFrame(2)"
+              class="flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-white text-gray-700 border-gray-200">
+              2. Gerakan
+            </button>
+            <button id="modal-frame-btn-3" onclick="setModalFrame(3)"
+              class="flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-white text-gray-700 border-gray-200">
+              3. Kontraksi
+            </button>
+            <button id="modal-play-toggle-btn" onclick="toggleModalAnimation()"
+              class="px-3.5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition-all">
+              <i id="modal-play-icon" class="ph-bold ph-pause text-sm"></i>
+              <span id="modal-play-text">Jeda</span>
+            </button>
+          </div>
+          <p class="text-[10px] text-gray-400 text-center font-medium">Klik frame 1, 2, atau 3 untuk mempelajari postur biomekanik, atau Jeda / Putar untuk animasi repetisi.</p>
+        </div>
+
+        <!-- Technical Anatomy & Specs -->
+        <div class="bg-gray-50 border border-gray-100 rounded-2xl p-3.5 space-y-2 text-xs">
+          <div class="flex justify-between items-center py-1 border-b border-gray-200/60">
+            <span class="text-gray-400 font-semibold text-[11px]">Target Otot Utama</span>
+            <span id="modal-ex-primary-muscle" class="font-extrabold text-[#191A1D]">Chest</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-gray-200/60">
+            <span class="text-gray-400 font-semibold text-[11px]">Otot Pendukung</span>
+            <span id="modal-ex-secondary-muscles" class="font-bold text-gray-700">Triceps, Shoulders</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-gray-200/60">
+            <span class="text-gray-400 font-semibold text-[11px]">Peralatan & Tipe</span>
+            <span id="modal-ex-type" class="font-bold text-gray-700">Barbell • WEIGHT REPS</span>
+          </div>
+          <div class="flex justify-between items-center py-1">
+            <span class="text-gray-400 font-semibold text-[11px]">Estimasi Kalori / Latihan</span>
+            <span id="modal-ex-burn-rate" class="font-extrabold text-[#FF991C]">~28 kkal (3 set @ 12 reps)</span>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="pt-1">
+          <button id="modal-btn-select-exercise" onclick="applyModalExerciseToForm()"
+            class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold shadow-md shadow-[#FF991C]/25 text-xs flex items-center justify-center space-x-2 transition-all active:scale-[0.99]">
+            <i class="ph-bold ph-plus-circle text-base"></i>
+            <span>Pilih & Catat Gerakan Ini</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1168,10 +1420,10 @@
       anonKey: "sb_publishable_jXjCgAT5zqBtbr3pA3qNOQ_YBpo4gh6"
     };
 
-    let supabase = null;
+    let supabaseClient = null;
     try {
-      if (window.supabase) {
-        supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
       }
     } catch (err) {
       console.warn("Supabase init error:", err);
@@ -1181,7 +1433,16 @@
 
     // 1. STATE MANAGEMENT APLIKASI
     const state = {
-      user: { username: 'admin', name: 'Martin Buttler' },
+      user: null,
+      profile: {
+        gender: 'male',
+        age: 26,
+        height: 172,
+        weight: 68.5,
+        activity: '1.375',
+        goalOffset: -500,
+        goalText: 'Turun Berat Sehat (Defisit 500 kkal)'
+      },
       todayLogs: [],
       todayWorkouts: [],
       weightHistory: [
@@ -1214,16 +1475,7 @@
       },
       extractedLog: null,
       scannedProduct: null,
-      chatHistory: [
-        {
-          role: "system",
-          content: "Anda adalah Coach Sandow, spesialis gizi dan pelatih kebugaran personal dari CalorAI. Tugas Anda membantu pengguna dengan rekomendasi diet, perhitungan kalori, resep sehat, teknik latihan gym, dan motivasi ramah ringkas dalam Bahasa Indonesia yang berenergi dan aplikatif."
-        },
-        {
-          role: "assistant",
-          content: "Halo! Saya Coach Sandow, pelatih kebugaran & gizi personal kamu di CalorAI. Tanyakan apa saja tentang kalori makanan, tips diet, atau program latihan kamu hari ini! 🔥"
-        }
-      ]
+      chatHistory: []
     };
 
     // Preloaded Food DB: 78 Pangan Indonesia TKPI 2019 (darya-nutrition-db) + Pilihan Populer
@@ -1236,37 +1488,17 @@
       { name: "Mie Bakso (per 100g)", group: "Olahan Mie", calories: 172, protein: 8.5, carbs: 21.0, fat: 6.2, fiber: 1.2, aliases: ["bakso"], source: "TKPI 2019" }
     ];
 
-    // Preloaded 30+ Exercises (wger inspired)
-    const exerciseCatalog = [
-      { id: 1, name: "Barbell Bench Press", category: "chest", met: 6.0, desc: "Latihan utama otot dada dan trisep" },
-      { id: 2, name: "Dumbbell Incline Press", category: "chest", met: 5.5, desc: "Melatih dada bagian atas" },
-      { id: 3, name: "Push Up", category: "chest", met: 4.5, desc: "Latihan dada bodyweight" },
-      { id: 4, name: "Chest Fly Machine", category: "chest", met: 4.0, desc: "Isolasi serat otot dada" },
-      { id: 5, name: "Barbell Deadlift", category: "back", met: 8.0, desc: "Latihan posterior chain terkuat" },
-      { id: 6, name: "Lat Pulldown", category: "back", met: 5.0, desc: "Melatih otot latissimus dorsi" },
-      { id: 7, name: "Barbell Bent-over Row", category: "back", met: 6.0, desc: "Ketebalan punggung tengah" },
-      { id: 8, name: "Pull Up", category: "back", met: 7.5, desc: "Bodyweight pull untuk punggung lebar" },
-      { id: 9, name: "Barbell Squat", category: "legs", met: 7.5, desc: "Latihan kaki nomor 1 untuk paha & glutes" },
-      { id: 10, name: "Leg Press Machine", category: "legs", met: 6.0, desc: "Beban aman untuk kuadrisep" },
-      { id: 11, name: "Romanian Deadlift", category: "legs", met: 6.0, desc: "Fokus hamstring dan glutes" },
-      { id: 12, name: "Calf Raises", category: "legs", met: 3.5, desc: "Melatih otot betis" },
-      { id: 13, name: "Overhead Shoulder Press", category: "arms", met: 5.5, desc: "Melatih bahu anterior & medial" },
-      { id: 14, name: "Dumbbell Lateral Raise", category: "arms", met: 4.0, desc: "Bahu samping untuk siluet V-taper" },
-      { id: 15, name: "Biceps Barbell Curl", category: "arms", met: 4.5, desc: "Pembentukan puncak bisep" },
-      { id: 16, name: "Triceps Rope Pushdown", category: "arms", met: 4.0, desc: "Isolasi trisep bagian lateral" },
-      { id: 17, name: "Plank Hold", category: "core", met: 3.8, desc: "Stabilitas otot perut dalam" },
-      { id: 18, name: "Hanging Leg Raise", category: "core", met: 5.0, desc: "Otot perut bawah" },
-      { id: 19, name: "Cable Woodchopper", category: "core", met: 4.5, desc: "Otot obliques samping" },
-      { id: 20, name: "Treadmill Running (Jogging)", category: "cardio", met: 9.0, desc: "Kardio pembakar lemak cepat" },
-      { id: 21, name: "Stationary Bicycle", category: "cardio", met: 7.0, desc: "Kardio ramah persendian lutut" },
-      { id: 22, name: "Jump Rope (Lompat Tali)", category: "cardio", met: 10.0, desc: "Kardio intensitas tinggi (HIIT)" }
-    ];
+    // Bryl Lim Workout Guide (302 exercises, 906 SVG frames 512x512)
+    const exerciseCatalog = (typeof workoutGuideCatalog !== 'undefined' && workoutGuideCatalog.length)
+      ? workoutGuideCatalog
+      : (window.workoutGuideCatalog || []);
 
     // ==================== PERSISTENCE (Eatshimo Local-First) ====================
     function saveState() {
       try {
         localStorage.setItem('calorai_state_v2', JSON.stringify({
           user: state.user,
+          profile: state.profile,
           todayLogs: state.todayLogs,
           todayWorkouts: state.todayWorkouts,
           weightHistory: state.weightHistory,
@@ -1289,6 +1521,15 @@
         if (saved) {
           const parsed = JSON.parse(saved);
           Object.assign(state, parsed);
+
+          if (state.profile) {
+            const g = document.getElementById('calc-gender'); if (g && state.profile.gender) g.value = state.profile.gender;
+            const a = document.getElementById('calc-age'); if (a && state.profile.age) a.value = state.profile.age;
+            const h = document.getElementById('calc-height'); if (h && state.profile.height) h.value = state.profile.height;
+            const w = document.getElementById('calc-weight'); if (w && state.profile.weight) w.value = state.profile.weight;
+            const act = document.getElementById('calc-activity'); if (act && state.profile.activity) act.value = state.profile.activity;
+            const goal = document.getElementById('calc-goal'); if (goal && state.profile.goalOffset) goal.value = state.profile.goalOffset;
+          }
         }
       } catch (e) {
         console.warn('Storage load error:', e);
@@ -1381,7 +1622,7 @@
         return;
       }
 
-      if (!supabase) {
+      if (!supabaseClient) {
         state.user = { email, name: email.split('@')[0] };
         localStorage.setItem('user', JSON.stringify(state.user));
         document.getElementById('screen-login').classList.add('hidden');
@@ -1392,7 +1633,7 @@
 
       showToast("Memverifikasi akun...");
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
           email: email,
           password: password
         });
@@ -1428,7 +1669,7 @@
         return;
       }
 
-      if (!supabase) {
+      if (!supabaseClient) {
         state.user = { email, name };
         localStorage.setItem('user', JSON.stringify(state.user));
         document.getElementById('screen-login').classList.add('hidden');
@@ -1439,7 +1680,7 @@
 
       showToast("Mendaftarkan akun ke Supabase...");
       try {
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await supabaseClient.auth.signUp({
           email: email,
           password: password,
           options: {
@@ -1467,15 +1708,15 @@
     }
 
     async function handleGoogleLogin() {
-      if (!supabase) {
-        showToast("Supabase client belum siap", false);
+      if (!supabaseClient) {
+        showToast("Layanan autentikasi belum siap, silakan coba lagi.", false);
         return;
       }
 
       showToast("Menghubungkan ke Akun Google...");
       try {
         const redirectUrl = window.location.origin + window.location.pathname;
-        const { data, error } = await supabase.auth.signInWithOAuth({
+        const { data, error } = await supabaseClient.auth.signInWithOAuth({
           provider: 'google',
           options: {
             redirectTo: redirectUrl
@@ -1513,12 +1754,17 @@
         const avatarImg = document.querySelector('header img');
         if (avatarImg) avatarImg.src = state.user.avatar;
       }
+
+      const accInfo = document.getElementById('modal-account-info');
+      if (accInfo) {
+        accInfo.innerText = state.user.email ? `Akun: ${state.user.email}` : `Akun: ${state.user.name}`;
+      }
     }
 
     async function handleLogout() {
       showToast("Sedang keluar...");
       try {
-        if (supabase) await supabase.auth.signOut();
+        if (supabaseClient) await supabaseClient.auth.signOut();
       } catch (e) {}
       localStorage.removeItem('user');
       state.user = null;
@@ -1528,7 +1774,7 @@
     }
 
     function handleGuestLogin() {
-      state.user = { id: 'guest', username: 'guest', name: 'Martin Buttler (Tamu)' };
+      state.user = { id: 'guest', username: 'guest', name: 'Pengguna Tamu' };
       localStorage.setItem('user', JSON.stringify(state.user));
       updateUserUI();
       document.getElementById('screen-login').classList.add('hidden');
@@ -1538,13 +1784,18 @@
 
     async function checkSession() {
       // 1. Check Supabase active session (handles Google redirect with access_token)
-      if (supabase) {
+      if (supabaseClient) {
         try {
-          const { data, error } = await supabase.auth.getSession();
+          const { data, error } = await supabaseClient.auth.getSession();
           if (data && data.session && data.session.user) {
             setUserFromSupabase(data.session.user);
             document.getElementById('screen-login').classList.add('hidden');
             renderDashboard();
+            if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('error'))) {
+              setTimeout(() => {
+                window.history.replaceState(null, '', window.location.pathname);
+              }, 300);
+            }
             return;
           }
         } catch (e) {
@@ -1552,11 +1803,16 @@
         }
 
         // Listen for auth state change (OAuth callback)
-        supabase.auth.onAuthStateChange((event, session) => {
+        supabaseClient.auth.onAuthStateChange((event, session) => {
           if (session && session.user) {
             setUserFromSupabase(session.user);
             document.getElementById('screen-login').classList.add('hidden');
             renderDashboard();
+            if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('error'))) {
+              setTimeout(() => {
+                window.history.replaceState(null, '', window.location.pathname);
+              }, 300);
+            }
           }
         });
       }
@@ -1579,6 +1835,10 @@
 
     // ==================== NAVIGATION & VIEWS ====================
     function switchView(viewName) {
+      window.scrollTo(0, 0);
+      const mainEl = document.querySelector('main');
+      if (mainEl) mainEl.scrollTop = 0;
+
       document.querySelectorAll('.view-panel').forEach(v => v.classList.add('hidden'));
       const target = document.getElementById('view-' + viewName);
       if (target) target.classList.remove('hidden');
@@ -1596,6 +1856,7 @@
 
       state.activeView = viewName;
       if (viewName === 'home') renderDashboard();
+      if (viewName === 'chat') renderChatHistory();
 
       // Stop hardware streams when leaving logger view
       if (viewName !== 'logger') {
@@ -1781,23 +2042,115 @@
       showToast("Catatan latihan dihapus.");
     }
 
-    // ==================== WORKOUT LOGGING & CATALOG (STAGE 3) ====================
+    // ==================== WORKOUT LOGGING & BRYL LIM WORKOUT-GUIDE CATALOG ====================
+    let currentWorkoutCategory = 'all';
+    let currentWorkoutEquipment = 'all';
+    let currentWorkoutSearch = '';
+    let currentSelectedExerciseId = 1;
+
+    let modalAnimTimer = null;
+    let modalCurrentFrame = 1;
+    let modalIsPlaying = true;
+    let modalActiveExercise = null;
+    let cardHoverTimers = {};
+    let bannerAnimTimer = null;
+
     function populateExerciseDropdown() {
       const select = document.getElementById('workout-select-exercise');
       if (!select) return;
-      select.innerHTML = exerciseCatalog.map(ex => `
-        <option value="${ex.id}" data-category="${ex.category}" data-met="${ex.met}">${ex.name} (${ex.category.toUpperCase()})</option>
-      `).join('');
+
+      const categoryGroups = {
+        'chest': 'Dada (Chest)',
+        'back': 'Punggung (Back)',
+        'shoulders': 'Bahu (Shoulders)',
+        'arms': 'Lengan (Arms)',
+        'legs': 'Kaki (Legs)',
+        'core': 'Perut (Core)',
+        'cardio': 'Kardio & Stretch'
+      };
+
+      let html = '';
+      for (const [catKey, catLabel] of Object.entries(categoryGroups)) {
+        const list = exerciseCatalog.filter(e => e.category === catKey);
+        if (list.length > 0) {
+          html += `<optgroup label="${catLabel}">`;
+          list.forEach(ex => {
+            html += `<option value="${ex.id}" data-category="${ex.category}" data-met="${ex.met}">${ex.name} (${ex.equipment})</option>`;
+          });
+          html += `</optgroup>`;
+        }
+      }
+
+      const others = exerciseCatalog.filter(e => !categoryGroups[e.category]);
+      if (others.length > 0) {
+        html += `<optgroup label="Gerakan Lainnya">`;
+        others.forEach(ex => {
+          html += `<option value="${ex.id}" data-category="${ex.category}" data-met="${ex.met}">${ex.name}</option>`;
+        });
+        html += `</optgroup>`;
+      }
+
+      select.innerHTML = html;
+      if (exerciseCatalog.length > 0) {
+        select.value = exerciseCatalog[0].id;
+        currentSelectedExerciseId = exerciseCatalog[0].id;
+        updateWorkoutBanner(exerciseCatalog[0]);
+      }
       updateWorkoutBurnPreview();
     }
 
+    function updateWorkoutBanner(ex) {
+      if (!ex) return;
+      const img = document.getElementById('workout-banner-img');
+      const title = document.getElementById('workout-banner-title');
+      const muscle = document.getElementById('workout-banner-muscle');
+      const equip = document.getElementById('workout-banner-equipment');
+      const meta = document.getElementById('workout-banner-meta');
+      const frameTag = document.getElementById('workout-banner-frame');
+
+      if (title) title.innerText = ex.name;
+      if (muscle) muscle.innerText = ex.categoryName || ex.primaryMuscle;
+      if (equip) equip.innerText = ex.equipment;
+      if (meta) meta.innerText = `Animasi 3 Frame • MET ${ex.met}`;
+
+      if (bannerAnimTimer) clearInterval(bannerAnimTimer);
+      let step = 0;
+      const seq = [1, 2, 3, 2];
+      if (img) {
+        img.src = ex.frames ? ex.frames[0] : `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${ex.slug}/frame-1.svg`;
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg`;
+        };
+      }
+      if (frameTag) frameTag.innerText = 'F1';
+
+      bannerAnimTimer = setInterval(() => {
+        step = (step + 1) % seq.length;
+        const f = seq[step];
+        if (img) img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${ex.slug}/frame-${f}.svg`;
+        if (frameTag) frameTag.innerText = `F${f}`;
+      }, 550);
+    }
+
+    function openCurrentExerciseModal() {
+      const select = document.getElementById('workout-select-exercise');
+      const id = parseInt(select ? select.value : currentSelectedExerciseId) || 1;
+      openExerciseDetailModal(id);
+    }
+
     function handleExerciseSelectChange() {
+      const select = document.getElementById('workout-select-exercise');
+      const id = parseInt(select ? select.value : 1) || 1;
+      currentSelectedExerciseId = id;
+      const ex = exerciseCatalog.find(e => e.id === id);
+      if (ex) updateWorkoutBanner(ex);
       updateWorkoutBurnPreview();
     }
 
     function updateWorkoutBurnPreview() {
       const select = document.getElementById('workout-select-exercise');
-      if (!select) return;
+      if (!select) return 0;
       const opt = select.options[select.selectedIndex];
       const met = parseFloat(opt ? opt.getAttribute('data-met') : 5.0) || 5.0;
 
@@ -1805,9 +2158,11 @@
       const reps = parseFloat(document.getElementById('workout-reps').value) || 0;
       const sets = parseFloat(document.getElementById('workout-sets').value) || 1;
 
-      // Estimated Burn: MET formula modified for sets & reps volume
-      const burned = Math.round((met * 3.5 * state.currentWeight / 200) * (sets * 2.5) + (weight * reps * sets * 0.02));
-      document.getElementById('calc-burn-preview').innerText = `Est. Terbakar: ~${burned} kkal`;
+      // Estimated Burn: MET formula adjusted for sets & reps volume
+      const currentWeight = (state && state.currentWeight) ? state.currentWeight : 68;
+      const burned = Math.round((met * 3.5 * currentWeight / 200) * (sets * 2.5) + (weight * reps * sets * 0.02));
+      const previewEl = document.getElementById('calc-burn-preview');
+      if (previewEl) previewEl.innerText = `Est. Terbakar: ~${burned} kkal`;
       return burned;
     }
 
@@ -1830,7 +2185,7 @@
       });
 
       renderDashboard();
-      showToast(`Latihan berhasil dicatat (-${burned} kkal)!`);
+      showToast(`Latihan ${name} berhasil dicatat (-${burned} kkal)!`);
       switchView('home');
     }
 
@@ -1848,6 +2203,7 @@
     }
 
     function filterWorkoutCategory(cat) {
+      currentWorkoutCategory = cat;
       document.querySelectorAll('.workout-cat-btn').forEach(btn => {
         btn.className = "workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0";
       });
@@ -1855,34 +2211,238 @@
       if (activeBtn) {
         activeBtn.className = "workout-cat-btn bg-[#FF991C] text-white px-4 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm";
       }
-      renderExerciseCatalog(cat);
+      renderExerciseCatalog();
     }
 
-    function renderExerciseCatalog(cat) {
+    function handleWorkoutSearch(val) {
+      currentWorkoutSearch = val || '';
+      renderExerciseCatalog();
+    }
+
+    function handleWorkoutEquipmentFilter(eq) {
+      currentWorkoutEquipment = eq || 'all';
+      renderExerciseCatalog();
+    }
+
+    function getFilteredExercises() {
+      const q = currentWorkoutSearch.toLowerCase().trim();
+      return exerciseCatalog.filter(ex => {
+        if (currentWorkoutCategory !== 'all' && ex.category !== currentWorkoutCategory) return false;
+        if (currentWorkoutEquipment !== 'all' && ex.equipment !== currentWorkoutEquipment) return false;
+        if (q) {
+          const matchName = ex.name.toLowerCase().includes(q);
+          const matchSlug = (ex.slug || '').toLowerCase().includes(q);
+          const matchEquip = (ex.equipment || '').toLowerCase().includes(q);
+          const matchMuscle = (ex.primaryMuscle || '').toLowerCase().includes(q) || (ex.categoryName || '').toLowerCase().includes(q);
+          if (!matchName && !matchSlug && !matchEquip && !matchMuscle) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderExerciseCatalog() {
       const container = document.getElementById('exercise-catalog-grid');
-      const filtered = cat === 'all' ? exerciseCatalog : exerciseCatalog.filter(e => e.category === cat);
-      document.getElementById('catalog-count-label').innerText = `${filtered.length} Gerakan`;
+      if (!container) return;
+      const filtered = getFilteredExercises();
+      const countLabel = document.getElementById('catalog-count-label');
+      if (countLabel) countLabel.innerText = `${filtered.length} Gerakan`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-10 text-gray-400">
+            <i class="ph-bold ph-barbell text-4xl mb-2 text-gray-300"></i>
+            <p class="text-xs font-bold text-gray-600">Tidak ada gerakan ditemukan</p>
+            <p class="text-[10px] text-gray-400 mt-1">Coba gunakan kata kunci lain atau ubah filter peralatan</p>
+          </div>
+        `;
+        return;
+      }
 
       container.innerHTML = filtered.map(ex => `
-        <div onclick="selectCatalogExercise(${ex.id})"
-          class="bg-[#F8F9FA] hover:border-[#FF991C] border border-gray-100 p-3 rounded-2xl cursor-pointer transition-all">
-          <div class="flex items-center space-x-2">
-            <div class="w-7 h-7 rounded-lg bg-[#FFF5E9] text-[#FF991C] flex items-center justify-center text-xs font-bold">
-              <i class="ph-bold ph-barbell"></i>
-            </div>
-            <h5 class="font-extrabold text-xs text-[#191A1D] truncate">${ex.name}</h5>
+        <div onclick="openExerciseDetailModal(${ex.id})"
+             onmouseenter="startCardHoverAnim(${ex.id}, '${ex.slug}')"
+             onmouseleave="stopCardHoverAnim(${ex.id}, '${ex.slug}')"
+             class="bg-[#F8F9FA] hover:border-[#FF991C] border border-gray-100 p-3 rounded-2xl cursor-pointer transition-all flex flex-col justify-between group shadow-xs hover:shadow-md relative">
+          <!-- 512x512 Transparent SVG Display -->
+          <div class="relative w-full aspect-square bg-white rounded-xl border border-gray-100 flex items-center justify-center p-2 overflow-hidden mb-2 shadow-xs">
+            <img id="card-img-${ex.id}"
+                 src="${ex.frames[0]}"
+                 loading="lazy"
+                 alt="${ex.name}"
+                 class="w-full h-full object-contain transition-transform group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg'">
+            <span class="absolute top-1.5 left-1.5 bg-amber-50 text-[#FF991C] text-[9px] font-black uppercase px-1.5 py-0.5 rounded border border-amber-200/50">${ex.categoryName || ex.category}</span>
+            <span id="card-frame-tag-${ex.id}" class="absolute bottom-1 right-1.5 bg-black/50 text-[8px] font-mono text-white px-1 py-0.2 rounded opacity-75">F1</span>
           </div>
-          <p class="text-[10px] text-gray-400 mt-1 line-clamp-1">${ex.desc}</p>
+
+          <div class="space-y-0.5">
+            <h5 class="font-extrabold text-xs text-[#191A1D] line-clamp-1 group-hover:text-[#FF991C] transition-colors">${ex.name}</h5>
+            <div class="flex items-center justify-between text-[10px] text-gray-400 font-medium">
+              <span class="truncate"><i class="ph-bold ph-barbell text-[#FF991C] mr-0.5"></i>${ex.equipment}</span>
+              <span class="font-bold text-[#FF991C]">MET ${ex.met}</span>
+            </div>
+          </div>
+
+          <button type="button" onclick="event.stopPropagation(); selectCatalogExercise(${ex.id})"
+                  class="mt-2.5 w-full py-1.5 bg-white hover:bg-[#FF991C] hover:text-white text-gray-700 border border-gray-200/80 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center space-x-1 active:scale-95 shadow-2xs">
+            <i class="ph-bold ph-check text-xs"></i>
+            <span>Pilih Latihan</span>
+          </button>
         </div>
       `).join('');
     }
 
+    function startCardHoverAnim(id, slug) {
+      const img = document.getElementById(`card-img-${id}`);
+      const tag = document.getElementById(`card-frame-tag-${id}`);
+      if (!img) return;
+      const seq = [1, 2, 3, 2];
+      let step = 0;
+      if (cardHoverTimers[id]) clearInterval(cardHoverTimers[id]);
+      cardHoverTimers[id] = setInterval(() => {
+        step = (step + 1) % seq.length;
+        const f = seq[step];
+        img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${slug}/frame-${f}.svg`;
+        if (tag) tag.innerText = `F${f}`;
+      }, 450);
+    }
+
+    function stopCardHoverAnim(id, slug) {
+      if (cardHoverTimers[id]) {
+        clearInterval(cardHoverTimers[id]);
+        delete cardHoverTimers[id];
+      }
+      const img = document.getElementById(`card-img-${id}`);
+      const tag = document.getElementById(`card-frame-tag-${id}`);
+      if (img) img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${slug}/frame-1.svg`;
+      if (tag) tag.innerText = `F1`;
+    }
+
     function selectCatalogExercise(id) {
       const select = document.getElementById('workout-select-exercise');
-      select.value = id;
+      if (select) select.value = id;
+      currentSelectedExerciseId = id;
+      const ex = exerciseCatalog.find(e => e.id === id);
+      if (ex) updateWorkoutBanner(ex);
       handleExerciseSelectChange();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      showToast("Gerakan dipilih dari katalog!");
+
+      // Scroll smoothly to form without lifting the footer
+      const main = document.querySelector('main');
+      if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(`Gerakan ${ex ? ex.name : ''} dipilih!`);
+    }
+
+    // Modal Details & Animation Controls
+    function openExerciseDetailModal(id) {
+      const ex = exerciseCatalog.find(e => e.id === id);
+      if (!ex) return;
+      modalActiveExercise = ex;
+
+      document.getElementById('modal-ex-title').innerText = ex.name;
+      document.getElementById('modal-ex-muscle-badge').innerText = ex.categoryName || ex.primaryMuscle;
+      document.getElementById('modal-ex-equip-badge').innerText = ex.equipment;
+      document.getElementById('modal-ex-met-badge').innerText = `MET ${ex.met}`;
+
+      document.getElementById('modal-ex-primary-muscle').innerText = ex.primaryMuscle + (ex.categoryName ? ` (${ex.categoryName})` : '');
+      document.getElementById('modal-ex-secondary-muscles').innerText = (ex.secondaryMuscles && ex.secondaryMuscles.length) ? ex.secondaryMuscles.join(', ') : 'Fokus Otot Utama';
+      document.getElementById('modal-ex-type').innerText = `${ex.equipment} • ${(ex.exerciseType || 'weight_reps').replace('_', ' ').toUpperCase()}`;
+
+      const userWeight = (state && state.currentWeight) ? state.currentWeight : 68;
+      const burnEst = Math.round((ex.met * 3.5 * userWeight / 200) * (3 * 2.5) + (20 * 12 * 3 * 0.02));
+      document.getElementById('modal-ex-burn-rate').innerText = `~${burnEst} kkal (3 set @ 12 reps)`;
+
+      setModalFrame(1, false);
+      startModalAnimation(ex);
+
+      const modal = document.getElementById('exercise-detail-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      modal.querySelector('div').classList.remove('translate-y-full');
+    }
+
+    function closeExerciseDetailModal() {
+      stopModalAnimation();
+      const modal = document.getElementById('exercise-detail-modal');
+      modal.querySelector('div').classList.add('translate-y-full');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function startModalAnimation(ex) {
+      stopModalAnimation();
+      modalIsPlaying = true;
+      updateModalPlayButtonUI();
+      const seq = [1, 2, 3, 2];
+      let step = 0;
+      modalAnimTimer = setInterval(() => {
+        if (!modalIsPlaying) return;
+        step = (step + 1) % seq.length;
+        setModalFrame(seq[step], false);
+      }, 450);
+    }
+
+    function stopModalAnimation() {
+      if (modalAnimTimer) {
+        clearInterval(modalAnimTimer);
+        modalAnimTimer = null;
+      }
+    }
+
+    function toggleModalAnimation() {
+      modalIsPlaying = !modalIsPlaying;
+      updateModalPlayButtonUI();
+      if (modalIsPlaying && !modalAnimTimer && modalActiveExercise) {
+        startModalAnimation(modalActiveExercise);
+      }
+    }
+
+    function updateModalPlayButtonUI() {
+      const icon = document.getElementById('modal-play-icon');
+      const text = document.getElementById('modal-play-text');
+      if (modalIsPlaying) {
+        if (icon) icon.className = "ph-bold ph-pause text-sm";
+        if (text) text.innerText = "Jeda";
+      } else {
+        if (icon) icon.className = "ph-bold ph-play text-sm";
+        if (text) text.innerText = "Putar";
+      }
+    }
+
+    function setModalFrame(f, pausePlay = true) {
+      if (pausePlay) {
+        modalIsPlaying = false;
+        updateModalPlayButtonUI();
+      }
+      modalCurrentFrame = f;
+      if (!modalActiveExercise) return;
+      const img = document.getElementById('modal-ex-frame-img');
+      if (img) {
+        img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${modalActiveExercise.slug}/frame-${f}.svg`;
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${modalActiveExercise.slug}/frame-${f}.svg`;
+        };
+      }
+
+      const indicator = document.getElementById('modal-ex-frame-indicator');
+      const labels = { 1: "Frame 1 (Awal)", 2: "Frame 2 (Gerakan)", 3: "Frame 3 (Kontraksi)" };
+      if (indicator) indicator.innerText = labels[f] || `Frame ${f} / 3`;
+
+      [1, 2, 3].forEach(idx => {
+        const btn = document.getElementById(`modal-frame-btn-${idx}`);
+        if (!btn) return;
+        if (idx === f) {
+          btn.className = "flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-[#FF991C] text-white border-[#FF991C] shadow-xs";
+        } else {
+          btn.className = "flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-white text-gray-700 border-gray-200 hover:bg-gray-50";
+        }
+      });
+    }
+
+    function applyModalExerciseToForm() {
+      if (!modalActiveExercise) return;
+      selectCatalogExercise(modalActiveExercise.id);
+      closeExerciseDetailModal();
     }
 
     // ==================== VOICE RECOGNITION (STAGE 3 FUD AI) ====================
@@ -2015,7 +2575,7 @@
     }
 
     async function lookupBarcode(barcode) {
-      showToast("Mencari info produk di Open Food Facts...");
+      showToast("Mencari info produk...");
       const statusText = document.getElementById('barcode-status-text');
       statusText.innerText = `Memeriksa ${barcode}...`;
 
@@ -2044,7 +2604,7 @@
           displayBarcodeResult(state.scannedProduct);
           showToast("Produk berhasil diidentifikasi!");
         } else {
-          showToast("Barcode tidak terdaftar di database Open Food Facts.", false);
+          showToast("Barcode tidak terdaftar di database produk.", false);
           statusText.innerText = "Produk tidak ditemukan.";
         }
       } catch (err) {
@@ -2063,8 +2623,12 @@
       document.getElementById('scanned-portion-label').innerText = "100";
       updateScannedPortion();
 
-      document.getElementById('barcode-result-card').classList.remove('hidden');
-      document.getElementById('barcode-result-card').scrollIntoView({ behavior: 'smooth' });
+      const resCard = document.getElementById('barcode-result-card');
+      resCard.classList.remove('hidden');
+      const mainEl = document.querySelector('main');
+      if (mainEl && resCard) {
+        mainEl.scrollTo({ top: resCard.offsetTop - 15, behavior: 'smooth' });
+      }
     }
 
     function updateScannedPortion() {
@@ -2190,7 +2754,7 @@
       const statusEl = document.getElementById('online-search-status');
       const resultsContainer = document.getElementById('manual-search-results');
       statusEl.classList.remove('hidden');
-      statusEl.innerText = `Mencari '${q}' di Open Food Facts...`;
+      statusEl.innerText = `Mencari '${q}' di database...`;
 
       try {
         const res = await fetch(`/api/search-food?q=${encodeURIComponent(q)}`);
@@ -2221,7 +2785,7 @@
             `;
           }).join('');
         } else {
-          resultsContainer.innerHTML = `<div class="py-3 text-center text-xs text-gray-400">Tidak ada produk ditemukan di Open Food Facts.</div>`;
+          resultsContainer.innerHTML = `<div class="py-3 text-center text-xs text-gray-400">Tidak ada produk ditemukan di database.</div>`;
         }
       } catch (err) {
         statusEl.innerText = "Pencarian online gagal: " + err.message;
@@ -2312,6 +2876,11 @@
       const weight = parseFloat(document.getElementById('calc-weight').value) || 68;
       const activity = parseFloat(document.getElementById('calc-activity').value) || 1.375;
       const goalOffset = parseFloat(document.getElementById('calc-goal').value) || -500;
+      const goalSelect = document.getElementById('calc-goal');
+      const goalText = goalSelect ? goalSelect.options[goalSelect.selectedIndex].text : "Defisit Sehat";
+
+      // Save profile metadata
+      state.profile = { gender, age, height, weight, activity, goalOffset, goalText };
 
       // Mifflin-St Jeor Formula
       let bmr = (10 * weight) + (6.25 * height) - (5 * age);
@@ -2323,11 +2892,12 @@
 
       state.targetCalories = finalTarget;
       state.currentWeight = weight;
-      // Macro Recommendations (Protein: 2g/kg, Fat: 0.8g/kg, Carbs: sisa)
+      // Macro Recommendations (Protein: 2g/kg, Fat: 0.85g/kg, Carbs: sisa)
       state.targetProtein = Math.round(weight * 2.0);
       state.targetFat = Math.round(weight * 0.85);
       state.targetCarbs = Math.max(50, Math.round((finalTarget - (state.targetProtein * 4 + state.targetFat * 9)) / 4));
 
+      saveState();
       renderDashboard();
       closeProfileSettingsModal();
       showToast(`Target Kalori Ilmiah diterapkan: ${finalTarget} kkal!`);
@@ -2515,8 +3085,11 @@
         const messages = [
           {
             role: "system",
-            content: `Anda adalah pakar nutrisi AI CalorAI. Ekstraksi makanan dan taksir nilai gizinya secara akurat. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN TANPA TEKS LAIN:
-{"name":"Nama Makanan Lengkap","calories":300,"protein":15,"carbs":40,"fat":8}`
+            content: `Anda adalah pakar nutrisi AI CalorAI. Ekstraksi makanan dan taksir nilai gizinya secara akurat.
+- JIKA TEKS BUKAN TENTANG MAKANAN, balas:
+{"detected": false, "message": "Bukan makanan"}
+- JIKA ADA MAKANAN, balas satu JSON valid:
+{"detected": true, "name": "Nama Makanan Lengkap", "calories": 300, "protein": 15, "carbs": 40, "fat": 8}`
           },
           {
             role: "user",
@@ -2527,12 +3100,31 @@
         const responseText = await callLunaAI(messages, 0.1);
         const logData = parseAIJson(responseText);
 
+        const nameLower = (logData.name || "").toLowerCase();
+        const msgLower = (logData.message || "").toLowerCase();
+        if (logData.detected === false || nameLower.includes("tidak ada makanan") || nameLower.includes("bukan makanan") || msgLower.includes("bukan makanan")) {
+          showToast("Tidak dapat mengenali makanan dari teks. Sebutkan nama hidangan kamu.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        const safeCal = Number.isFinite(Number(logData.calories)) ? Math.round(Number(logData.calories)) : 0;
+        const safeProt = Number.isFinite(Number(logData.protein)) ? Math.round(Number(logData.protein)) : 0;
+        const safeCarbs = Number.isFinite(Number(logData.carbs)) ? Math.round(Number(logData.carbs)) : 0;
+        const safeFat = Number.isFinite(Number(logData.fat)) ? Math.round(Number(logData.fat)) : 0;
+
+        if (safeCal === 0 && safeProt === 0 && safeCarbs === 0 && safeFat === 0) {
+          showToast("Teks tidak terdeteksi sebagai makanan.", false);
+          closeExtractionPanel();
+          return;
+        }
+
         state.extractedLog = {
           name: logData.name || text,
-          calories: parseInt(logData.calories) || 250,
-          protein: parseInt(logData.protein) || 10,
-          carbs: parseInt(logData.carbs) || 30,
-          fat: parseInt(logData.fat) || 5
+          calories: safeCal,
+          protein: safeProt,
+          carbs: safeCarbs,
+          fat: safeFat
         };
 
         displayExtractionPanel();
@@ -2543,7 +3135,7 @@
       }
     }
 
-    // ==================== CAMERA VISION AI ====================
+    // ==================== FOTO MAKANAN & ANALISIS AI ====================
     let cameraStreamObj = null;
 
     async function startCamera() {
@@ -2660,15 +3252,18 @@
           messages = [
             {
               role: "system",
-              content: `Anda adalah pakar nutrisi AI CalorAI. Analisis foto makanan ini secara akurat dan taksir nilai gizinya. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
-{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
+              content: `Anda adalah pakar nutrisi AI CalorAI. Kenali apakah gambar ini adalah makanan atau bukan.
+- JIKA BUKAN MAKANAN atau tidak ada makanan di foto, HANYA BALAS:
+{"detected": false, "message": "Tidak ada makanan terdeteksi"}
+- JIKA ADA MAKANAN, taksir nilai gizinya secara akurat. HANYA BALAS:
+{"detected": true, "name": "Nama Makanan", "calories": 420, "protein": 25, "carbs": 45, "fat": 15}`
             },
             {
               role: "user",
               content: [
                 {
                   type: "text",
-                  text: `Kenali makanan pada foto piring ini${promptName && promptName !== 'Foto Kamera Langsung' ? ' (' + promptName + ')' : ''} dan hitung taksiran gizinya.`
+                  text: `Kenali makanan pada foto piring ini${promptName && promptName !== 'Foto Kamera Langsung' ? ' (' + promptName + ')' : ''} dan hitung taksiran gizinya. Jika tidak ada makanan pada foto, nyatakan tidak terdeteksi.`
                 },
                 {
                   type: "image_url",
@@ -2681,8 +3276,11 @@
           messages = [
             {
               role: "system",
-              content: `Anda adalah pakar nutrisi AI CalorAI. Taksir kalori dan makronutrisi dari nama makanan ini. HANYA BALAS DENGAN SATU JSON VALID TANPA MARKDOWN:
-{"name":"Nama Makanan","calories":350,"protein":20,"carbs":40,"fat":10}`
+              content: `Anda adalah pakar nutrisi AI CalorAI. Kenali apakah nama hidangan ini valid sebagai makanan.
+- JIKA BUKAN MAKANAN, balas:
+{"detected": false, "message": "Bukan makanan"}
+- JIKA MAKANAN VALID, taksir gizinya:
+{"detected": true, "name": "Nama Makanan", "calories": 300, "protein": 15, "carbs": 40, "fat": 8}`
             },
             {
               role: "user",
@@ -2694,12 +3292,38 @@
         const responseText = await callLunaAI(messages, 0.2);
         const logData = parseAIJson(responseText);
 
+        // Check if food was genuinely detected
+        const nameLower = (logData.name || "").toLowerCase();
+        const msgLower = (logData.message || "").toLowerCase();
+        const isNotFood = logData.detected === false ||
+          nameLower.includes("tidak ada makanan") ||
+          nameLower.includes("bukan makanan") ||
+          msgLower.includes("tidak ada makanan") ||
+          msgLower.includes("bukan makanan");
+
+        if (isNotFood) {
+          showToast("Tidak ada makanan terdeteksi pada foto. Silakan arahkan kamera ke hidangan makanan kamu.", false);
+          closeExtractionPanel();
+          return;
+        }
+
+        const safeCal = Number.isFinite(Number(logData.calories)) ? Math.round(Number(logData.calories)) : 0;
+        const safeProt = Number.isFinite(Number(logData.protein)) ? Math.round(Number(logData.protein)) : 0;
+        const safeCarbs = Number.isFinite(Number(logData.carbs)) ? Math.round(Number(logData.carbs)) : 0;
+        const safeFat = Number.isFinite(Number(logData.fat)) ? Math.round(Number(logData.fat)) : 0;
+
+        if (safeCal === 0 && safeProt === 0 && safeCarbs === 0 && safeFat === 0) {
+          showToast("Makanan tidak dapat diidentifikasi nilainya. Coba ambil foto lebih jelas.", false);
+          closeExtractionPanel();
+          return;
+        }
+
         state.extractedLog = {
           name: logData.name || promptName,
-          calories: parseInt(logData.calories) || 350,
-          protein: parseInt(logData.protein) || 20,
-          carbs: parseInt(logData.carbs) || 40,
-          fat: parseInt(logData.fat) || 10
+          calories: safeCal,
+          protein: safeProt,
+          carbs: safeCarbs,
+          fat: safeFat
         };
 
         displayExtractionPanel();
@@ -2718,8 +3342,12 @@
       document.getElementById('extracted-carbs').innerText = log.carbs + "g";
       document.getElementById('extracted-fat').innerText = log.fat + "g";
 
-      document.getElementById('ai-extraction-panel').classList.remove('hidden');
-      document.getElementById('ai-extraction-panel').scrollIntoView({ behavior: 'smooth' });
+      const extPanel = document.getElementById('ai-extraction-panel');
+      extPanel.classList.remove('hidden');
+      const mainEl = document.querySelector('main');
+      if (mainEl && extPanel) {
+        mainEl.scrollTo({ top: extPanel.offsetTop - 15, behavior: 'smooth' });
+      }
     }
 
     function closeExtractionPanel() {
@@ -2739,7 +3367,117 @@
       switchView('home');
     }
 
-    // ==================== COACH SANDOW CHAT ====================
+    // ==================== COACH SANDOW CHAT & PROFILE INTEGRATION ====================
+    function getCoachSandowSystemPrompt() {
+      const user = state.user || {};
+      const userName = user.name || "Kawan";
+
+      // Profile & Physical Metrics
+      const weight = state.currentWeight || 68.5;
+      const gender = (state.profile && state.profile.gender) || (document.getElementById('calc-gender') ? document.getElementById('calc-gender').value : 'male');
+      const age = (state.profile && state.profile.age) || (document.getElementById('calc-age') ? document.getElementById('calc-age').value : 26);
+      const height = (state.profile && state.profile.height) || (document.getElementById('calc-height') ? document.getElementById('calc-height').value : 172);
+      const activity = (state.profile && state.profile.activity) || (document.getElementById('calc-activity') ? document.getElementById('calc-activity').value : '1.375');
+      const goal = (state.profile && state.profile.goalText) || (document.getElementById('calc-goal') ? document.getElementById('calc-goal').options[document.getElementById('calc-goal').selectedIndex]?.text : "Turun Berat Sehat (Defisit 500 kkal)");
+
+      // Today Nutrition Progress
+      const totalCal = state.todayLogs.reduce((acc, l) => acc + (Number(l.calories) || 0), 0);
+      const totalProt = state.todayLogs.reduce((acc, l) => acc + (Number(l.protein) || 0), 0);
+      const totalCarbs = state.todayLogs.reduce((acc, l) => acc + (Number(l.carbs) || 0), 0);
+      const totalFat = state.todayLogs.reduce((acc, l) => acc + (Number(l.fat) || 0), 0);
+      const remainingCal = Math.max(0, state.targetCalories - totalCal);
+
+      // Today Meals Summary
+      const mealsSummary = state.todayLogs.length > 0 
+        ? state.todayLogs.map(l => `- ${l.name} (${l.meal || 'Makanan'}): ${l.calories} kkal (P: ${l.protein}g, K: ${l.carbs}g, L: ${l.fat}g)`).join('\n')
+        : "Belum ada makanan yang dicatat hari ini.";
+
+      // Today Workouts Summary
+      const workoutsSummary = state.todayWorkouts.length > 0
+        ? state.todayWorkouts.map(w => `- ${w.name}: ${w.sets || 3} set, total repetisi/beban`).join('\n')
+        : "Belum ada latihan fisik yang dicatat hari ini.";
+
+      // Water & Fasting Status
+      const water = state.waterDrank || 0;
+      const fastingStatus = state.fasting && state.fasting.isActive 
+        ? `Sedang Puasa Intermittent (${state.fasting.targetHours} Jam)` 
+        : "Jendela Makan / Tidak Puasa Aktif";
+
+      return `Anda adalah Coach Sandow, spesialis nutrisi klinis & pelatih kebugaran personal eksklusif dari CalorAI.
+Tugas Anda mendampingi pengguna secara personal, hangat, akurat, dan berenergi tinggi dalam Bahasa Indonesia.
+
+DATA PROFIL & REAL-TIME PENGGUNA YANG ANDA BIMBING SAAT INI:
+- Nama Pengguna: ${userName}
+- Jenis Kelamin: ${gender === 'male' || gender === 'pria' ? 'Pria' : 'Wanita'}
+- Usia: ${age} tahun | Tinggi Badan: ${height} cm | Berat Badan Saat Ini: ${weight} kg
+- Target Kalori Harian: ${state.targetCalories} kkal (Protein: ${state.targetProtein}g, Karbohidrat: ${state.targetCarbs}g, Lemak: ${state.targetFat}g)
+- Tujuan Program Diet: ${goal}
+- Asupan Terkini Hari Ini: ${totalCal} kkal sudah masuk (Sisa kuota: ${remainingCal} kkal dari target ${state.targetCalories} kkal)
+- Makronutrisi Hari Ini: Protein ${totalProt}g / ${state.targetProtein}g, Karbohidrat ${totalCarbs}g / ${state.targetCarbs}g, Lemak ${totalFat}g / ${state.targetFat}g
+- Konsumsi Air Hari Ini: ${water} Liter
+- Status Puasa: ${fastingStatus}
+- Daftar Makanan yang Sudah Masuk Hari Ini:
+${mealsSummary}
+- Catatan Latihan Fisik Hari Ini:
+${workoutsSummary}
+
+PEDOMAN COACH SANDOW & ATURAN FORMAT TAMPILAN (SANGAT PENTING):
+1. Sapa atau sebut nama ${userName} secara personal dan akrab. Anda mengenal profil fisiknya dan apa yang dia makan hari ini.
+2. FORMAT HARUS SANGAT MUDAH DIBACA DI LAYAR HP (Mobile-Friendly):
+   - JANGAN MENULIS TEKS PANJANG YANG MENUMPUK DALAM SATU PARAGRAF!
+   - Pisahkan setiap menu/bagian dengan baris kosong ganda (double newline).
+   - Gunakan bullet points (-) yang ringkas untuk setiap bahan dan porsi gramasi.
+   - Sorot angka penting (gram, kalori, protein) dengan format tebal (**200 g**, **650 kkal**, **85 g protein**).
+   - Buat judul menu singkat dan jelas (misal: "🍽️ Makan Siang (Ayam & Sayur)").
+   - Akhiri dengan ringkasan total kalori dan motivasi singkat yang bersemangat.
+3. Selalu gunakan data angka di atas secara cerdas dan kontekstual saat menjawab (misalnya menyebutkan sisa kuota kalorinya, makanan apa yang baru saja dia catat, kebutuhan proteinnya, atau rekomendasi sesuai berat badannya).
+4. Berikan saran menu praktis berbahan lokal Indonesia (tempe, tahu, telur, ikan tongkol, dada ayam, sayur bayam/kangkung, buah pepaya/pisang, dll.).
+5. Gaya bicara: Enerjik, ramah, profesional, memberi solusi langkah demi langkah, dan tidak berbelit-belit.`;
+    }
+
+    function formatChatMessage(text) {
+      if (!text) return "";
+      if (window.marked && typeof window.marked.parse === 'function') {
+        try {
+          return window.marked.parse(text, { breaks: true, gfm: true });
+        } catch (e) {
+          console.warn("Marked parse error:", e);
+        }
+      }
+      // Robust Fallback Markdown Formatter
+      return text
+        .replace(/^### (.*$)/gim, '<div class="font-bold text-[#FF991C] text-xs mt-2.5 mb-1 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-[#FF991C] mr-1.5 shrink-0"></span>$1</div>')
+        .replace(/^## (.*$)/gim, '<div class="font-extrabold text-[#191A1D] text-xs mt-3 mb-1 pb-0.5 border-b border-gray-200/80 flex items-center">$1</div>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-extrabold text-[#191A1D]">$1</strong>')
+        .replace(/^\s*-\s+(.*$)/gim, '<li class="ml-3.5 list-disc text-gray-700 my-0.5 leading-relaxed">$1</li>')
+        .replace(/(<li.*<\/li>\n?)+/g, '<ul class="my-1 space-y-0.5">$0</ul>')
+        .replace(/\n\n+/g, '<div class="my-2"></div>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function renderChatHistory() {
+      const container = document.getElementById('chat-messages');
+      if (!container) return;
+
+      const userName = (state.user && state.user.name) ? state.user.name : "Kawan";
+
+      if (!state.chatHistory || state.chatHistory.length === 0) {
+        state.chatHistory = [
+          {
+            role: "assistant",
+            content: `Halo **${userName}**! Saya Coach Sandow, pelatih gizi & kebugaran personal kamu di CalorAI.\n\nSaya memegang profilmu (Target: **${state.targetCalories} kkal/hari**). Ada yang ingin dikonsultasikan tentang sisa kuota kalori atau program latihan hari ini? 🔥`
+          }
+        ];
+      }
+
+      container.innerHTML = "";
+      state.chatHistory.forEach(msg => {
+        if (msg.role === 'user') appendChatMessage(msg.content, false);
+        else if (msg.role === 'assistant') appendChatMessage(msg.content, true);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
     function sendQuickMessage(text) {
       document.getElementById('chat-input').value = text;
       sendChatMessage();
@@ -2757,7 +3495,14 @@
       const loadingId = appendChatLoading();
 
       try {
-        const botReply = await callLunaAI(state.chatHistory, 0.7);
+        const dynamicSystemPrompt = getCoachSandowSystemPrompt();
+        const convo = state.chatHistory.filter(m => m.role !== 'system');
+        const messages = [
+          { role: "system", content: dynamicSystemPrompt },
+          ...convo
+        ];
+
+        const botReply = await callLunaAI(messages, 0.7);
         removeChatLoading(loadingId);
         appendChatMessage(botReply, true);
         state.chatHistory.push({ role: "assistant", content: botReply });
@@ -2770,20 +3515,20 @@
     function appendChatMessage(text, isBot) {
       const container = document.getElementById('chat-messages');
       const div = document.createElement('div');
-      div.className = isBot ? "flex items-start space-x-2" : "flex items-end justify-end";
+      div.className = isBot ? "flex items-start space-x-2.5 my-1" : "flex items-end justify-end my-1";
 
       if (isBot) {
         div.innerHTML = `
-          <div class="w-7 h-7 rounded-full bg-[#FFF5E9] p-0.5 flex items-center justify-center shrink-0 shadow-xs border border-[#FF991C]/20">
+          <div class="w-7 h-7 rounded-full bg-[#FFF5E9] p-0.5 flex items-center justify-center shrink-0 shadow-xs border border-[#FF991C]/20 mt-0.5">
             <img src="logo.png" alt="CalorAI" class="w-full h-full object-contain">
           </div>
-          <div class="bg-gray-100/90 text-gray-800 p-3 rounded-2xl rounded-tl-none max-w-[80%] leading-relaxed font-medium">
-            ${text}
+          <div class="chat-bot-bubble bg-white border border-gray-100 text-gray-800 p-3.5 rounded-2xl rounded-tl-none max-w-[88%] shadow-xs">
+            ${formatChatMessage(text)}
           </div>
         `;
       } else {
         div.innerHTML = `
-          <div class="bg-[#FF991C] text-white p-3 rounded-2xl rounded-tr-none max-w-[80%] leading-relaxed font-semibold shadow-xs">
+          <div class="bg-[#FF991C] text-white p-3.5 rounded-2xl rounded-tr-none max-w-[85%] leading-relaxed font-semibold shadow-xs text-xs whitespace-pre-line">
             ${text}
           </div>
         `;
@@ -2827,6 +3572,19 @@
       showToast(`Program diet diperbarui ke ${days} hari (${target} kkal)!`);
       switchView('home');
     }
+
+    // ==================== VIEWPORT LOCK & ANTI-OFFSET GUARDS ====================
+    window.addEventListener('scroll', () => {
+      if (window.scrollY !== 0 || window.scrollX !== 0) {
+        window.scrollTo(0, 0);
+      }
+    }, { passive: true });
+
+    document.addEventListener('focusout', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+        setTimeout(() => window.scrollTo(0, 0), 50);
+      }
+    });
   </script>
 </body>
 </html>

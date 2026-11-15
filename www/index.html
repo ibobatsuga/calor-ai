@@ -63,6 +63,9 @@
   <!-- Database Pangan Indonesia TKPI 2019 (darya-nutrition-db) -->
   <script src="foods.js"></script>
 
+  <!-- Bryl Lim Workout Guide Catalog (302 exercises, 906 SVG frames) -->
+  <script src="exercises.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 
@@ -880,40 +883,64 @@
       <!-- ==================== VIEW 3: GYM & WORKOUT (STAGE 3) ==================== -->
       <div id="view-workout" class="view-panel space-y-4 hidden">
         <div class="text-center pt-2">
-          <h3 class="text-xl font-extrabold text-[#191A1D]">Olahraga & Latihan Fisik</h3>
-          <p class="text-xs text-gray-500 mt-0.5">Katalog 200+ latihan gym wger & pencatat kalori terbakar</p>
+          <h3 class="text-xl font-extrabold text-[#191A1D]">Olahraga & Gym Guide</h3>
+          <p class="text-xs text-gray-500 mt-0.5">302 gerakan, 906 SVG transparan 512×512, 3 frame per gerakan</p>
         </div>
 
-        <!-- Muscle Filter Chips (Matching Reference UI Pills) -->
+        <!-- Muscle Filter Chips -->
         <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
           <button onclick="filterWorkoutCategory('all')" id="cat-all"
             class="workout-cat-btn bg-[#FF991C] text-white px-4 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm">
-            Semua
+            Semua (302)
           </button>
           <button onclick="filterWorkoutCategory('chest')" id="cat-chest"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Dada (Chest)
+            Dada (26)
           </button>
           <button onclick="filterWorkoutCategory('back')" id="cat-back"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Punggung (Back)
+            Punggung (50)
           </button>
-          <button onclick="filterWorkoutCategory('legs')" id="cat-legs"
+          <button onclick="filterWorkoutCategory('shoulders')" id="cat-shoulders"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Kaki (Legs)
+            Bahu (26)
           </button>
           <button onclick="filterWorkoutCategory('arms')" id="cat-arms"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Lengan (Arms)
+            Lengan (35)
+          </button>
+          <button onclick="filterWorkoutCategory('legs')" id="cat-legs"
+            class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
+            Kaki (116)
           </button>
           <button onclick="filterWorkoutCategory('core')" id="cat-core"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Perut (Core)
+            Perut (45)
           </button>
           <button onclick="filterWorkoutCategory('cardio')" id="cat-cardio"
             class="workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0">
-            Kardio
+            Kardio & Stretch (4)
           </button>
+        </div>
+
+        <!-- Search & Equipment Filter Bar -->
+        <div class="flex items-center space-x-2">
+          <div class="relative flex-1">
+            <i class="ph-bold ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="text" id="workout-search-input" oninput="handleWorkoutSearch(this.value)" placeholder="Cari gerakan (bench, squat, bicep, pull up)..."
+              class="w-full pl-8 pr-3 py-2 bg-white border border-gray-200/80 rounded-xl text-xs font-semibold text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+          </div>
+          <select id="workout-filter-equipment" onchange="handleWorkoutEquipmentFilter(this.value)"
+            class="py-2 px-2.5 bg-white border border-gray-200/80 rounded-xl text-[11px] font-bold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+            <option value="all">Semua Alat</option>
+            <option value="Barbell">Barbell</option>
+            <option value="Dumbbell">Dumbbell</option>
+            <option value="Machine">Machine</option>
+            <option value="Cable">Cable</option>
+            <option value="Bodyweight">Bodyweight</option>
+            <option value="Kettlebell">Kettlebell</option>
+            <option value="Plate">Plate</option>
+          </select>
         </div>
 
         <!-- Workout Form Input Card -->
@@ -923,12 +950,31 @@
             <span id="calc-burn-preview" class="text-xs font-extrabold text-[#FF991C]">Est. Terbakar: ~0 kkal</span>
           </div>
 
+          <!-- Active Selected Exercise Visual Preview Banner -->
+          <div id="workout-selected-banner" class="bg-amber-50/70 border border-amber-200/70 rounded-2xl p-3 flex items-center space-x-3">
+            <div class="w-16 h-16 bg-white rounded-xl border border-amber-100 flex items-center justify-center p-1 relative overflow-hidden shrink-0 cursor-pointer shadow-xs" onclick="openCurrentExerciseModal()">
+              <img id="workout-banner-img" src="" alt="Latihan" class="w-full h-full object-contain">
+              <span id="workout-banner-frame" class="absolute bottom-0.5 right-0.5 bg-black/60 text-[8px] text-white px-1 rounded font-mono">F1</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center space-x-1.5 mb-0.5">
+                <span id="workout-banner-muscle" class="bg-amber-100 text-[#FF991C] px-1.5 py-0.5 rounded text-[9px] font-black uppercase">Dada</span>
+                <span id="workout-banner-equipment" class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[9px] font-bold">Barbell</span>
+              </div>
+              <h4 id="workout-banner-title" class="font-extrabold text-xs text-[#191A1D] truncate">Bench Press</h4>
+              <p id="workout-banner-meta" class="text-[10px] text-gray-500 font-medium">Animasi 3 Frame • MET 7.5</p>
+            </div>
+            <button type="button" onclick="openCurrentExerciseModal()" class="p-2 text-[#FF991C] hover:bg-amber-100/60 rounded-xl transition-colors" title="Lihat Panduan Animasi 3 Frame">
+              <i class="ph-bold ph-arrows-out-simple text-base"></i>
+            </button>
+          </div>
+
           <div class="space-y-3">
             <div>
-              <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1">Nama Latihan</label>
+              <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1">Pilih dari 302 Gerakan</label>
               <select id="workout-select-exercise" onchange="handleExerciseSelectChange()"
                 class="w-full p-3 bg-gray-50 border border-gray-200/80 rounded-2xl text-xs font-bold text-gray-800 focus:ring-2 focus:ring-[#FF991C] focus:outline-none">
-                <!-- Populated dynamically -->
+                <!-- Populated dynamically with optgroups -->
               </select>
             </div>
 
@@ -959,13 +1005,13 @@
           </div>
         </div>
 
-        <!-- Exercise Catalog Grid (from wger) -->
+        <!-- Exercise Catalog Grid (302 movements) -->
         <div class="space-y-2">
           <div class="flex items-center justify-between px-1">
-            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Katalog Gerakan Populer</span>
-            <span class="text-[11px] text-gray-400 font-semibold" id="catalog-count-label">30 Gerakan</span>
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Katalog 302 Gerakan Gym</span>
+            <span class="text-[11px] text-gray-400 font-semibold" id="catalog-count-label">302 Gerakan</span>
           </div>
-          <div id="exercise-catalog-grid" class="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto no-scrollbar">
+          <div id="exercise-catalog-grid" class="grid grid-cols-2 gap-2.5 max-h-[520px] overflow-y-auto no-scrollbar pb-6">
             <!-- Rendered by JS -->
           </div>
         </div>
@@ -1279,6 +1325,91 @@
       </div>
     </div>
 
+    <!-- ==================== MODAL 3: EXERCISE DETAIL & 3-FRAME ANIMATOR ==================== -->
+    <div id="exercise-detail-modal"
+      class="absolute inset-0 bg-black/50 z-50 flex items-end justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+      <div class="bg-white w-full max-h-[88vh] overflow-y-auto no-scrollbar rounded-t-[36px] p-6 space-y-4 transform translate-y-full transition-transform duration-300">
+        <!-- Header -->
+        <div class="flex justify-between items-start pb-2 border-b border-gray-100">
+          <div class="pr-2 flex-1">
+            <div class="flex items-center space-x-1.5 mb-1 flex-wrap gap-y-1">
+              <span id="modal-ex-muscle-badge" class="bg-amber-100 text-[#FF991C] px-2 py-0.5 rounded-md text-[10px] font-black uppercase">Dada</span>
+              <span id="modal-ex-equip-badge" class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md text-[10px] font-bold">Barbell</span>
+              <span id="modal-ex-met-badge" class="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md text-[10px] font-bold">MET 7.5</span>
+            </div>
+            <h4 id="modal-ex-title" class="font-extrabold text-[#191A1D] text-lg leading-tight">Bench Press</h4>
+          </div>
+          <button onclick="closeExerciseDetailModal()" class="text-gray-400 hover:text-gray-600 p-1">
+            <i class="ph-bold ph-x text-xl"></i>
+          </button>
+        </div>
+
+        <!-- 3-Frame Visual Canvas Display -->
+        <div class="bg-[#F8F9FA] border border-gray-200/80 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
+          <div class="w-full h-56 flex items-center justify-center">
+            <img id="modal-ex-frame-img" src="" alt="Latihan" class="max-w-full max-h-full object-contain filter drop-shadow-sm transition-all duration-150">
+          </div>
+          <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-xs border border-gray-200/80 px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-gray-700 shadow-xs flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="modal-ex-frame-indicator">Frame 1 (Awal)</span>
+          </div>
+        </div>
+
+        <!-- Frame Controls & Stepper -->
+        <div class="space-y-2">
+          <div class="flex items-center space-x-2">
+            <button id="modal-frame-btn-1" onclick="setModalFrame(1)"
+              class="flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-[#FF991C] text-white border-[#FF991C]">
+              1. Awal
+            </button>
+            <button id="modal-frame-btn-2" onclick="setModalFrame(2)"
+              class="flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-white text-gray-700 border-gray-200">
+              2. Gerakan
+            </button>
+            <button id="modal-frame-btn-3" onclick="setModalFrame(3)"
+              class="flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-white text-gray-700 border-gray-200">
+              3. Kontraksi
+            </button>
+            <button id="modal-play-toggle-btn" onclick="toggleModalAnimation()"
+              class="px-3.5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition-all">
+              <i id="modal-play-icon" class="ph-bold ph-pause text-sm"></i>
+              <span id="modal-play-text">Jeda</span>
+            </button>
+          </div>
+          <p class="text-[10px] text-gray-400 text-center font-medium">Klik frame 1, 2, atau 3 untuk mempelajari postur biomekanik, atau Jeda / Putar untuk animasi repetisi.</p>
+        </div>
+
+        <!-- Technical Anatomy & Specs -->
+        <div class="bg-gray-50 border border-gray-100 rounded-2xl p-3.5 space-y-2 text-xs">
+          <div class="flex justify-between items-center py-1 border-b border-gray-200/60">
+            <span class="text-gray-400 font-semibold text-[11px]">Target Otot Utama</span>
+            <span id="modal-ex-primary-muscle" class="font-extrabold text-[#191A1D]">Chest</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-gray-200/60">
+            <span class="text-gray-400 font-semibold text-[11px]">Otot Pendukung</span>
+            <span id="modal-ex-secondary-muscles" class="font-bold text-gray-700">Triceps, Shoulders</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-gray-200/60">
+            <span class="text-gray-400 font-semibold text-[11px]">Peralatan & Tipe</span>
+            <span id="modal-ex-type" class="font-bold text-gray-700">Barbell • WEIGHT REPS</span>
+          </div>
+          <div class="flex justify-between items-center py-1">
+            <span class="text-gray-400 font-semibold text-[11px]">Estimasi Kalori / Latihan</span>
+            <span id="modal-ex-burn-rate" class="font-extrabold text-[#FF991C]">~28 kkal (3 set @ 12 reps)</span>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="pt-1">
+          <button id="modal-btn-select-exercise" onclick="applyModalExerciseToForm()"
+            class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-bold shadow-md shadow-[#FF991C]/25 text-xs flex items-center justify-center space-x-2 transition-all active:scale-[0.99]">
+            <i class="ph-bold ph-plus-circle text-base"></i>
+            <span>Pilih & Catat Gerakan Ini</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ==================== FRONTEND JAVASCRIPT SYSTEM ==================== -->
@@ -1357,31 +1488,10 @@
       { name: "Mie Bakso (per 100g)", group: "Olahan Mie", calories: 172, protein: 8.5, carbs: 21.0, fat: 6.2, fiber: 1.2, aliases: ["bakso"], source: "TKPI 2019" }
     ];
 
-    // Preloaded 30+ Exercises (wger inspired)
-    const exerciseCatalog = [
-      { id: 1, name: "Barbell Bench Press", category: "chest", met: 6.0, desc: "Latihan utama otot dada dan trisep" },
-      { id: 2, name: "Dumbbell Incline Press", category: "chest", met: 5.5, desc: "Melatih dada bagian atas" },
-      { id: 3, name: "Push Up", category: "chest", met: 4.5, desc: "Latihan dada bodyweight" },
-      { id: 4, name: "Chest Fly Machine", category: "chest", met: 4.0, desc: "Isolasi serat otot dada" },
-      { id: 5, name: "Barbell Deadlift", category: "back", met: 8.0, desc: "Latihan posterior chain terkuat" },
-      { id: 6, name: "Lat Pulldown", category: "back", met: 5.0, desc: "Melatih otot latissimus dorsi" },
-      { id: 7, name: "Barbell Bent-over Row", category: "back", met: 6.0, desc: "Ketebalan punggung tengah" },
-      { id: 8, name: "Pull Up", category: "back", met: 7.5, desc: "Bodyweight pull untuk punggung lebar" },
-      { id: 9, name: "Barbell Squat", category: "legs", met: 7.5, desc: "Latihan kaki nomor 1 untuk paha & glutes" },
-      { id: 10, name: "Leg Press Machine", category: "legs", met: 6.0, desc: "Beban aman untuk kuadrisep" },
-      { id: 11, name: "Romanian Deadlift", category: "legs", met: 6.0, desc: "Fokus hamstring dan glutes" },
-      { id: 12, name: "Calf Raises", category: "legs", met: 3.5, desc: "Melatih otot betis" },
-      { id: 13, name: "Overhead Shoulder Press", category: "arms", met: 5.5, desc: "Melatih bahu anterior & medial" },
-      { id: 14, name: "Dumbbell Lateral Raise", category: "arms", met: 4.0, desc: "Bahu samping untuk siluet V-taper" },
-      { id: 15, name: "Biceps Barbell Curl", category: "arms", met: 4.5, desc: "Pembentukan puncak bisep" },
-      { id: 16, name: "Triceps Rope Pushdown", category: "arms", met: 4.0, desc: "Isolasi trisep bagian lateral" },
-      { id: 17, name: "Plank Hold", category: "core", met: 3.8, desc: "Stabilitas otot perut dalam" },
-      { id: 18, name: "Hanging Leg Raise", category: "core", met: 5.0, desc: "Otot perut bawah" },
-      { id: 19, name: "Cable Woodchopper", category: "core", met: 4.5, desc: "Otot obliques samping" },
-      { id: 20, name: "Treadmill Running (Jogging)", category: "cardio", met: 9.0, desc: "Kardio pembakar lemak cepat" },
-      { id: 21, name: "Stationary Bicycle", category: "cardio", met: 7.0, desc: "Kardio ramah persendian lutut" },
-      { id: 22, name: "Jump Rope (Lompat Tali)", category: "cardio", met: 10.0, desc: "Kardio intensitas tinggi (HIIT)" }
-    ];
+    // Bryl Lim Workout Guide (302 exercises, 906 SVG frames 512x512)
+    const exerciseCatalog = (typeof workoutGuideCatalog !== 'undefined' && workoutGuideCatalog.length)
+      ? workoutGuideCatalog
+      : (window.workoutGuideCatalog || []);
 
     // ==================== PERSISTENCE (Eatshimo Local-First) ====================
     function saveState() {
@@ -1932,23 +2042,115 @@
       showToast("Catatan latihan dihapus.");
     }
 
-    // ==================== WORKOUT LOGGING & CATALOG (STAGE 3) ====================
+    // ==================== WORKOUT LOGGING & BRYL LIM WORKOUT-GUIDE CATALOG ====================
+    let currentWorkoutCategory = 'all';
+    let currentWorkoutEquipment = 'all';
+    let currentWorkoutSearch = '';
+    let currentSelectedExerciseId = 1;
+
+    let modalAnimTimer = null;
+    let modalCurrentFrame = 1;
+    let modalIsPlaying = true;
+    let modalActiveExercise = null;
+    let cardHoverTimers = {};
+    let bannerAnimTimer = null;
+
     function populateExerciseDropdown() {
       const select = document.getElementById('workout-select-exercise');
       if (!select) return;
-      select.innerHTML = exerciseCatalog.map(ex => `
-        <option value="${ex.id}" data-category="${ex.category}" data-met="${ex.met}">${ex.name} (${ex.category.toUpperCase()})</option>
-      `).join('');
+
+      const categoryGroups = {
+        'chest': 'Dada (Chest)',
+        'back': 'Punggung (Back)',
+        'shoulders': 'Bahu (Shoulders)',
+        'arms': 'Lengan (Arms)',
+        'legs': 'Kaki (Legs)',
+        'core': 'Perut (Core)',
+        'cardio': 'Kardio & Stretch'
+      };
+
+      let html = '';
+      for (const [catKey, catLabel] of Object.entries(categoryGroups)) {
+        const list = exerciseCatalog.filter(e => e.category === catKey);
+        if (list.length > 0) {
+          html += `<optgroup label="${catLabel}">`;
+          list.forEach(ex => {
+            html += `<option value="${ex.id}" data-category="${ex.category}" data-met="${ex.met}">${ex.name} (${ex.equipment})</option>`;
+          });
+          html += `</optgroup>`;
+        }
+      }
+
+      const others = exerciseCatalog.filter(e => !categoryGroups[e.category]);
+      if (others.length > 0) {
+        html += `<optgroup label="Gerakan Lainnya">`;
+        others.forEach(ex => {
+          html += `<option value="${ex.id}" data-category="${ex.category}" data-met="${ex.met}">${ex.name}</option>`;
+        });
+        html += `</optgroup>`;
+      }
+
+      select.innerHTML = html;
+      if (exerciseCatalog.length > 0) {
+        select.value = exerciseCatalog[0].id;
+        currentSelectedExerciseId = exerciseCatalog[0].id;
+        updateWorkoutBanner(exerciseCatalog[0]);
+      }
       updateWorkoutBurnPreview();
     }
 
+    function updateWorkoutBanner(ex) {
+      if (!ex) return;
+      const img = document.getElementById('workout-banner-img');
+      const title = document.getElementById('workout-banner-title');
+      const muscle = document.getElementById('workout-banner-muscle');
+      const equip = document.getElementById('workout-banner-equipment');
+      const meta = document.getElementById('workout-banner-meta');
+      const frameTag = document.getElementById('workout-banner-frame');
+
+      if (title) title.innerText = ex.name;
+      if (muscle) muscle.innerText = ex.categoryName || ex.primaryMuscle;
+      if (equip) equip.innerText = ex.equipment;
+      if (meta) meta.innerText = `Animasi 3 Frame • MET ${ex.met}`;
+
+      if (bannerAnimTimer) clearInterval(bannerAnimTimer);
+      let step = 0;
+      const seq = [1, 2, 3, 2];
+      if (img) {
+        img.src = ex.frames ? ex.frames[0] : `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${ex.slug}/frame-1.svg`;
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg`;
+        };
+      }
+      if (frameTag) frameTag.innerText = 'F1';
+
+      bannerAnimTimer = setInterval(() => {
+        step = (step + 1) % seq.length;
+        const f = seq[step];
+        if (img) img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${ex.slug}/frame-${f}.svg`;
+        if (frameTag) frameTag.innerText = `F${f}`;
+      }, 550);
+    }
+
+    function openCurrentExerciseModal() {
+      const select = document.getElementById('workout-select-exercise');
+      const id = parseInt(select ? select.value : currentSelectedExerciseId) || 1;
+      openExerciseDetailModal(id);
+    }
+
     function handleExerciseSelectChange() {
+      const select = document.getElementById('workout-select-exercise');
+      const id = parseInt(select ? select.value : 1) || 1;
+      currentSelectedExerciseId = id;
+      const ex = exerciseCatalog.find(e => e.id === id);
+      if (ex) updateWorkoutBanner(ex);
       updateWorkoutBurnPreview();
     }
 
     function updateWorkoutBurnPreview() {
       const select = document.getElementById('workout-select-exercise');
-      if (!select) return;
+      if (!select) return 0;
       const opt = select.options[select.selectedIndex];
       const met = parseFloat(opt ? opt.getAttribute('data-met') : 5.0) || 5.0;
 
@@ -1956,9 +2158,11 @@
       const reps = parseFloat(document.getElementById('workout-reps').value) || 0;
       const sets = parseFloat(document.getElementById('workout-sets').value) || 1;
 
-      // Estimated Burn: MET formula modified for sets & reps volume
-      const burned = Math.round((met * 3.5 * state.currentWeight / 200) * (sets * 2.5) + (weight * reps * sets * 0.02));
-      document.getElementById('calc-burn-preview').innerText = `Est. Terbakar: ~${burned} kkal`;
+      // Estimated Burn: MET formula adjusted for sets & reps volume
+      const currentWeight = (state && state.currentWeight) ? state.currentWeight : 68;
+      const burned = Math.round((met * 3.5 * currentWeight / 200) * (sets * 2.5) + (weight * reps * sets * 0.02));
+      const previewEl = document.getElementById('calc-burn-preview');
+      if (previewEl) previewEl.innerText = `Est. Terbakar: ~${burned} kkal`;
       return burned;
     }
 
@@ -1981,7 +2185,7 @@
       });
 
       renderDashboard();
-      showToast(`Latihan berhasil dicatat (-${burned} kkal)!`);
+      showToast(`Latihan ${name} berhasil dicatat (-${burned} kkal)!`);
       switchView('home');
     }
 
@@ -1999,6 +2203,7 @@
     }
 
     function filterWorkoutCategory(cat) {
+      currentWorkoutCategory = cat;
       document.querySelectorAll('.workout-cat-btn').forEach(btn => {
         btn.className = "workout-cat-btn bg-white border border-gray-200/80 text-gray-700 px-4 py-1.5 rounded-full text-xs font-bold shrink-0";
       });
@@ -2006,34 +2211,238 @@
       if (activeBtn) {
         activeBtn.className = "workout-cat-btn bg-[#FF991C] text-white px-4 py-1.5 rounded-full text-xs font-bold shrink-0 shadow-sm";
       }
-      renderExerciseCatalog(cat);
+      renderExerciseCatalog();
     }
 
-    function renderExerciseCatalog(cat) {
+    function handleWorkoutSearch(val) {
+      currentWorkoutSearch = val || '';
+      renderExerciseCatalog();
+    }
+
+    function handleWorkoutEquipmentFilter(eq) {
+      currentWorkoutEquipment = eq || 'all';
+      renderExerciseCatalog();
+    }
+
+    function getFilteredExercises() {
+      const q = currentWorkoutSearch.toLowerCase().trim();
+      return exerciseCatalog.filter(ex => {
+        if (currentWorkoutCategory !== 'all' && ex.category !== currentWorkoutCategory) return false;
+        if (currentWorkoutEquipment !== 'all' && ex.equipment !== currentWorkoutEquipment) return false;
+        if (q) {
+          const matchName = ex.name.toLowerCase().includes(q);
+          const matchSlug = (ex.slug || '').toLowerCase().includes(q);
+          const matchEquip = (ex.equipment || '').toLowerCase().includes(q);
+          const matchMuscle = (ex.primaryMuscle || '').toLowerCase().includes(q) || (ex.categoryName || '').toLowerCase().includes(q);
+          if (!matchName && !matchSlug && !matchEquip && !matchMuscle) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderExerciseCatalog() {
       const container = document.getElementById('exercise-catalog-grid');
-      const filtered = cat === 'all' ? exerciseCatalog : exerciseCatalog.filter(e => e.category === cat);
-      document.getElementById('catalog-count-label').innerText = `${filtered.length} Gerakan`;
+      if (!container) return;
+      const filtered = getFilteredExercises();
+      const countLabel = document.getElementById('catalog-count-label');
+      if (countLabel) countLabel.innerText = `${filtered.length} Gerakan`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-10 text-gray-400">
+            <i class="ph-bold ph-barbell text-4xl mb-2 text-gray-300"></i>
+            <p class="text-xs font-bold text-gray-600">Tidak ada gerakan ditemukan</p>
+            <p class="text-[10px] text-gray-400 mt-1">Coba gunakan kata kunci lain atau ubah filter peralatan</p>
+          </div>
+        `;
+        return;
+      }
 
       container.innerHTML = filtered.map(ex => `
-        <div onclick="selectCatalogExercise(${ex.id})"
-          class="bg-[#F8F9FA] hover:border-[#FF991C] border border-gray-100 p-3 rounded-2xl cursor-pointer transition-all">
-          <div class="flex items-center space-x-2">
-            <div class="w-7 h-7 rounded-lg bg-[#FFF5E9] text-[#FF991C] flex items-center justify-center text-xs font-bold">
-              <i class="ph-bold ph-barbell"></i>
-            </div>
-            <h5 class="font-extrabold text-xs text-[#191A1D] truncate">${ex.name}</h5>
+        <div onclick="openExerciseDetailModal(${ex.id})"
+             onmouseenter="startCardHoverAnim(${ex.id}, '${ex.slug}')"
+             onmouseleave="stopCardHoverAnim(${ex.id}, '${ex.slug}')"
+             class="bg-[#F8F9FA] hover:border-[#FF991C] border border-gray-100 p-3 rounded-2xl cursor-pointer transition-all flex flex-col justify-between group shadow-xs hover:shadow-md relative">
+          <!-- 512x512 Transparent SVG Display -->
+          <div class="relative w-full aspect-square bg-white rounded-xl border border-gray-100 flex items-center justify-center p-2 overflow-hidden mb-2 shadow-xs">
+            <img id="card-img-${ex.id}"
+                 src="${ex.frames[0]}"
+                 loading="lazy"
+                 alt="${ex.name}"
+                 class="w-full h-full object-contain transition-transform group-hover:scale-105"
+                 onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg'">
+            <span class="absolute top-1.5 left-1.5 bg-amber-50 text-[#FF991C] text-[9px] font-black uppercase px-1.5 py-0.5 rounded border border-amber-200/50">${ex.categoryName || ex.category}</span>
+            <span id="card-frame-tag-${ex.id}" class="absolute bottom-1 right-1.5 bg-black/50 text-[8px] font-mono text-white px-1 py-0.2 rounded opacity-75">F1</span>
           </div>
-          <p class="text-[10px] text-gray-400 mt-1 line-clamp-1">${ex.desc}</p>
+
+          <div class="space-y-0.5">
+            <h5 class="font-extrabold text-xs text-[#191A1D] line-clamp-1 group-hover:text-[#FF991C] transition-colors">${ex.name}</h5>
+            <div class="flex items-center justify-between text-[10px] text-gray-400 font-medium">
+              <span class="truncate"><i class="ph-bold ph-barbell text-[#FF991C] mr-0.5"></i>${ex.equipment}</span>
+              <span class="font-bold text-[#FF991C]">MET ${ex.met}</span>
+            </div>
+          </div>
+
+          <button type="button" onclick="event.stopPropagation(); selectCatalogExercise(${ex.id})"
+                  class="mt-2.5 w-full py-1.5 bg-white hover:bg-[#FF991C] hover:text-white text-gray-700 border border-gray-200/80 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center space-x-1 active:scale-95 shadow-2xs">
+            <i class="ph-bold ph-check text-xs"></i>
+            <span>Pilih Latihan</span>
+          </button>
         </div>
       `).join('');
     }
 
+    function startCardHoverAnim(id, slug) {
+      const img = document.getElementById(`card-img-${id}`);
+      const tag = document.getElementById(`card-frame-tag-${id}`);
+      if (!img) return;
+      const seq = [1, 2, 3, 2];
+      let step = 0;
+      if (cardHoverTimers[id]) clearInterval(cardHoverTimers[id]);
+      cardHoverTimers[id] = setInterval(() => {
+        step = (step + 1) % seq.length;
+        const f = seq[step];
+        img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${slug}/frame-${f}.svg`;
+        if (tag) tag.innerText = `F${f}`;
+      }, 450);
+    }
+
+    function stopCardHoverAnim(id, slug) {
+      if (cardHoverTimers[id]) {
+        clearInterval(cardHoverTimers[id]);
+        delete cardHoverTimers[id];
+      }
+      const img = document.getElementById(`card-img-${id}`);
+      const tag = document.getElementById(`card-frame-tag-${id}`);
+      if (img) img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${slug}/frame-1.svg`;
+      if (tag) tag.innerText = `F1`;
+    }
+
     function selectCatalogExercise(id) {
       const select = document.getElementById('workout-select-exercise');
-      select.value = id;
+      if (select) select.value = id;
+      currentSelectedExerciseId = id;
+      const ex = exerciseCatalog.find(e => e.id === id);
+      if (ex) updateWorkoutBanner(ex);
       handleExerciseSelectChange();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      showToast("Gerakan dipilih dari katalog!");
+
+      // Scroll smoothly to form without lifting the footer
+      const main = document.querySelector('main');
+      if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(`Gerakan ${ex ? ex.name : ''} dipilih!`);
+    }
+
+    // Modal Details & Animation Controls
+    function openExerciseDetailModal(id) {
+      const ex = exerciseCatalog.find(e => e.id === id);
+      if (!ex) return;
+      modalActiveExercise = ex;
+
+      document.getElementById('modal-ex-title').innerText = ex.name;
+      document.getElementById('modal-ex-muscle-badge').innerText = ex.categoryName || ex.primaryMuscle;
+      document.getElementById('modal-ex-equip-badge').innerText = ex.equipment;
+      document.getElementById('modal-ex-met-badge').innerText = `MET ${ex.met}`;
+
+      document.getElementById('modal-ex-primary-muscle').innerText = ex.primaryMuscle + (ex.categoryName ? ` (${ex.categoryName})` : '');
+      document.getElementById('modal-ex-secondary-muscles').innerText = (ex.secondaryMuscles && ex.secondaryMuscles.length) ? ex.secondaryMuscles.join(', ') : 'Fokus Otot Utama';
+      document.getElementById('modal-ex-type').innerText = `${ex.equipment} • ${(ex.exerciseType || 'weight_reps').replace('_', ' ').toUpperCase()}`;
+
+      const userWeight = (state && state.currentWeight) ? state.currentWeight : 68;
+      const burnEst = Math.round((ex.met * 3.5 * userWeight / 200) * (3 * 2.5) + (20 * 12 * 3 * 0.02));
+      document.getElementById('modal-ex-burn-rate').innerText = `~${burnEst} kkal (3 set @ 12 reps)`;
+
+      setModalFrame(1, false);
+      startModalAnimation(ex);
+
+      const modal = document.getElementById('exercise-detail-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      modal.querySelector('div').classList.remove('translate-y-full');
+    }
+
+    function closeExerciseDetailModal() {
+      stopModalAnimation();
+      const modal = document.getElementById('exercise-detail-modal');
+      modal.querySelector('div').classList.add('translate-y-full');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function startModalAnimation(ex) {
+      stopModalAnimation();
+      modalIsPlaying = true;
+      updateModalPlayButtonUI();
+      const seq = [1, 2, 3, 2];
+      let step = 0;
+      modalAnimTimer = setInterval(() => {
+        if (!modalIsPlaying) return;
+        step = (step + 1) % seq.length;
+        setModalFrame(seq[step], false);
+      }, 450);
+    }
+
+    function stopModalAnimation() {
+      if (modalAnimTimer) {
+        clearInterval(modalAnimTimer);
+        modalAnimTimer = null;
+      }
+    }
+
+    function toggleModalAnimation() {
+      modalIsPlaying = !modalIsPlaying;
+      updateModalPlayButtonUI();
+      if (modalIsPlaying && !modalAnimTimer && modalActiveExercise) {
+        startModalAnimation(modalActiveExercise);
+      }
+    }
+
+    function updateModalPlayButtonUI() {
+      const icon = document.getElementById('modal-play-icon');
+      const text = document.getElementById('modal-play-text');
+      if (modalIsPlaying) {
+        if (icon) icon.className = "ph-bold ph-pause text-sm";
+        if (text) text.innerText = "Jeda";
+      } else {
+        if (icon) icon.className = "ph-bold ph-play text-sm";
+        if (text) text.innerText = "Putar";
+      }
+    }
+
+    function setModalFrame(f, pausePlay = true) {
+      if (pausePlay) {
+        modalIsPlaying = false;
+        updateModalPlayButtonUI();
+      }
+      modalCurrentFrame = f;
+      if (!modalActiveExercise) return;
+      const img = document.getElementById('modal-ex-frame-img');
+      if (img) {
+        img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${modalActiveExercise.slug}/frame-${f}.svg`;
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${modalActiveExercise.slug}/frame-${f}.svg`;
+        };
+      }
+
+      const indicator = document.getElementById('modal-ex-frame-indicator');
+      const labels = { 1: "Frame 1 (Awal)", 2: "Frame 2 (Gerakan)", 3: "Frame 3 (Kontraksi)" };
+      if (indicator) indicator.innerText = labels[f] || `Frame ${f} / 3`;
+
+      [1, 2, 3].forEach(idx => {
+        const btn = document.getElementById(`modal-frame-btn-${idx}`);
+        if (!btn) return;
+        if (idx === f) {
+          btn.className = "flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-[#FF991C] text-white border-[#FF991C] shadow-xs";
+        } else {
+          btn.className = "flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all bg-white text-gray-700 border-gray-200 hover:bg-gray-50";
+        }
+      });
+    }
+
+    function applyModalExerciseToForm() {
+      if (!modalActiveExercise) return;
+      selectCatalogExercise(modalActiveExercise.id);
+      closeExerciseDetailModal();
     }
 
     // ==================== VOICE RECOGNITION (STAGE 3 FUD AI) ====================
