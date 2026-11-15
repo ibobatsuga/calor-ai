@@ -61,10 +61,10 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- Database Pangan Indonesia TKPI 2019 (darya-nutrition-db) -->
-  <script src="foods.js"></script>
+  <script src="foods.js?v=3.0"></script>
 
   <!-- Bryl Lim Workout Guide Catalog (302 exercises, 906 SVG frames) -->
-  <script src="exercises.js"></script>
+  <script src="exercises.js?v=3.0"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
@@ -1028,84 +1028,891 @@
 
       </div>
 
-      <!-- ==================== VIEW 4: DIET & FASTING ==================== -->
+            <!-- ==================== VIEW 4: RENCANA (PLAN & ONBOARDING) ==================== -->
       <div id="view-diet" class="view-panel space-y-4 hidden">
-        
-        <!-- Period Switcher Pills (Matching Reference UI: Day / Weekly / Monthly) -->
-        <div class="flex justify-center">
-          <div class="inline-flex bg-white p-1 rounded-full border border-gray-200/80 shadow-xs">
-            <button class="px-5 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-800">Day</button>
-            <button class="px-5 py-1.5 rounded-full text-xs font-bold bg-[#FF991C] text-white shadow-xs">Weekly</button>
-            <button class="px-5 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-800">Monthly</button>
+
+        <!-- ==================== A. ONBOARDING INTERVIEW CONTAINER ==================== -->
+        <div id="plan-onboarding-view" class="space-y-4">
+          <!-- Stepper & Title Card -->
+          <div class="app-card p-5 space-y-4 border-t-4 border-[#FF991C]">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-9 h-9 rounded-xl bg-[#FFF5E9] text-[#FF991C] flex items-center justify-center text-lg">
+                  <i class="ph-bold ph-clipboard-text"></i>
+                </div>
+                <div>
+                  <h3 class="font-black text-sm text-[#191A1D]">Konsultasi Rencana Personal</h3>
+                  <p class="text-[11px] text-gray-400 font-medium">Jawab 4 langkah singkat untuk menyusun rencana harian & target Anda</p>
+                </div>
+              </div>
+              <span id="onb-step-badge" class="px-2.5 py-1 rounded-full text-[10px] font-black bg-[#FFF5E9] text-[#FF991C]">
+                Langkah 1/4
+              </span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+              <div id="onb-progress-bar" class="bg-[#FF991C] h-full transition-all duration-300 rounded-full" style="width: 25%;"></div>
+            </div>
+
+            <!-- Step Titles -->
+            <div class="grid grid-cols-4 text-center text-[9px] font-bold text-gray-400 pt-1">
+              <span id="step-label-1" class="text-[#FF991C]">1. Biodata</span>
+              <span id="step-label-2">2. Aktivitas</span>
+              <span id="step-label-3">3. Puasa</span>
+              <span id="step-label-4">4. Target</span>
+            </div>
+          </div>
+
+          <!-- STEP 1: BIODATA & FISIK DASAR -->
+          <div id="onb-step-1" class="space-y-4">
+            <div class="app-card p-5 space-y-4">
+              <div class="flex items-center space-x-2 pb-2 border-b border-gray-100">
+                <i class="ph-bold ph-user text-base text-[#FF991C]"></i>
+                <h4 class="font-extrabold text-xs text-[#191A1D] uppercase tracking-wider">Biodata & Profil Fisik</h4>
+              </div>
+
+              <!-- Nama Panggilan -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1.5">Nama Panggilan</label>
+                <input type="text" id="onb-name" placeholder="Misal: Budi"
+                  class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl font-bold text-xs focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+              </div>
+
+              <!-- Gender Selection Cards -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1.5">Jenis Kelamin</label>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div onclick="selectOnbGender('male')" id="onb-gender-male"
+                    class="onb-gender-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center space-x-3 cursor-pointer transition-all">
+                    <div class="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-[#FF991C] text-base shadow-xs">
+                      <i class="ph-bold ph-gender-male"></i>
+                    </div>
+                    <div>
+                      <p class="font-extrabold text-xs text-[#191A1D]">Pria</p>
+                      <p class="text-[10px] text-gray-400">Metabolisme basal pria</p>
+                    </div>
+                  </div>
+                  <div onclick="selectOnbGender('female')" id="onb-gender-female"
+                    class="onb-gender-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center space-x-3 cursor-pointer transition-all">
+                    <div class="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-pink-500 text-base shadow-xs">
+                      <i class="ph-bold ph-gender-female"></i>
+                    </div>
+                    <div>
+                      <p class="font-extrabold text-xs text-[#191A1D]">Wanita</p>
+                      <p class="text-[10px] text-gray-400">Metabolisme basal wanita</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Usia, TB, BB -->
+              <div class="grid grid-cols-3 gap-2 text-xs">
+                <div>
+                  <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Usia (Thn)</label>
+                  <input type="number" id="onb-age" value="26" min="12" max="99" oninput="updateOnbBMILive()"
+                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl font-black text-center text-sm focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tinggi (cm)</label>
+                  <input type="number" id="onb-height" value="172" min="100" max="230" oninput="updateOnbBMILive()"
+                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl font-black text-center text-sm focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Berat (kg)</label>
+                  <input type="number" id="onb-weight" value="75.0" step="0.1" min="30" max="250" oninput="updateOnbBMILive()"
+                    class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl font-black text-center text-sm focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+                </div>
+              </div>
+
+              <!-- Real-time Live BMI Badge & Healthy Range -->
+              <div id="onb-bmi-card" class="bg-[#FFF5E9]/60 border border-[#FF991C]/20 p-3 rounded-xl flex items-center justify-between text-xs">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-7 h-7 rounded-lg bg-[#FF991C] text-white flex items-center justify-center text-sm font-black">
+                    <i class="ph-bold ph-scales"></i>
+                  </div>
+                  <div>
+                    <p class="font-bold text-[#191A1D]">BMI: <span id="onb-live-bmi" class="font-black text-[#FF991C]">25.4</span> (<span id="onb-live-bmi-label">Kelebihan BB</span>)</p>
+                    <p class="text-[10px] text-gray-500">Rentang Sehat: <span id="onb-live-ideal-range" class="font-bold text-gray-700">55 - 73 kg</span></p>
+                  </div>
+                </div>
+                <span id="onb-live-bmi-pill" class="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-[#FF991C] text-white">
+                  Overweight
+                </span>
+              </div>
+            </div>
+
+            <button onclick="goToOnbStep(2)"
+              class="w-full bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-black text-xs shadow-md shadow-[#FF991C]/25 flex items-center justify-center space-x-2 transition-all active:scale-[0.99]">
+              <span>Lanjut ke Aktivitas Harian</span>
+              <i class="ph-bold ph-arrow-right text-sm"></i>
+            </button>
+          </div>
+
+          <!-- STEP 2: AKTIVITAS, TEMPAT LATIHAN & RUTINITAS -->
+          <div id="onb-step-2" class="space-y-4 hidden">
+            <div class="app-card p-5 space-y-4">
+              <div class="flex items-center space-x-2 pb-2 border-b border-gray-100">
+                <i class="ph-bold ph-barbell text-base text-[#FF991C]"></i>
+                <h4 class="font-extrabold text-xs text-[#191A1D] uppercase tracking-wider">Aktivitas & Tempat Latihan</h4>
+              </div>
+
+              <!-- LOKASI LATIHAN: GYM vs RUMAH -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1.5">Rencana Latihan Anda Terutama Di Mana?</label>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div onclick="selectOnbWorkoutLocation('gym')" id="loc-opt-gym"
+                    class="onb-loc-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex flex-col justify-between cursor-pointer transition-all">
+                    <div class="flex items-center space-x-2.5 mb-1.5">
+                      <div class="w-8 h-8 rounded-xl bg-orange-100 text-[#FF991C] flex items-center justify-center text-lg">
+                        <i class="ph-bold ph-barbell"></i>
+                      </div>
+                      <p class="font-black text-xs text-[#191A1D]">Di Gym</p>
+                    </div>
+                    <p class="text-[10px] text-gray-500 leading-snug">Barbell, Dumbbell, Mesin Beban & Kabel lengkap</p>
+                    <div class="mt-2 flex items-center justify-end">
+                      <i class="ph-bold ph-check-circle text-base text-[#FF991C] loc-check"></i>
+                    </div>
+                  </div>
+
+                  <div onclick="selectOnbWorkoutLocation('home')" id="loc-opt-home"
+                    class="onb-loc-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex flex-col justify-between cursor-pointer transition-all">
+                    <div class="flex items-center space-x-2.5 mb-1.5">
+                      <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+                        <i class="ph-bold ph-house-line"></i>
+                      </div>
+                      <p class="font-black text-xs text-[#191A1D]">Di Rumah</p>
+                    </div>
+                    <p class="text-[10px] text-gray-500 leading-snug">Bodyweight / Kalistenik, Matras, Dumbbell rumahan</p>
+                    <div class="mt-2 flex items-center justify-end">
+                      <i class="ph-bold ph-check-circle text-base text-gray-300 loc-check"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Main Lifestyle / Activity Level Cards -->
+              <div class="space-y-2">
+                <label class="block text-[11px] font-bold text-gray-500 mb-1">Rutinitas Utama Harian Anda</label>
+                
+                <div onclick="selectOnbActivity('sedentary', 1.2)" id="act-opt-sedentary"
+                  class="onb-act-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-armchair"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Sedentary / Dominan Duduk</p>
+                      <p class="text-[10px] text-gray-400">Kantor, WFH, belajar, minim gerak (&lt; 2 jam aktif)</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 act-check"></i>
+                </div>
+
+                <div onclick="selectOnbActivity('light', 1.375)" id="act-opt-light"
+                  class="onb-act-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-person-simple-walk"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Aktivitas Ringan</p>
+                      <p class="text-[10px] text-gray-400">Banyak jalan santai, mengajar, kasir (2-4 jam aktif)</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-[#FF991C] act-check"></i>
+                </div>
+
+                <div onclick="selectOnbActivity('moderate', 1.55)" id="act-opt-moderate"
+                  class="onb-act-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-sneaker-move"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Aktivitas Moderat</p>
+                      <p class="text-[10px] text-gray-400">Bergerak aktif, kurir, teknisi, rutin olahraga (4-6 jam)</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 act-check"></i>
+                </div>
+
+                <div onclick="selectOnbActivity('very_active', 1.725)" id="act-opt-very_active"
+                  class="onb-act-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-lightning"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Sangat Aktif / Fisik Berat</p>
+                      <p class="text-[10px] text-gray-400">Pekerja konstruksi, buruh, atlet latihan intensif (&gt; 6 jam)</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 act-check"></i>
+                </div>
+              </div>
+
+              <!-- Jam Duduk Sehari -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1.5">Berapa jam Anda duduk / di depan layar per hari?</label>
+                <div class="grid grid-cols-4 gap-1.5">
+                  <button type="button" onclick="selectSittingHours(4)" id="sit-btn-4"
+                    class="sit-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700">2-4 Jam</button>
+                  <button type="button" onclick="selectSittingHours(6)" id="sit-btn-6"
+                    class="sit-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700">5-6 Jam</button>
+                  <button type="button" onclick="selectSittingHours(8)" id="sit-btn-8"
+                    class="sit-btn py-2 rounded-xl text-[11px] font-bold border-2 border-[#FF991C] bg-[#FFF5E9] text-[#FF991C]">7-8 Jam</button>
+                  <button type="button" onclick="selectSittingHours(10)" id="sit-btn-10"
+                    class="sit-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700">&gt; 9 Jam</button>
+                </div>
+              </div>
+
+              <!-- Frekuensi Olahraga Mingguan -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1.5">Frekuensi olahraga / workout per minggu</label>
+                <div class="grid grid-cols-4 gap-1.5">
+                  <button type="button" onclick="selectWorkoutDays(0)" id="work-btn-0"
+                    class="work-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700">0 Hari</button>
+                  <button type="button" onclick="selectWorkoutDays(2)" id="work-btn-2"
+                    class="work-btn py-2 rounded-xl text-[11px] font-bold border-2 border-[#FF991C] bg-[#FFF5E9] text-[#FF991C]">1-2 Hari</button>
+                  <button type="button" onclick="selectWorkoutDays(4)" id="work-btn-4"
+                    class="work-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700">3-4 Hari</button>
+                  <button type="button" onclick="selectWorkoutDays(6)" id="work-btn-6"
+                    class="work-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700">5+ Hari</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex space-x-2">
+              <button onclick="goToOnbStep(1)"
+                class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3.5 rounded-2xl font-bold text-xs transition-all">
+                Kembali
+              </button>
+              <button onclick="goToOnbStep(3)"
+                class="flex-1 bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-black text-xs shadow-md shadow-[#FF991C]/25 flex items-center justify-center space-x-2 transition-all active:scale-[0.99]">
+                <span>Lanjut ke Pola Puasa</span>
+                <i class="ph-bold ph-arrow-right text-sm"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: POLA MAKAN & KEBIASAAN PUASA -->
+          <div id="onb-step-3" class="space-y-4 hidden">
+            <div class="app-card p-5 space-y-4">
+              <div class="flex items-center space-x-2 pb-2 border-b border-gray-100">
+                <i class="ph-bold ph-timer text-base text-[#FF991C]"></i>
+                <h4 class="font-extrabold text-xs text-[#191A1D] uppercase tracking-wider">Pola Makan & Kebiasaan Puasa</h4>
+              </div>
+
+              <!-- Fasting Habits -->
+              <div class="space-y-2">
+                <label class="block text-[11px] font-bold text-gray-500 mb-1">Apakah Anda terbiasa atau ingin berpuasa?</label>
+
+                <div onclick="selectOnbFasting('none')" id="fast-opt-none"
+                  class="onb-fast-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-50 text-[#FF991C] flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-fork-knife"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Tidak Biasa Puasa (Pola Normal)</p>
+                      <p class="text-[10px] text-gray-400">3 kali makan teratur (Sarapan, Siang, Malam) + Snack</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 fast-check"></i>
+                </div>
+
+                <div onclick="selectOnbFasting('if_16_8')" id="fast-opt-if_16_8"
+                  class="onb-fast-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-clock-countdown"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Intermittent Fasting 16:8 (Rekomendasi)</p>
+                      <p class="text-[10px] text-gray-400">16 jam puasa, jendela makan 8 jam (12.00 - 20.00)</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-[#FF991C] fast-check"></i>
+                </div>
+
+                <div onclick="selectOnbFasting('if_18_6')" id="fast-opt-if_18_6"
+                  class="onb-fast-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-timer"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Intermittent Fasting 18:6 (Lanjutan)</p>
+                      <p class="text-[10px] text-gray-400">18 jam puasa, jendela makan 6 jam (13.00 - 19.00)</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 fast-check"></i>
+                </div>
+
+                <div onclick="selectOnbFasting('sunnah')" id="fast-opt-sunnah"
+                  class="onb-fast-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                      <i class="ph-bold ph-moon-stars"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-xs text-[#191A1D]">Puasa Sunnah / Berkala (Sahur & Buka)</p>
+                      <p class="text-[10px] text-gray-400">Senin-Kamis atau Daud (Makan saat Sahur & Berbuka petang)</p>
+                    </div>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 fast-check"></i>
+                </div>
+              </div>
+
+              <!-- Preferensi Nutrisi -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1.5">Fokus / Preferensi Nutrisi</label>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <button type="button" onclick="selectDietPref('protein')" id="pref-btn-protein"
+                    class="pref-btn p-2.5 rounded-xl border-2 border-[#FF991C] bg-[#FFF5E9] font-bold text-[#FF991C] text-left">
+                    🍗 Tinggi Protein (Fitness)
+                  </button>
+                  <button type="button" onclick="selectDietPref('balanced')" id="pref-btn-balanced"
+                    class="pref-btn p-2.5 rounded-xl border border-gray-200 bg-gray-50 font-bold text-gray-700 text-left">
+                    🥗 Menu Seimbang Rumahan
+                  </button>
+                  <button type="button" onclick="selectDietPref('lowcarb')" id="pref-btn-lowcarb"
+                    class="pref-btn p-2.5 rounded-xl border border-gray-200 bg-gray-50 font-bold text-gray-700 text-left">
+                    🥑 Rendah Minyak & Gula
+                  </button>
+                  <button type="button" onclick="selectDietPref('veggie')" id="pref-btn-veggie"
+                    class="pref-btn p-2.5 rounded-xl border border-gray-200 bg-gray-50 font-bold text-gray-700 text-left">
+                    🥦 Sayur & Serat Tinggi
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex space-x-2">
+              <button onclick="goToOnbStep(2)"
+                class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3.5 rounded-2xl font-bold text-xs transition-all">
+                Kembali
+              </button>
+              <button onclick="goToOnbStep(4)"
+                class="flex-1 bg-[#FF991C] hover:bg-[#e68512] text-white py-3.5 rounded-2xl font-black text-xs shadow-md shadow-[#FF991C]/25 flex items-center justify-center space-x-2 transition-all active:scale-[0.99]">
+                <span>Lanjut ke Target & Sasaran</span>
+                <i class="ph-bold ph-arrow-right text-sm"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 4: TARGET BERAT BADAN & TEMPO PROGRAM -->
+          <div id="onb-step-4" class="space-y-4 hidden">
+            <div class="app-card p-5 space-y-4">
+              <div class="flex items-center space-x-2 pb-2 border-b border-gray-100">
+                <i class="ph-bold ph-target text-base text-[#FF991C]"></i>
+                <h4 class="font-extrabold text-xs text-[#191A1D] uppercase tracking-wider">Target & Tempo Pencapaian</h4>
+              </div>
+
+              <!-- Main Goal Category -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1.5">Tujuan Utama Program</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <div onclick="selectOnbGoalType('fat_loss')" id="goal-opt-fat_loss"
+                    class="onb-goal-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] text-center cursor-pointer transition-all">
+                    <i class="ph-bold ph-trend-down text-xl text-[#FF991C] mx-auto mb-1"></i>
+                    <p class="font-bold text-xs text-[#191A1D]">Turun BB</p>
+                    <p class="text-[9px] text-gray-500">Fat Loss</p>
+                  </div>
+                  <div onclick="selectOnbGoalType('maintenance')" id="goal-opt-maintenance"
+                    class="onb-goal-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 text-center cursor-pointer transition-all">
+                    <i class="ph-bold ph-scales text-xl text-emerald-600 mx-auto mb-1"></i>
+                    <p class="font-bold text-xs text-[#191A1D]">Jaga BB</p>
+                    <p class="text-[9px] text-gray-500">Kencangkan Otot</p>
+                  </div>
+                  <div onclick="selectOnbGoalType('muscle_gain')" id="goal-opt-muscle_gain"
+                    class="onb-goal-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 text-center cursor-pointer transition-all">
+                    <i class="ph-bold ph-trend-up text-xl text-blue-600 mx-auto mb-1"></i>
+                    <p class="font-bold text-xs text-[#191A1D]">Naik BB</p>
+                    <p class="text-[9px] text-gray-500">Lean Bulking</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Target Berat Badan (Target KG) -->
+              <div>
+                <label class="block text-[11px] font-bold text-gray-500 mb-1">Target Berat Badan yang Ingin Dicapai (KG)</label>
+                <div class="flex items-center space-x-3">
+                  <input type="number" id="onb-target-weight" value="68.0" step="0.5" min="30" max="250" oninput="updateOnbTargetDeltaLive()"
+                    class="w-1/2 p-3 bg-gray-50 border border-gray-200 rounded-xl font-black text-center text-lg focus:outline-none focus:ring-2 focus:ring-[#FF991C]">
+                  <div class="flex-1 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase">Selisih Target</p>
+                    <p id="onb-live-delta-text" class="text-xs font-black text-[#FF991C]">Turun 7.0 kg</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pace / Tempo Selection -->
+              <div class="space-y-2">
+                <label class="block text-[11px] font-bold text-gray-500 mb-1">Pilih Tempo / Laju Program</label>
+
+                <div onclick="selectOnbPace('easy', -250)" id="pace-opt-easy"
+                  class="onb-pace-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      <p class="font-bold text-xs text-[#191A1D]">Santai & Nyaman</p>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Defisit ~250 kkal/hari • ~0.25 - 0.35 kg/minggu (Sangat mudah dijalankan)</p>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 pace-check"></i>
+                </div>
+
+                <div onclick="selectOnbPace('optimal', -500)" id="pace-opt-optimal"
+                  class="onb-pace-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center justify-between cursor-pointer transition-all">
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <span class="w-2 h-2 rounded-full bg-[#FF991C]"></span>
+                      <p class="font-bold text-xs text-[#191A1D]">Rekomendasi Optimal (Ideal)</p>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Defisit ~500 kkal/hari • ~0.5 kg/minggu (Paling seimbang & terbukti klinis)</p>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-[#FF991C] pace-check"></i>
+                </div>
+
+                <div onclick="selectOnbPace('shred', -750)" id="pace-opt-shred"
+                  class="onb-pace-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all">
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                      <p class="font-bold text-xs text-[#191A1D]">Intensif / Shred Cepat</p>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Defisit ~750 kkal/hari • ~0.75 - 1.0 kg/minggu (Hasil cepat, butuh disiplin)</p>
+                  </div>
+                  <i class="ph-bold ph-check-circle text-lg text-gray-300 pace-check"></i>
+                </div>
+              </div>
+
+              <!-- Live Prediction Banner -->
+              <div class="bg-gradient-to-r from-[#FFF5E9] to-orange-50 border border-[#FF991C]/30 p-3.5 rounded-2xl space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-gray-700 flex items-center">
+                    <i class="ph-bold ph-calendar-check mr-1.5 text-[#FF991C]"></i> Proyeksi Estimasi Target
+                  </span>
+                  <span id="onb-live-est-weeks" class="font-black text-[#FF991C] bg-white px-2 py-0.5 rounded-full text-[10px] shadow-xs">
+                    ~10 Minggu
+                  </span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-center text-xs pt-1">
+                  <div class="bg-white/80 p-2 rounded-xl">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase">Kalori Masuk</p>
+                    <p id="onb-live-in-cal" class="font-black text-gray-800">~1,750 kkal</p>
+                  </div>
+                  <div class="bg-white/80 p-2 rounded-xl">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase">Target Bakar Aktif</p>
+                    <p id="onb-live-burn-cal" class="font-black text-[#FF991C]">~500 kkal</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex space-x-2">
+              <button onclick="goToOnbStep(3)"
+                class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3.5 rounded-2xl font-bold text-xs transition-all">
+                Kembali
+              </button>
+              <button onclick="submitPlanOnboarding()" id="btn-submit-onb"
+                class="flex-1 bg-gradient-to-r from-[#FF991C] to-[#F37021] hover:brightness-105 text-white py-3.5 rounded-2xl font-black text-xs shadow-lg shadow-[#FF991C]/30 flex items-center justify-center space-x-2 transition-all active:scale-[0.99]">
+                <i class="ph-bold ph-calculator text-base"></i>
+                <span>Hitung & Buat Rencana Saya</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Fasting Timer Widget (Eatshimo inspired) -->
-        <div class="hero-card p-6 space-y-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
-                <i class="ph-bold ph-timer text-lg"></i>
+        <!-- ==================== B. PERSONALIZED PLAN DASHBOARD CONTAINER ==================== -->
+        <div id="plan-dashboard-view" class="space-y-4 hidden">
+          <!-- Profile & Goal Card -->
+          <div class="app-card p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#FF991C] to-amber-300 text-white flex items-center justify-center font-black text-base shadow-sm">
+                <span id="plan-user-initial">U</span>
               </div>
-              <span class="text-xs font-bold uppercase tracking-wider text-white/90">Intermittent Fasting</span>
+              <div>
+                <div class="flex items-center space-x-1.5">
+                  <h4 id="plan-user-name" class="font-black text-sm text-[#191A1D]">Rencana Saya</h4>
+                  <span id="plan-goal-badge" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-[#FFF5E9] text-[#FF991C]">
+                    Fat Loss
+                  </span>
+                </div>
+                <p id="plan-meta-summary" class="text-[10px] text-gray-400 font-medium">
+                  75.0 kg → Target 68.0 kg • Program Gym • Metode IF 16:8
+                </p>
+              </div>
             </div>
-            <span id="fasting-status-badge" class="bg-white/20 px-3 py-1 rounded-full text-[10px] font-black uppercase text-white">
-              Jendela Makan
-            </span>
-          </div>
-
-          <div>
-            <h4 id="fasting-timer-display" class="text-3xl font-black text-white tracking-tight">16 : 00 : 00</h4>
-            <p id="fasting-timer-subtitle" class="text-xs text-white/80 mt-1 font-medium">Target: 16 Jam Puasa (Metode 16:8 LeanGains)</p>
-          </div>
-
-          <div class="flex space-x-2 pt-1">
-            <button id="btn-toggle-fasting" onclick="toggleFasting()"
-              class="flex-1 bg-white text-[#191A1D] py-3 rounded-2xl text-xs font-extrabold hover:bg-gray-100 active:scale-95 transition-all shadow-md">
-              Mulai Puasa
-            </button>
-            <button onclick="setFastingPreset(16)"
-              class="bg-white/20 hover:bg-white/30 text-white px-3.5 py-3 rounded-2xl text-xs font-bold transition-all">
-              16:8
-            </button>
-            <button onclick="setFastingPreset(18)"
-              class="bg-white/20 hover:bg-white/30 text-white px-3.5 py-3 rounded-2xl text-xs font-bold transition-all">
-              18:6
+            <button onclick="retakePlanOnboarding()" title="Ubah atau ulangi interview"
+              class="px-3 py-1.5 bg-gray-50 hover:bg-gray-100 text-gray-600 hover:text-[#FF991C] rounded-xl text-[10px] font-bold border border-gray-200/80 flex items-center space-x-1 transition-all">
+              <i class="ph-bold ph-pencil-simple text-xs"></i>
+              <span>Ubah Data</span>
             </button>
           </div>
-        </div>
 
-        <!-- Program Management -->
-        <div class="app-card p-5 space-y-3">
-          <h4 class="font-extrabold text-[#191A1D] text-sm">Pilih Program Diet</h4>
-
-          <div class="space-y-2.5">
-            <div onclick="changeDietProgram(30, 2125)"
-              class="hover:border-[#FF991C] border-2 border-transparent bg-gray-50 rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all">
-              <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-[#FFF5E9] flex items-center justify-center text-[#FF991C]">
-                  <i class="ph-bold ph-fire text-lg"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-xs text-[#191A1D]">30-Day Shred & Fat Burner</p>
-                  <p class="text-[10px] text-gray-400">Target defisit bertahap untuk pembakaran lemak</p>
-                </div>
-              </div>
-              <span class="text-xs font-black text-gray-700">2,125 kkal</span>
+          <!-- Hero Projection Card -->
+          <div class="hero-card p-5 space-y-3 relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-black uppercase tracking-wider text-white/80 bg-white/10 px-2.5 py-0.5 rounded-full">
+                🎯 Proyeksi Capai Target
+              </span>
+              <span id="plan-projection-weeks" class="text-xs font-black text-white bg-white/20 px-3 py-1 rounded-full">
+                ~10 Minggu
+              </span>
             </div>
 
-            <div onclick="changeDietProgram(60, 2350)"
-              class="hover:border-[#FF991C] border-2 border-transparent bg-gray-50 rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all">
-              <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                  <i class="ph-bold ph-barbell text-lg"></i>
+            <div>
+              <p class="text-[11px] text-white/80 font-medium">Estimasi Target Tercapai Pada:</p>
+              <h2 id="plan-projection-date" class="text-2xl font-black text-white tracking-tight mt-0.5">
+                25 Januari 2027
+              </h2>
+            </div>
+
+            <!-- Visual Progress Bar Target BB -->
+            <div class="space-y-1.5 pt-1">
+              <div class="flex justify-between text-[10px] font-bold text-white/90">
+                <span>Mulai: <strong id="plan-prog-start">75.0 kg</strong></span>
+                <span>Target: <strong id="plan-prog-target">68.0 kg</strong></span>
+              </div>
+              <div class="w-full bg-black/20 rounded-full h-2 p-0.5">
+                <div id="plan-prog-bar" class="bg-white h-full rounded-full transition-all duration-500" style="width: 15%;"></div>
+              </div>
+              <p id="plan-pace-text" class="text-[10px] text-white/80 font-medium text-right">
+                Laju: -0.5 kg/minggu (Defisit 500 kkal/hari)
+              </p>
+            </div>
+          </div>
+
+          <!-- Key Calorie Numbers: Bakar vs Masuk -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <!-- Target Kalori Masuk -->
+            <div class="app-card p-4 space-y-1.5 border-l-4 border-[#FF991C]">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase text-gray-400">Kalori Masuk (Diet)</span>
+                <i class="ph-bold ph-fork-knife text-sm text-[#FF991C]"></i>
+              </div>
+              <h3 id="plan-target-in-cal" class="text-xl font-black text-[#191A1D]">1,725 <span class="text-xs font-normal text-gray-400">kkal/hr</span></h3>
+              <p id="plan-tdee-breakdown" class="text-[10px] text-gray-400">
+                TDEE 2,225 - Defisit 500
+              </p>
+            </div>
+
+            <!-- Target Kalori Bakar -->
+            <div class="app-card p-4 space-y-1.5 border-l-4 border-emerald-500">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase text-gray-400">Target Bakar Aktif</span>
+                <i class="ph-bold ph-fire text-sm text-emerald-500"></i>
+              </div>
+              <h3 id="plan-target-burn-cal" class="text-xl font-black text-[#191A1D]">500 <span class="text-xs font-normal text-gray-400">kkal/hr</span></h3>
+              <p id="plan-burn-breakdown" class="text-[10px] text-gray-400">
+                Langkah + Latihan Fisik
+              </p>
+            </div>
+          </div>
+
+          <!-- Macros & Water Row -->
+          <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+            <div class="bg-white p-2.5 rounded-2xl border border-gray-100 shadow-xs">
+              <p class="text-[9px] font-bold text-gray-400 uppercase">Protein</p>
+              <p id="plan-macro-p" class="font-black text-[#191A1D] text-sm mt-0.5">135g</p>
+              <p class="text-[8px] text-gray-400">Jaga Otot</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-2xl border border-gray-100 shadow-xs">
+              <p class="text-[9px] font-bold text-gray-400 uppercase">Karbo</p>
+              <p id="plan-macro-c" class="font-black text-[#191A1D] text-sm mt-0.5">205g</p>
+              <p class="text-[8px] text-gray-400">Energi</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-2xl border border-gray-100 shadow-xs">
+              <p class="text-[9px] font-bold text-gray-400 uppercase">Lemak</p>
+              <p id="plan-macro-f" class="font-black text-[#191A1D] text-sm mt-0.5">48g</p>
+              <p class="text-[8px] text-gray-400">Hormon</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-2xl border border-gray-100 shadow-xs">
+              <p class="text-[9px] font-bold text-gray-400 uppercase">Air</p>
+              <p id="plan-macro-water" class="font-black text-blue-600 text-sm mt-0.5">2.6L</p>
+              <p class="text-[8px] text-gray-400">Hidrasi</p>
+            </div>
+          </div>
+
+          <!-- Period Switcher Pills (Day / Weekly / Monthly) -->
+          <div class="flex justify-center pt-2">
+            <div class="inline-flex bg-white p-1 rounded-full border border-gray-200/80 shadow-xs">
+              <button onclick="switchPlanPeriod('day')" id="plan-pill-day"
+                class="px-5 py-1.5 rounded-full text-xs font-bold bg-[#FF991C] text-white shadow-xs transition-all">
+                Harian (Day)
+              </button>
+              <button onclick="switchPlanPeriod('weekly')" id="plan-pill-weekly"
+                class="px-5 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-800 transition-all">
+                Mingguan (Weekly)
+              </button>
+              <button onclick="switchPlanPeriod('monthly')" id="plan-pill-monthly"
+                class="px-5 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-800 transition-all">
+                Bulanan (Monthly)
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB 1: HARIAN (DAY) -->
+          <div id="plan-content-day" class="space-y-4">
+            <!-- Fasting Timer Widget -->
+            <div class="hero-card p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <div class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white">
+                    <i class="ph-bold ph-timer text-base"></i>
+                  </div>
+                  <span id="plan-fasting-title" class="text-xs font-bold uppercase tracking-wider text-white/90">Intermittent Fasting</span>
                 </div>
+                <span id="fasting-status-badge" class="bg-white/20 px-3 py-1 rounded-full text-[10px] font-black uppercase text-white">
+                  Jendela Makan
+                </span>
+              </div>
+
+              <div>
+                <h4 id="fasting-timer-display" class="text-3xl font-black text-white tracking-tight">16 : 00 : 00</h4>
+                <p id="fasting-timer-subtitle" class="text-xs text-white/80 mt-0.5 font-medium">Target: 16 Jam Puasa (Metode 16:8 LeanGains)</p>
+              </div>
+
+              <div class="flex space-x-2 pt-1">
+                <button id="btn-toggle-fasting" onclick="toggleFasting()"
+                  class="flex-1 bg-white text-[#191A1D] py-2.5 rounded-xl text-xs font-extrabold hover:bg-gray-100 active:scale-95 transition-all shadow-md">
+                  Mulai Puasa
+                </button>
+                <button onclick="setFastingPreset(16)"
+                  class="bg-white/20 hover:bg-white/30 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all">
+                  16:8
+                </button>
+                <button onclick="setFastingPreset(18)"
+                  class="bg-white/20 hover:bg-white/30 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all">
+                  18:6
+                </button>
+              </div>
+            </div>
+
+            <!-- Jadwal Jam Makan Harian & Contoh Menu -->
+            <div class="app-card p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center">
+                  <i class="ph-bold ph-fork-knife text-sm text-[#FF991C] mr-1.5"></i>
+                  Jadwal Makan & Rekomendasi Menu Hari Ini
+                </h4>
+                <span id="plan-daily-schedule-type" class="text-[10px] font-bold text-[#FF991C] bg-[#FFF5E9] px-2 py-0.5 rounded-md">
+                  Pola IF 16:8
+                </span>
+              </div>
+
+              <!-- List Meal Times (Rendered dynamically based on fasting habit) -->
+              <div id="plan-daily-meals-list" class="space-y-2.5">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Latihan Hari Ini (Gym vs Rumah) -->
+            <div class="app-card p-5 space-y-3">
+              <div class="flex items-center justify-between">
                 <div>
-                  <p class="font-bold text-xs text-[#191A1D]">60-Day Lean Muscle Bulk</p>
-                  <p class="text-[10px] text-gray-400">Surplus terkontrol & protein tinggi</p>
+                  <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center">
+                    <i class="ph-bold ph-barbell text-sm text-[#FF991C] mr-1.5"></i>
+                    Menu Latihan Hari Ini
+                  </h4>
+                  <p id="plan-today-workout-focus" class="text-[11px] text-gray-500 mt-0.5 font-bold">
+                    Senin: Upper Body Push (Dada & Bahu)
+                  </p>
+                </div>
+                <span id="plan-today-loc-badge" class="px-2.5 py-1 rounded-full text-[10px] font-black bg-orange-100 text-[#FF991C]">
+                  🏋️ Gym
+                </span>
+              </div>
+
+              <!-- List of Exercises for Today -->
+              <div id="plan-today-exercise-list" class="space-y-2 text-xs">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Target Aktivitas & Langkah Harian -->
+            <div class="app-card p-5 space-y-3">
+              <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center">
+                <i class="ph-bold ph-sneaker-move text-sm text-emerald-500 mr-1.5"></i>
+                Target Gerak & Pembakaran Harian
+              </h4>
+              <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                  <i class="ph-bold ph-footprints text-lg text-emerald-600 mb-1"></i>
+                  <p class="text-[10px] text-gray-400 font-bold">Langkah Kaki</p>
+                  <p class="font-black text-[#191A1D] text-sm">8,000</p>
+                  <p class="text-[9px] text-gray-400">~320 kkal</p>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                  <i class="ph-bold ph-barbell text-lg text-[#FF991C] mb-1"></i>
+                  <p class="text-[10px] text-gray-400 font-bold">Latihan Fisik</p>
+                  <p class="font-black text-[#191A1D] text-sm">30-45 Mnt</p>
+                  <p class="text-[9px] text-gray-400">~180-250 kkal</p>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                  <i class="ph-bold ph-drop text-lg text-blue-500 mb-1"></i>
+                  <p class="text-[10px] text-gray-400 font-bold">Target Air</p>
+                  <p id="plan-daily-water-target" class="font-black text-blue-600 text-sm">2.6 L</p>
+                  <p class="text-[9px] text-gray-400">8-10 Gelas</p>
                 </div>
               </div>
-              <span class="text-xs font-black text-gray-700">2,350 kkal</span>
+            </div>
+          </div>
+
+          <!-- TAB 2: MINGGUAN (WEEKLY) -->
+          <div id="plan-content-weekly" class="space-y-4 hidden">
+            <!-- Weekly Cumulative Commitment -->
+            <div class="app-card p-5 space-y-3 bg-gradient-to-br from-white to-orange-50/50">
+              <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center">
+                <i class="ph-bold ph-chart-bar text-sm text-[#FF991C] mr-1.5"></i>
+                Komitmen Akumulatif Mingguan (7 Hari)
+              </h4>
+              <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
+                  <p class="text-[9px] font-bold text-gray-400 uppercase">Total Masuk</p>
+                  <p id="plan-weekly-in-cal" class="font-black text-[#191A1D] text-sm mt-0.5">12,075</p>
+                  <p class="text-[9px] text-gray-400">kkal / minggu</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
+                  <p class="text-[9px] font-bold text-gray-400 uppercase">Total Bakar</p>
+                  <p id="plan-weekly-burn-cal" class="font-black text-emerald-600 text-sm mt-0.5">3,500</p>
+                  <p class="text-[9px] text-gray-400">kkal aktivitas</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
+                  <p class="text-[9px] font-bold text-gray-400 uppercase">Net Fat Loss</p>
+                  <p id="plan-weekly-net-loss" class="font-black text-[#FF991C] text-sm mt-0.5">-0.45 kg</p>
+                  <p class="text-[9px] text-gray-400">per minggu</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7-Day Workout Split Connected to Gym & Fit (Customized for Gym vs Rumah) -->
+            <div class="app-card p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center">
+                    <i class="ph-bold ph-barbell text-sm text-[#FF991C] mr-1.5"></i>
+                    Jadwal Latihan 7 Hari
+                  </h4>
+                  <p id="plan-weekly-loc-title" class="text-[10px] text-gray-400 font-semibold mt-0.5">
+                    Program Terpilih: Latihan di Gym
+                  </p>
+                </div>
+                <span class="text-[9px] font-bold text-gray-400">302 Gerakan Terkoneksi</span>
+              </div>
+
+              <!-- 7 Day Cards (Rendered dynamically based on workout location) -->
+              <div id="plan-weekly-split-list" class="space-y-2 text-xs">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Weekly Habit Checklist -->
+            <div class="app-card p-5 space-y-3">
+              <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center">
+                <i class="ph-bold ph-check-square-offset text-sm text-[#FF991C] mr-1.5"></i>
+                Checklist Kepatuhan Mingguan
+              </h4>
+              <div class="space-y-2 text-xs">
+                <label class="flex items-center space-x-2.5 p-2 bg-gray-50 rounded-xl cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-[#FF991C] focus:ring-[#FF991C]">
+                  <span class="font-semibold text-gray-700">Timbang BB 1x seminggu di Minggu pagi setelah buang air</span>
+                </label>
+                <label class="flex items-center space-x-2.5 p-2 bg-gray-50 rounded-xl cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-[#FF991C] focus:ring-[#FF991C]">
+                  <span class="font-semibold text-gray-700">Patuhi defisit kalori harian minimal 6 dari 7 hari</span>
+                </label>
+                <label class="flex items-center space-x-2.5 p-2 bg-gray-50 rounded-xl cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-[#FF991C] focus:ring-[#FF991C]">
+                  <span class="font-semibold text-gray-700">Penuhi target kecukupan protein harian</span>
+                </label>
+                <label class="flex items-center space-x-2.5 p-2 bg-gray-50 rounded-xl cursor-pointer">
+                  <input type="checkbox" class="rounded text-[#FF991C] focus:ring-[#FF991C]">
+                  <span class="font-semibold text-gray-700">Minum air putih minimal 2.5 Liter setiap hari</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: BULANAN (MONTHLY) -->
+          <div id="plan-content-monthly" class="space-y-4 hidden">
+            <!-- Monthly Roadmap Milestones -->
+            <div class="app-card p-5 space-y-4">
+              <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+                <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center">
+                  <i class="ph-bold ph-flag-banner text-sm text-[#FF991C] mr-1.5"></i>
+                  Roadmap Milestone 3 Bulan
+                </h4>
+                <span class="text-[10px] font-bold text-[#FF991C] bg-[#FFF5E9] px-2 py-0.5 rounded-full">Proyeksi Bertahap</span>
+              </div>
+
+              <!-- Bulan 1 -->
+              <div class="p-4 bg-orange-50/50 rounded-2xl border border-[#FF991C]/20 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-2">
+                    <span class="w-6 h-6 rounded-full bg-[#FF991C] text-white text-[11px] font-black flex items-center justify-center">1</span>
+                    <h5 class="font-extrabold text-xs text-[#191A1D]">Bulan 1: Adaptasi Metabolisme & De-Bloat</h5>
+                  </div>
+                  <span id="plan-month1-target" class="text-[11px] font-black text-[#FF991C]">Turun ~2.0 kg</span>
+                </div>
+                <p class="text-[11px] text-gray-600 leading-relaxed">
+                  Tubuh membiasakan diri dengan ritme jendela makan / puasa dan defisit energi terkontrol. Mengeluarkan retensi air berlebih, mengurangi peradangan, dan menstabilkan nafsu makan tanpa lemas.
+                </p>
+                <div class="flex items-center space-x-2 text-[10px] font-bold text-gray-500 pt-1">
+                  <span class="bg-white px-2 py-1 rounded-md border border-gray-200">Fokus: Konsistensi Jam Makan</span>
+                  <span class="bg-white px-2 py-1 rounded-md border border-gray-200">Target Air: Cukup 2.5L+</span>
+                </div>
+              </div>
+
+              <!-- Bulan 2 -->
+              <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-2">
+                    <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-[11px] font-black flex items-center justify-center">2</span>
+                    <h5 class="font-extrabold text-xs text-[#191A1D]">Bulan 2: Puncak Pembakaran Lemak (Fat Burn Peak)</h5>
+                  </div>
+                  <span id="plan-month2-target" class="text-[11px] font-black text-emerald-600">Turun Akumulatif ~4.2 kg</span>
+                </div>
+                <p class="text-[11px] text-gray-600 leading-relaxed">
+                  Metabolisme sangat efisien membakar cadangan lemak visceral dan subkutan. Lingkar pinggang dan perut mengecil nyata. Massa otot tetap terlindungi berkat asupan protein harian yang konsisten.
+                </p>
+                <div class="flex items-center space-x-2 text-[10px] font-bold text-gray-500 pt-1">
+                  <span class="bg-white px-2 py-1 rounded-md border border-gray-200">Fokus: Progres Beban Latihan</span>
+                  <span class="bg-white px-2 py-1 rounded-md border border-gray-200">Defisit Konsisten 500 kkal</span>
+                </div>
+              </div>
+
+              <!-- Bulan 3 -->
+              <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-2">
+                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-[11px] font-black flex items-center justify-center">3</span>
+                    <h5 class="font-extrabold text-xs text-[#191A1D]">Bulan 3: Capai Target Akhir & Rekondisi</h5>
+                  </div>
+                  <span id="plan-month3-target" class="text-[11px] font-black text-blue-600">Capai Target Akhir</span>
+                </div>
+                <p class="text-[11px] text-gray-600 leading-relaxed">
+                  Mencapai berat badan sasaran. Mulai transisi perlahan ke kalori pemeliharaan (reverse dieting) agar metabolisme tidak melambat dan berat badan ideal terkunci secara permanen (anti efek yo-yo).
+                </p>
+                <div class="flex items-center space-x-2 text-[10px] font-bold text-gray-500 pt-1">
+                  <span class="bg-white px-2 py-1 rounded-md border border-gray-200">Fokus: Transisi Maintenance</span>
+                  <span class="bg-white px-2 py-1 rounded-md border border-gray-200">Pengencangan Otot</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tips Diet Break & Mengatasi Plateau -->
+            <div class="app-card p-5 space-y-3">
+              <h4 class="font-extrabold text-[#191A1D] text-xs uppercase tracking-wider flex items-center text-amber-700">
+                <i class="ph-bold ph-lightbulb text-sm text-amber-500 mr-1.5"></i>
+                Tips Mengatasi Berat Badan Mandek (Plateau)
+              </h4>
+              <p class="text-[11px] text-gray-600 leading-relaxed">
+                Jika timbangan Anda tidak berubah selama lebih dari 2 minggu berturut-turut, jangan panik! Lakukan <strong>Refeed Day</strong> selama 1-2 hari dengan menaikkan kalori ke level TDEE maintenance (fokus dari karbohidrat kompleks seperti nasi merah/kentang). Ini mereset hormon leptin dan membakar kembali lemak tubuh dengan cepat.
+              </p>
             </div>
           </div>
         </div>
@@ -1509,6 +2316,8 @@
         localStorage.setItem('calorai_state_v2', JSON.stringify({
           user: state.user,
           profile: state.profile,
+          planOnboarding: state.planOnboarding,
+          activePlanPeriod: state.activePlanPeriod || 'day',
           todayLogs: state.todayLogs,
           todayWorkouts: state.todayWorkouts,
           weightHistory: state.weightHistory,
@@ -1570,14 +2379,15 @@
       renderExerciseCatalog('all');
       checkSession();
       initPWA();
+      renderPlanView();
       setInterval(updateFastingTimerDisplay, 1000);
     };
 
     function initPWA() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js?v=2.2')
+        navigator.serviceWorker.register('./sw.js?v=3.0')
           .then(reg => {
-            console.log('CalorAI Service Worker Registered v2.2');
+            console.log('CalorAI Service Worker Registered v3.0');
             reg.update();
             reg.onupdatefound = () => {
               const installingWorker = reg.installing;
@@ -1866,6 +2676,7 @@
 
       state.activeView = viewName;
       if (viewName === 'home') renderDashboard();
+      if (viewName === 'diet') renderPlanView();
       if (viewName === 'chat') renderChatHistory();
 
       // Stop hardware streams when leaving logger view
@@ -3589,6 +4400,1157 @@ PEDOMAN COACH SANDOW & ATURAN FORMAT TAMPILAN (SANGAT PENTING):
       showToast("Simulasi kalibrasi tengah malam: Hari baru & sinkronisasi data!");
       renderDashboard();
     }
+
+    
+    // ==================== ONBOARDING INTERVIEW & PLAN ENGINE ====================
+    let onbState = {
+      step: 1,
+      gender: 'male',
+      age: 26,
+      height: 172,
+      weight: 75.0,
+      workoutLocation: 'gym', // 'gym' or 'home'
+      activity: 'light',
+      activityMult: 1.375,
+      sittingHours: 8,
+      workoutDays: 2,
+      fasting: 'if_16_8',
+      dietPref: 'protein',
+      goalType: 'fat_loss',
+      targetWeight: 68.0,
+      pace: 'optimal',
+      goalOffset: -500
+    };
+
+    function initOnbFromState() {
+      if (state.profile) {
+        if (state.profile.gender) onbState.gender = state.profile.gender;
+        if (state.profile.age) onbState.age = parseFloat(state.profile.age) || 26;
+        if (state.profile.height) onbState.height = parseFloat(state.profile.height) || 172;
+        if (state.profile.weight) onbState.weight = parseFloat(state.profile.weight) || 75.0;
+        if (state.profile.activity) {
+          const m = parseFloat(state.profile.activity);
+          if (m <= 1.25) { onbState.activity = 'sedentary'; onbState.activityMult = 1.2; }
+          else if (m <= 1.45) { onbState.activity = 'light'; onbState.activityMult = 1.375; }
+          else if (m <= 1.65) { onbState.activity = 'moderate'; onbState.activityMult = 1.55; }
+          else { onbState.activity = 'very_active'; onbState.activityMult = 1.725; }
+        }
+      }
+      if (state.currentWeight) onbState.weight = state.currentWeight;
+      if (state.planOnboarding) {
+        Object.assign(onbState, state.planOnboarding);
+      }
+
+      // Populate Inputs
+      const elName = document.getElementById('onb-name');
+      if (elName) elName.value = (state.user && state.user.name) ? state.user.name : (onbState.name || '');
+      const elAge = document.getElementById('onb-age'); if (elAge) elAge.value = onbState.age;
+      const elH = document.getElementById('onb-height'); if (elH) elH.value = onbState.height;
+      const elW = document.getElementById('onb-weight'); if (elW) elW.value = onbState.weight;
+      const elTW = document.getElementById('onb-target-weight'); if (elTW) elTW.value = onbState.targetWeight || 68.0;
+
+      selectOnbGender(onbState.gender);
+      selectOnbWorkoutLocation(onbState.workoutLocation || 'gym');
+      selectOnbActivity(onbState.activity, onbState.activityMult);
+      selectSittingHours(onbState.sittingHours || 8);
+      selectWorkoutDays(onbState.workoutDays || 2);
+      selectOnbFasting(onbState.fasting || 'if_16_8');
+      selectDietPref(onbState.dietPref || 'protein');
+      selectOnbGoalType(onbState.goalType || 'fat_loss');
+      selectOnbPace(onbState.pace || 'optimal', onbState.goalOffset || -500);
+      updateOnbBMILive();
+      updateOnbTargetDeltaLive();
+    }
+
+    function selectOnbGender(gender) {
+      onbState.gender = gender;
+      const maleCard = document.getElementById('onb-gender-male');
+      const femaleCard = document.getElementById('onb-gender-female');
+      if (gender === 'male') {
+        if (maleCard) maleCard.className = "onb-gender-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center space-x-3 cursor-pointer transition-all";
+        if (femaleCard) femaleCard.className = "onb-gender-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center space-x-3 cursor-pointer transition-all";
+      } else {
+        if (femaleCard) femaleCard.className = "onb-gender-card p-3 rounded-2xl border-2 border-pink-500 bg-pink-50 flex items-center space-x-3 cursor-pointer transition-all";
+        if (maleCard) maleCard.className = "onb-gender-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center space-x-3 cursor-pointer transition-all";
+      }
+      updateOnbBMILive();
+      updateOnbTargetDeltaLive();
+    }
+
+    function selectOnbWorkoutLocation(loc) {
+      onbState.workoutLocation = loc;
+      const gymCard = document.getElementById('loc-opt-gym');
+      const homeCard = document.getElementById('loc-opt-home');
+      if (loc === 'gym') {
+        if (gymCard) {
+          gymCard.className = "onb-loc-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex flex-col justify-between cursor-pointer transition-all";
+          const icon = gymCard.querySelector('.loc-check');
+          if (icon) icon.className = "ph-bold ph-check-circle text-base text-[#FF991C] loc-check";
+        }
+        if (homeCard) {
+          homeCard.className = "onb-loc-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex flex-col justify-between cursor-pointer transition-all";
+          const icon = homeCard.querySelector('.loc-check');
+          if (icon) icon.className = "ph-bold ph-check-circle text-base text-gray-300 loc-check";
+        }
+      } else {
+        if (homeCard) {
+          homeCard.className = "onb-loc-card p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50 flex flex-col justify-between cursor-pointer transition-all";
+          const icon = homeCard.querySelector('.loc-check');
+          if (icon) icon.className = "ph-bold ph-check-circle text-base text-emerald-600 loc-check";
+        }
+        if (gymCard) {
+          gymCard.className = "onb-loc-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex flex-col justify-between cursor-pointer transition-all";
+          const icon = gymCard.querySelector('.loc-check');
+          if (icon) icon.className = "ph-bold ph-check-circle text-base text-gray-300 loc-check";
+        }
+      }
+    }
+
+    function updateOnbBMILive() {
+      const h = parseFloat(document.getElementById('onb-height')?.value) || 172;
+      const w = parseFloat(document.getElementById('onb-weight')?.value) || 75.0;
+      onbState.height = h;
+      onbState.weight = w;
+
+      const bmi = w / Math.pow(h / 100, 2);
+      const bmiRounded = bmi.toFixed(1);
+      const bmiEl = document.getElementById('onb-live-bmi');
+      const labelEl = document.getElementById('onb-live-bmi-label');
+      const pillEl = document.getElementById('onb-live-bmi-pill');
+      const rangeEl = document.getElementById('onb-live-ideal-range');
+
+      const minW = Math.round(18.5 * Math.pow(h / 100, 2));
+      const maxW = Math.round(24.9 * Math.pow(h / 100, 2));
+      if (rangeEl) rangeEl.innerText = `${minW} - ${maxW} kg`;
+
+      if (bmiEl) bmiEl.innerText = bmiRounded;
+
+      let catText = "Normal";
+      let pillClass = "px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-emerald-500 text-white";
+      if (bmi < 18.5) {
+        catText = "Kekurangan BB";
+        pillClass = "px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-blue-500 text-white";
+      } else if (bmi <= 24.9) {
+        catText = "Ideal & Normal";
+        pillClass = "px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-emerald-500 text-white";
+      } else if (bmi <= 29.9) {
+        catText = "Kelebihan BB";
+        pillClass = "px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-[#FF991C] text-white";
+      } else {
+        catText = "Obesitas";
+        pillClass = "px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-rose-500 text-white";
+      }
+
+      if (labelEl) labelEl.innerText = catText;
+      if (pillEl) {
+        pillEl.innerText = catText;
+        pillEl.className = pillClass;
+      }
+      updateOnbTargetDeltaLive();
+    }
+
+    function selectOnbActivity(act, mult) {
+      onbState.activity = act;
+      onbState.activityMult = mult;
+      ['sedentary', 'light', 'moderate', 'very_active'].forEach(a => {
+        const card = document.getElementById('act-opt-' + a);
+        if (!card) return;
+        const icon = card.querySelector('.act-check');
+        if (a === act) {
+          card.className = "onb-act-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center justify-between cursor-pointer transition-all";
+          if (icon) { icon.className = "ph-bold ph-check-circle text-lg text-[#FF991C] act-check"; }
+        } else {
+          card.className = "onb-act-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all";
+          if (icon) { icon.className = "ph-bold ph-check-circle text-lg text-gray-300 act-check"; }
+        }
+      });
+      updateOnbTargetDeltaLive();
+    }
+
+    function selectSittingHours(hrs) {
+      onbState.sittingHours = hrs;
+      [4, 6, 8, 10].forEach(h => {
+        const btn = document.getElementById('sit-btn-' + h);
+        if (!btn) return;
+        if (h === hrs) {
+          btn.className = "sit-btn py-2 rounded-xl text-[11px] font-bold border-2 border-[#FF991C] bg-[#FFF5E9] text-[#FF991C]";
+        } else {
+          btn.className = "sit-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700";
+        }
+      });
+      updateOnbTargetDeltaLive();
+    }
+
+    function selectWorkoutDays(days) {
+      onbState.workoutDays = days;
+      [0, 2, 4, 6].forEach(d => {
+        const btn = document.getElementById('work-btn-' + d);
+        if (!btn) return;
+        if (d === days) {
+          btn.className = "work-btn py-2 rounded-xl text-[11px] font-bold border-2 border-[#FF991C] bg-[#FFF5E9] text-[#FF991C]";
+        } else {
+          btn.className = "work-btn py-2 rounded-xl text-[11px] font-bold border border-gray-200 bg-gray-50 text-gray-700";
+        }
+      });
+      updateOnbTargetDeltaLive();
+    }
+
+    function selectOnbFasting(f) {
+      onbState.fasting = f;
+      ['none', 'if_16_8', 'if_18_6', 'sunnah'].forEach(opt => {
+        const card = document.getElementById('fast-opt-' + opt);
+        if (!card) return;
+        const icon = card.querySelector('.fast-check');
+        if (opt === f) {
+          card.className = "onb-fast-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center justify-between cursor-pointer transition-all";
+          if (icon) icon.className = "ph-bold ph-check-circle text-lg text-[#FF991C] fast-check";
+        } else {
+          card.className = "onb-fast-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all";
+          if (icon) icon.className = "ph-bold ph-check-circle text-lg text-gray-300 fast-check";
+        }
+      });
+    }
+
+    function selectDietPref(pref) {
+      onbState.dietPref = pref;
+      ['protein', 'balanced', 'lowcarb', 'veggie'].forEach(p => {
+        const btn = document.getElementById('pref-btn-' + p);
+        if (!btn) return;
+        if (p === pref) {
+          btn.className = "pref-btn p-2.5 rounded-xl border-2 border-[#FF991C] bg-[#FFF5E9] font-bold text-[#FF991C] text-left";
+        } else {
+          btn.className = "pref-btn p-2.5 rounded-xl border border-gray-200 bg-gray-50 font-bold text-gray-700 text-left";
+        }
+      });
+    }
+
+    function selectOnbGoalType(gt) {
+      onbState.goalType = gt;
+      ['fat_loss', 'maintenance', 'muscle_gain'].forEach(g => {
+        const card = document.getElementById('goal-opt-' + g);
+        if (!card) return;
+        if (g === gt) {
+          card.className = "onb-goal-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] text-center cursor-pointer transition-all";
+        } else {
+          card.className = "onb-goal-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 text-center cursor-pointer transition-all";
+        }
+      });
+
+      const curW = parseFloat(document.getElementById('onb-weight')?.value) || onbState.weight;
+      const twInput = document.getElementById('onb-target-weight');
+      if (gt === 'maintenance' && twInput) {
+        twInput.value = curW;
+        onbState.targetWeight = curW;
+        onbState.goalOffset = 0;
+      } else if (gt === 'fat_loss' && twInput) {
+        if (parseFloat(twInput.value) >= curW) {
+          twInput.value = Math.max(30, curW - 5);
+          onbState.targetWeight = parseFloat(twInput.value);
+        }
+      } else if (gt === 'muscle_gain' && twInput) {
+        if (parseFloat(twInput.value) <= curW) {
+          twInput.value = curW + 4;
+          onbState.targetWeight = parseFloat(twInput.value);
+        }
+      }
+      updateOnbTargetDeltaLive();
+    }
+
+    function selectOnbPace(pace, offset) {
+      onbState.pace = pace;
+      onbState.goalOffset = offset;
+      ['easy', 'optimal', 'shred'].forEach(p => {
+        const card = document.getElementById('pace-opt-' + p);
+        if (!card) return;
+        const icon = card.querySelector('.pace-check');
+        if (p === pace) {
+          card.className = "onb-pace-card p-3 rounded-2xl border-2 border-[#FF991C] bg-[#FFF5E9] flex items-center justify-between cursor-pointer transition-all";
+          if (icon) icon.className = "ph-bold ph-check-circle text-lg text-[#FF991C] pace-check";
+        } else {
+          card.className = "onb-pace-card p-3 rounded-2xl border-2 border-transparent bg-gray-50 flex items-center justify-between cursor-pointer transition-all";
+          if (icon) icon.className = "ph-bold ph-check-circle text-lg text-gray-300 pace-check";
+        }
+      });
+      updateOnbTargetDeltaLive();
+    }
+
+    function updateOnbTargetDeltaLive() {
+      const curW = parseFloat(document.getElementById('onb-weight')?.value) || onbState.weight || 75.0;
+      const tw = parseFloat(document.getElementById('onb-target-weight')?.value) || 68.0;
+      onbState.targetWeight = tw;
+
+      const delta = tw - curW;
+      const deltaEl = document.getElementById('onb-live-delta-text');
+      if (deltaEl) {
+        if (Math.abs(delta) < 0.1) {
+          deltaEl.innerText = "Maintenance (0 kg)";
+          deltaEl.className = "text-xs font-black text-emerald-600";
+        } else if (delta < 0) {
+          deltaEl.innerText = `Turun ${Math.abs(delta).toFixed(1)} kg`;
+          deltaEl.className = "text-xs font-black text-[#FF991C]";
+        } else {
+          deltaEl.innerText = `Naik +${delta.toFixed(1)} kg`;
+          deltaEl.className = "text-xs font-black text-blue-600";
+        }
+      }
+
+      // Live Scientific Calculations
+      const age = parseFloat(document.getElementById('onb-age')?.value) || onbState.age || 26;
+      const height = parseFloat(document.getElementById('onb-height')?.value) || onbState.height || 172;
+      const gender = onbState.gender || 'male';
+      const mult = onbState.activityMult || 1.375;
+      let offset = onbState.goalOffset || -500;
+
+      if (onbState.goalType === 'maintenance') offset = 0;
+      if (onbState.goalType === 'muscle_gain' && offset < 0) offset = Math.abs(offset);
+
+      // Mifflin-St Jeor
+      let bmr = (10 * curW) + (6.25 * height) - (5 * age);
+      if (gender === 'male') bmr += 5;
+      else bmr -= 161;
+
+      const tdee = bmr * mult;
+      const targetCal = Math.max(1200, Math.round(tdee + offset));
+      const activeBurn = Math.round(tdee - bmr);
+
+      const inCalEl = document.getElementById('onb-live-in-cal');
+      const burnCalEl = document.getElementById('onb-live-burn-cal');
+      const weeksEl = document.getElementById('onb-live-est-weeks');
+
+      if (inCalEl) inCalEl.innerText = `~${targetCal.toLocaleString()} kkal`;
+      if (burnCalEl) burnCalEl.innerText = `~${activeBurn} kkal`;
+
+      if (Math.abs(delta) < 0.1) {
+        if (weeksEl) weeksEl.innerText = "Stabil / Rutin";
+      } else {
+        const totalCalNeeded = Math.abs(delta) * 7700;
+        const effOffset = Math.max(200, Math.abs(offset));
+        const estDays = Math.round(totalCalNeeded / effOffset);
+        const estWeeks = (estDays / 7).toFixed(1);
+        if (weeksEl) weeksEl.innerText = `~${estWeeks} Minggu (${estDays} Hari)`;
+      }
+    }
+
+    function goToOnbStep(step) {
+      onbState.step = step;
+      [1, 2, 3, 4].forEach(s => {
+        const stepEl = document.getElementById('onb-step-' + s);
+        const labelEl = document.getElementById('step-label-' + s);
+        if (stepEl) {
+          if (s === step) stepEl.classList.remove('hidden');
+          else stepEl.classList.add('hidden');
+        }
+        if (labelEl) {
+          if (s === step) labelEl.className = "text-[#FF991C]";
+          else if (s < step) labelEl.className = "text-gray-700";
+          else labelEl.className = "text-gray-400";
+        }
+      });
+
+      const badge = document.getElementById('onb-step-badge');
+      if (badge) badge.innerText = `Langkah ${step}/4`;
+      const prog = document.getElementById('onb-progress-bar');
+      if (prog) prog.style.width = `${step * 25}%`;
+
+      window.scrollTo(0, 0);
+      const mainEl = document.querySelector('main');
+      if (mainEl) mainEl.scrollTop = 0;
+    }
+
+    function submitPlanOnboarding() {
+      const btn = document.getElementById('btn-submit-onb');
+      if (btn) {
+        btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin text-base"></i><span>Menghitung Rencana Ilmiah...</span>`;
+        btn.disabled = true;
+      }
+
+      const nameInput = document.getElementById('onb-name');
+      const ageInput = document.getElementById('onb-age');
+      const hInput = document.getElementById('onb-height');
+      const wInput = document.getElementById('onb-weight');
+      const twInput = document.getElementById('onb-target-weight');
+
+      const name = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : (state.user?.name || "Kawan Sehat");
+      const age = parseFloat(ageInput?.value) || onbState.age || 26;
+      const height = parseFloat(hInput?.value) || onbState.height || 172;
+      const weight = parseFloat(wInput?.value) || onbState.weight || 75.0;
+      const targetWeight = parseFloat(twInput?.value) || onbState.targetWeight || 68.0;
+
+      onbState.name = name;
+      onbState.age = age;
+      onbState.height = height;
+      onbState.weight = weight;
+      onbState.targetWeight = targetWeight;
+
+      let offset = onbState.goalOffset || -500;
+      if (onbState.goalType === 'maintenance') offset = 0;
+      if (onbState.goalType === 'muscle_gain' && offset < 0) offset = Math.abs(offset);
+
+      // Scientific Formulas
+      let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+      if (onbState.gender === 'male') bmr += 5;
+      else bmr -= 161;
+
+      const tdee = Math.round(bmr * onbState.activityMult);
+      const targetCalories = Math.max(1200, Math.round(tdee + offset));
+      const targetBurnCalories = Math.round(tdee - bmr);
+
+      // Macros
+      const targetProtein = Math.round(weight * (onbState.dietPref === 'protein' ? 2.0 : 1.8));
+      const targetFat = Math.round((targetCalories * 0.25) / 9);
+      const targetCarbs = Math.max(50, Math.round((targetCalories - (targetProtein * 4 + targetFat * 9)) / 4));
+      const targetWater = (Math.round(weight * 35 / 100) / 10);
+
+      // Timeline Forecast
+      const deltaWeight = targetWeight - weight;
+      const absDelta = Math.abs(deltaWeight);
+      const totalCalNeeded = absDelta * 7700;
+      const effOffset = Math.max(250, Math.abs(offset));
+      const estDays = absDelta < 0.1 ? 0 : Math.round(totalCalNeeded / effOffset);
+      const estWeeks = (estDays / 7).toFixed(1);
+      const targetDate = new Date(Date.now() + (estDays * 86400000));
+      const formattedDate = targetDate.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+
+      // Update state
+      state.currentWeight = weight;
+      state.targetCalories = targetCalories;
+      state.targetProtein = targetProtein;
+      state.targetCarbs = targetCarbs;
+      state.targetFat = targetFat;
+
+      state.profile = {
+        gender: onbState.gender,
+        age: age,
+        height: height,
+        weight: weight,
+        activity: String(onbState.activityMult),
+        goalOffset: offset,
+        goalText: onbState.goalType === 'fat_loss' ? `Fat Loss (Defisit ${Math.abs(offset)} kkal)` : (onbState.goalType === 'muscle_gain' ? `Bulking (+${offset} kkal)` : 'Maintenance')
+      };
+
+      state.planOnboarding = {
+        completed: true,
+        completedAt: new Date().toISOString(),
+        name,
+        gender: onbState.gender,
+        age,
+        height,
+        weight,
+        targetWeight,
+        deltaWeight,
+        workoutLocation: onbState.workoutLocation || 'gym',
+        activity: onbState.activity,
+        activityMult: onbState.activityMult,
+        sittingHours: onbState.sittingHours,
+        workoutDays: onbState.workoutDays,
+        fasting: onbState.fasting,
+        dietPref: onbState.dietPref,
+        goalType: onbState.goalType,
+        pace: onbState.pace,
+        goalOffset: offset,
+        bmr: Math.round(bmr),
+        tdee,
+        targetCalories,
+        targetBurnCalories,
+        targetProtein,
+        targetCarbs,
+        targetFat,
+        targetWater,
+        estDays,
+        estWeeks,
+        projectedDate: formattedDate
+      };
+
+      // Set fasting target preset in state
+      if (onbState.fasting === 'if_16_8') state.fasting.targetHours = 16;
+      else if (onbState.fasting === 'if_18_6') state.fasting.targetHours = 18;
+
+      saveState();
+
+      setTimeout(() => {
+        renderDashboard();
+        renderPlanView();
+        showToast("Rencana personal & target berhasil dihitung!");
+        if (btn) {
+          btn.innerHTML = `<i class="ph-bold ph-calculator text-base"></i><span>Hitung & Buat Rencana Saya</span>`;
+          btn.disabled = false;
+        }
+      }, 600);
+    }
+
+    function renderPlanView() {
+      const onbView = document.getElementById('plan-onboarding-view');
+      const dashView = document.getElementById('plan-dashboard-view');
+      if (!onbView || !dashView) return;
+
+      if (!state.planOnboarding || !state.planOnboarding.completed) {
+        onbView.classList.remove('hidden');
+        dashView.classList.add('hidden');
+        initOnbFromState();
+        return;
+      }
+
+      // Show Dashboard View
+      onbView.classList.add('hidden');
+      dashView.classList.remove('hidden');
+
+      const p = state.planOnboarding;
+      const initialEl = document.getElementById('plan-user-initial');
+      const nameEl = document.getElementById('plan-user-name');
+      const badgeEl = document.getElementById('plan-goal-badge');
+      const metaEl = document.getElementById('plan-meta-summary');
+
+      const userName = p.name || (state.user?.name) || "Kawan Sehat";
+      if (initialEl) initialEl.innerText = userName.charAt(0).toUpperCase();
+      if (nameEl) nameEl.innerText = `Rencana: ${userName}`;
+
+      let goalLabel = "Fat Loss";
+      if (p.goalType === 'maintenance') goalLabel = "Maintenance";
+      else if (p.goalType === 'muscle_gain') goalLabel = "Lean Bulking";
+      if (badgeEl) badgeEl.innerText = goalLabel;
+
+      let fastLabel = "Pola Normal";
+      if (p.fasting === 'if_16_8') fastLabel = "Metode IF 16:8";
+      else if (p.fasting === 'if_18_6') fastLabel = "Metode IF 18:6";
+      else if (p.fasting === 'sunnah') fastLabel = "Puasa Sunnah";
+
+      const locLabel = p.workoutLocation === 'home' ? 'Home Workout' : 'Program Gym';
+
+      if (metaEl) {
+        metaEl.innerText = `${p.weight.toFixed(1)} kg → Target ${p.targetWeight.toFixed(1)} kg • ${locLabel} • ${fastLabel}`;
+      }
+
+      // Hero Projections
+      const projWeeksEl = document.getElementById('plan-projection-weeks');
+      const projDateEl = document.getElementById('plan-projection-date');
+      const progStartEl = document.getElementById('plan-prog-start');
+      const progTargetEl = document.getElementById('plan-prog-target');
+      const progBarEl = document.getElementById('plan-prog-bar');
+      const paceTextEl = document.getElementById('plan-pace-text');
+
+      if (projWeeksEl) projWeeksEl.innerText = p.estDays > 0 ? `~${p.estWeeks} Minggu` : "Target Tercapai";
+      if (projDateEl) projDateEl.innerText = p.estDays > 0 ? p.projectedDate : "Target Tercapai!";
+      if (progStartEl) progStartEl.innerText = `${p.weight.toFixed(1)} kg`;
+      if (progTargetEl) progTargetEl.innerText = `${p.targetWeight.toFixed(1)} kg`;
+
+      if (paceTextEl) {
+        if (p.goalOffset < 0) paceTextEl.innerText = `Laju: -${(Math.abs(p.goalOffset)/1000).toFixed(2)} kg/minggu (Defisit ${Math.abs(p.goalOffset)} kkal/hari)`;
+        else if (p.goalOffset > 0) paceTextEl.innerText = `Laju: +${(p.goalOffset/1000).toFixed(2)} kg/minggu (Surplus ${p.goalOffset} kkal/hari)`;
+        else paceTextEl.innerText = `Laju: Pemeliharaan Komposisi Tubuh (0 kkal)`;
+      }
+
+      if (progBarEl) {
+        progBarEl.style.width = "20%";
+      }
+
+      // Calorie Numbers
+      const inCalEl = document.getElementById('plan-target-in-cal');
+      const tdeeBreakdownEl = document.getElementById('plan-tdee-breakdown');
+      const burnCalEl = document.getElementById('plan-target-burn-cal');
+      const burnBreakdownEl = document.getElementById('plan-burn-breakdown');
+
+      if (inCalEl) inCalEl.innerHTML = `${p.targetCalories.toLocaleString()} <span class="text-xs font-normal text-gray-400">kkal/hr</span>`;
+      if (tdeeBreakdownEl) {
+        if (p.goalOffset < 0) tdeeBreakdownEl.innerText = `TDEE ${p.tdee.toLocaleString()} - Defisit ${Math.abs(p.goalOffset)}`;
+        else if (p.goalOffset > 0) tdeeBreakdownEl.innerText = `TDEE ${p.tdee.toLocaleString()} + Surplus ${p.goalOffset}`;
+        else tdeeBreakdownEl.innerText = `TDEE ${p.tdee.toLocaleString()} (Maintenance)`;
+      }
+
+      if (burnCalEl) burnCalEl.innerHTML = `${p.targetBurnCalories.toLocaleString()} <span class="text-xs font-normal text-gray-400">kkal/hr</span>`;
+      if (burnBreakdownEl) burnBreakdownEl.innerText = `BMR ${p.bmr.toLocaleString()} + Aktif ${p.targetBurnCalories} kkal`;
+
+      // Macros
+      const mp = document.getElementById('plan-macro-p');
+      const mc = document.getElementById('plan-macro-c');
+      const mf = document.getElementById('plan-macro-f');
+      const mw = document.getElementById('plan-macro-water');
+      if (mp) mp.innerText = `${p.targetProtein}g`;
+      if (mc) mc.innerText = `${p.targetCarbs}g`;
+      if (mf) mf.innerText = `${p.targetFat}g`;
+      if (mw) mw.innerText = `${p.targetWater}L`;
+
+      // Render Dynamic Meals Schedule
+      renderDailyMealsSchedule(p);
+
+      // Render Daily & Weekly Workout Routines Based on Location (Gym vs Home)
+      renderWorkoutRoutines(p);
+
+      // Render Weekly & Monthly Stats
+      const win = document.getElementById('plan-weekly-in-cal');
+      const wburn = document.getElementById('plan-weekly-burn-cal');
+      const wloss = document.getElementById('plan-weekly-net-loss');
+      if (win) win.innerText = (p.targetCalories * 7).toLocaleString();
+      if (wburn) wburn.innerText = (p.targetBurnCalories * 7).toLocaleString();
+      if (wloss) {
+        if (p.goalOffset < 0) wloss.innerText = `-${((Math.abs(p.goalOffset) * 7) / 7700).toFixed(2)} kg`;
+        else if (p.goalOffset > 0) wloss.innerText = `+${((p.goalOffset * 7) / 7700).toFixed(2)} kg`;
+        else wloss.innerText = `0 kg`;
+      }
+
+      // Monthly targets
+      const m1 = document.getElementById('plan-month1-target');
+      const m2 = document.getElementById('plan-month2-target');
+      const m3 = document.getElementById('plan-month3-target');
+      if (m1) m1.innerText = p.goalOffset < 0 ? "Turun ~2.0 kg" : (p.goalOffset > 0 ? "Naik +1.5 kg" : "Maintenance");
+      if (m2) m2.innerText = p.goalOffset < 0 ? "Turun Akumulatif ~4.2 kg" : (p.goalOffset > 0 ? "Naik Akumulatif +3.0 kg" : "Maintenance");
+      if (m3) m3.innerText = p.goalOffset < 0 ? `Target ${p.targetWeight.toFixed(1)} kg` : (p.goalOffset > 0 ? `Target ${p.targetWeight.toFixed(1)} kg` : "Maintenance");
+
+      switchPlanPeriod(state.activePlanPeriod || 'day');
+    }
+
+    function renderDailyMealsSchedule(p) {
+      const container = document.getElementById('plan-daily-meals-list');
+      const typeBadge = document.getElementById('plan-daily-schedule-type');
+      if (!container) return;
+
+      let meals = [];
+      const tot = p.targetCalories;
+
+      if (p.fasting === 'if_16_8') {
+        if (typeBadge) typeBadge.innerText = "Pola IF 16:8 (Jendela 12.00 - 20.00)";
+        meals = [
+          {
+            time: "08:00 - 11:30",
+            title: "Jendela Puasa & Hidrasi Pagi",
+            cal: 0,
+            pct: 0,
+            desc: "Bebas kalori: Air mineral 2-3 gelas, teh hijau tawar, atau kopi hitam tanpa gula untuk mempercepat autofagi.",
+            icon: "ph-drop",
+            color: "text-blue-500",
+            bg: "bg-blue-50"
+          },
+          {
+            time: "12:00",
+            title: "Makan Siang Pembuka Jendela",
+            cal: Math.round(tot * 0.40),
+            pct: 40,
+            desc: "Nasi putih/merah (150g), Dada ayam panggang (120g), Sayur bening bayam, Tempe bacem (50g).",
+            icon: "ph-sun",
+            color: "text-[#FF991C]",
+            bg: "bg-orange-50"
+          },
+          {
+            time: "16:00",
+            title: "Camilan Sore Berprotein",
+            cal: Math.round(tot * 0.15),
+            pct: 15,
+            desc: "2 butir telur rebus + 1 buah pisang ambon / apel fuji segar.",
+            icon: "ph-cookie",
+            color: "text-amber-600",
+            bg: "bg-amber-50"
+          },
+          {
+            time: "19:30",
+            title: "Makan Malam Terakhir Sebelum Puasa",
+            cal: Math.round(tot * 0.45),
+            pct: 45,
+            desc: "Ubi manis / kentang kukus / nasi, Ikan nila bakar, Tahu kukus, Tumis buncis wortel serat tinggi.",
+            icon: "ph-moon-stars",
+            color: "text-indigo-600",
+            bg: "bg-indigo-50"
+          }
+        ];
+      } else if (p.fasting === 'if_18_6') {
+        if (typeBadge) typeBadge.innerText = "Pola IF 18:6 (Jendela 13.00 - 19.00)";
+        meals = [
+          {
+            time: "08:00 - 12:30",
+            title: "Puasa Ketat & Pembakaran Lemak",
+            cal: 0,
+            pct: 0,
+            desc: "Hidrasi optimal dengan air putih dan elektrolit tanpa kalori.",
+            icon: "ph-drop",
+            color: "text-blue-500",
+            bg: "bg-blue-50"
+          },
+          {
+            time: "13:00",
+            title: "Makan Utama 1 (Porsi Besar Padat Gizi)",
+            cal: Math.round(tot * 0.50),
+            pct: 50,
+            desc: "Nasi merah (180g), Daging sapi tanpa lemak / Dada ayam (150g), Sayur tumis brokoli tahu.",
+            icon: "ph-sun",
+            color: "text-[#FF991C]",
+            bg: "bg-orange-50"
+          },
+          {
+            time: "18:45",
+            title: "Makan Penutup Jendela (Kenyang Lama)",
+            cal: Math.round(tot * 0.50),
+            pct: 50,
+            desc: "Kentang kukus / Oatmeal, Telur dadar 2 butir + Tempe goreng, Sayur lalapan kacang panjang.",
+            icon: "ph-moon",
+            color: "text-indigo-600",
+            bg: "bg-indigo-50"
+          }
+        ];
+      } else if (p.fasting === 'sunnah') {
+        if (typeBadge) typeBadge.innerText = "Pola Puasa Sunnah (Sahur & Buka)";
+        meals = [
+          {
+            time: "04:00",
+            title: "Santap Sahur Penuh Energi",
+            cal: Math.round(tot * 0.40),
+            pct: 40,
+            desc: "Karbohidrat lambat serap (oatmeal/ubi/nasi), Dada ayam/telur 2 butir, Sayur sop bening, 3 gelas air.",
+            icon: "ph-sun-horizon",
+            color: "text-amber-500",
+            bg: "bg-amber-50"
+          },
+          {
+            time: "18:15",
+            title: "Takjil & Buka Puasa Ringan",
+            cal: Math.round(tot * 0.20),
+            pct: 20,
+            desc: "3 butir kurma ajwa + air kelapa murni / air hangat + buah potong segar.",
+            icon: "ph-moon-stars",
+            color: "text-emerald-600",
+            bg: "bg-emerald-50"
+          },
+          {
+            time: "19:30",
+            title: "Makan Malam Bergizi Seimbang",
+            cal: Math.round(tot * 0.40),
+            pct: 40,
+            desc: "Nasi putih (150g), Ikan bakar bumbu kuning, Tempe orek kering, Sayur capcay kuah bening.",
+            icon: "ph-bowl-food",
+            color: "text-[#FF991C]",
+            bg: "bg-orange-50"
+          }
+        ];
+      } else {
+        if (typeBadge) typeBadge.innerText = "Pola Makan Reguler (3x Makan + Snack)";
+        meals = [
+          {
+            time: "07:30",
+            title: "Sarapan Pagi Sehat",
+            cal: Math.round(tot * 0.25),
+            pct: 25,
+            desc: "Roti gandum utuh panggang + Telur mata sapi + Tomat ceri & pisang.",
+            icon: "ph-coffee",
+            color: "text-amber-500",
+            bg: "bg-amber-50"
+          },
+          {
+            time: "12:30",
+            title: "Makan Siang Bertenaga",
+            cal: Math.round(tot * 0.40),
+            pct: 40,
+            desc: "Nasi putih (150g), Ayam bakar kalasan, Sayur asem Jakarta, Tahu bacem.",
+            icon: "ph-sun",
+            color: "text-[#FF991C]",
+            bg: "bg-orange-50"
+          },
+          {
+            time: "16:00",
+            title: "Snack Sore Ringan",
+            cal: Math.round(tot * 0.10),
+            pct: 10,
+            desc: "Segenggam kacang almond / edamame rebus + 1 buah apel segar.",
+            icon: "ph-cookie",
+            color: "text-emerald-500",
+            bg: "bg-emerald-50"
+          },
+          {
+            time: "19:30",
+            title: "Makan Malam Ringan",
+            cal: Math.round(tot * 0.25),
+            pct: 25,
+            desc: "Sup ayam jamur wortel bening + Tempe kukus + Selada lalapan.",
+            icon: "ph-moon",
+            color: "text-indigo-600",
+            bg: "bg-indigo-50"
+          }
+        ];
+      }
+
+      container.innerHTML = meals.map(m => `
+        <div class="p-3 bg-gray-50 rounded-2xl flex items-start space-x-3 border border-gray-100">
+          <div class="w-8 h-8 rounded-xl ${m.bg} ${m.color} flex items-center justify-center shrink-0 text-base mt-0.5">
+            <i class="ph-bold ${m.icon}"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between">
+              <p class="font-extrabold text-xs text-[#191A1D] truncate">${m.title}</p>
+              <span class="text-[10px] font-black text-gray-700 shrink-0 ml-1">${m.cal} kkal (${m.pct}%)</span>
+            </div>
+            <p class="text-[9px] font-bold text-[#FF991C] mt-0.5">${m.time}</p>
+            <p class="text-[10px] text-gray-500 mt-1 leading-snug">${m.desc}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Dynamic 7-day workout routine library connecting to 302 exercises
+    const WORKOUT_PROGRAMS = {
+      gym: [
+        {
+          dayName: "Senin",
+          dayCode: "SEN",
+          focus: "Upper Push (Dada, Bahu Depan, Triceps)",
+          duration: "45 Mnt",
+          calBurn: 260,
+          category: "chest",
+          exercises: [
+            { slug: "bench-press", name: "Bench Press", sets: "4 set x 8-10 reps" },
+            { slug: "incline-dumbbell-press", name: "Incline Dumbbell Press", sets: "3 set x 10-12 reps" },
+            { slug: "overhead-press", name: "Overhead Press", sets: "3 set x 8-10 reps" },
+            { slug: "tricep-pushdown", name: "Tricep Pushdown", sets: "3 set x 12-15 reps" }
+          ]
+        },
+        {
+          dayName: "Selasa",
+          dayCode: "SEL",
+          focus: "Kardio Mesin & Core (Perut)",
+          duration: "40 Mnt",
+          calBurn: 240,
+          category: "abs",
+          exercises: [
+            { slug: "treadmill-incline-walk", name: "Treadmill Incline Walk", sets: "20 mnt (Speed 5, Incline 10)" },
+            { slug: "plank", name: "Plank", sets: "3 set x 45-60 detik" },
+            { slug: "hanging-leg-raise", name: "Hanging Leg Raise", sets: "3 set x 12 reps" },
+            { slug: "cable-crunch", name: "Cable Crunch", sets: "3 set x 15 reps" }
+          ]
+        },
+        {
+          dayName: "Rabu",
+          dayCode: "RAB",
+          focus: "Upper Pull (Punggung & Biceps)",
+          duration: "45 Mnt",
+          calBurn: 270,
+          category: "back",
+          exercises: [
+            { slug: "lat-pulldown", name: "Lat Pulldown", sets: "4 set x 10-12 reps" },
+            { slug: "barbell-row", name: "Barbell Row", sets: "3 set x 8-10 reps" },
+            { slug: "face-pull", name: "Face Pull", sets: "3 set x 15 reps" },
+            { slug: "bicep-curl", name: "Bicep Curl", sets: "3 set x 10-12 reps" }
+          ]
+        },
+        {
+          dayName: "Kamis",
+          dayCode: "KAM",
+          focus: "Active Recovery & Peregangan Otot",
+          duration: "30 Mnt",
+          calBurn: 120,
+          category: "stretch",
+          exercises: [
+            { slug: "worlds-greatest-stretch", name: "World's Greatest Stretch", sets: "2 set x 8 reps/sisi" },
+            { slug: "standing-quad-stretch", name: "Standing Quad Stretch", sets: "3 set x 30 detik" },
+            { slug: "toe-touch", name: "Toe Touch", sets: "3 set x 30 detik" }
+          ]
+        },
+        {
+          dayName: "Jumat",
+          dayCode: "JUM",
+          focus: "Lower Body (Kaki, Glutes, Hamstring)",
+          duration: "50 Mnt",
+          calBurn: 300,
+          category: "legs",
+          exercises: [
+            { slug: "squat", name: "Barbell Squat", sets: "4 set x 8-10 reps" },
+            { slug: "romanian-deadlift", name: "Romanian Deadlift", sets: "3 set x 10-12 reps" },
+            { slug: "leg-press", name: "Leg Press", sets: "3 set x 12-15 reps" },
+            { slug: "standing-calf-raise", name: "Standing Calf Raise", sets: "4 set x 15 reps" }
+          ]
+        },
+        {
+          dayName: "Sabtu",
+          dayCode: "SAB",
+          focus: "Kardio Kondisi & Mesin Pembakar Lemak",
+          duration: "35 Mnt",
+          calBurn: 280,
+          category: "cardio",
+          exercises: [
+            { slug: "assault-bike", name: "Assault Bike", sets: "10 putaran interval" },
+            { slug: "rowing-machine", name: "Rowing Machine", sets: "15 menit continuous" },
+            { slug: "battle-ropes", name: "Battle Ropes", sets: "4 set x 30 detik" }
+          ]
+        },
+        {
+          dayName: "Minggu",
+          dayCode: "MIN",
+          focus: "Rest Day & Recovery Metabolisme",
+          duration: "Istirahat",
+          calBurn: 0,
+          category: "stretch",
+          isRest: true,
+          exercises: []
+        }
+      ],
+      home: [
+        {
+          dayName: "Senin",
+          dayCode: "SEN",
+          focus: "Push Calisthenics (Dada, Bahu, Lengan)",
+          duration: "35 Mnt",
+          calBurn: 220,
+          category: "chest",
+          exercises: [
+            { slug: "push-up", name: "Push-Up (Standar / Lutut)", sets: "4 set x 12-15 reps" },
+            { slug: "bench-dip", name: "Chair / Bench Dip", sets: "3 set x 12-15 reps" },
+            { slug: "pike-push-up", name: "Pike Push-Up (Bahu)", sets: "3 set x 8-10 reps" },
+            { slug: "plank", name: "Plank Hold", sets: "3 set x 45 detik" }
+          ]
+        },
+        {
+          dayName: "Selasa",
+          dayCode: "SEL",
+          focus: "Core & Fat Burn Rumahan (HIIT)",
+          duration: "30 Mnt",
+          calBurn: 230,
+          category: "abs",
+          exercises: [
+            { slug: "jumping-jacks", name: "Jumping Jacks", sets: "3 set x 45 detik" },
+            { slug: "mountain-climber", name: "Mountain Climber", sets: "3 set x 30 detik" },
+            { slug: "russian-twist", name: "Russian Twist", sets: "3 set x 20 reps" },
+            { slug: "crunches", name: "Bicycle Crunches", sets: "3 set x 15 reps" }
+          ]
+        },
+        {
+          dayName: "Rabu",
+          dayCode: "RAB",
+          focus: "Pull Rumahan (Punggung & Postur)",
+          duration: "35 Mnt",
+          calBurn: 210,
+          category: "back",
+          exercises: [
+            { slug: "superman", name: "Superman Hold", sets: "4 set x 12 reps" },
+            { slug: "band-pull-apart", name: "Band Pull-Apart / Towel Pull", sets: "3 set x 15 reps" },
+            { slug: "single-arm-dumbbell-row", name: "Dumbbell / Water Bottle Row", sets: "3 set x 12 reps/sisi" },
+            { slug: "arm-circles", name: "Arm Circles Warmup", sets: "2 set x 30 detik" }
+          ]
+        },
+        {
+          dayName: "Kamis",
+          dayCode: "KAM",
+          focus: "Mobilitas Sendi & Yoga Stretching",
+          duration: "25 Mnt",
+          calBurn: 100,
+          category: "stretch",
+          exercises: [
+            { slug: "worlds-greatest-stretch", name: "World's Greatest Stretch", sets: "2 set x 8 reps/sisi" },
+            { slug: "torso-twist-stretch", name: "Torso Twist Stretch", sets: "3 set x 30 detik" },
+            { slug: "toe-touch", name: "Toe Touch", sets: "3 set x 30 detik" }
+          ]
+        },
+        {
+          dayName: "Jumat",
+          dayCode: "JUM",
+          focus: "Lower Body Calisthenics (Kaki & Glutes)",
+          duration: "40 Mnt",
+          calBurn: 250,
+          category: "legs",
+          exercises: [
+            { slug: "squat", name: "Bodyweight Squat", sets: "4 set x 15-20 reps" },
+            { slug: "walking-lunge", name: "Walking Lunge", sets: "3 set x 12 reps/kaki" },
+            { slug: "glute-bridge", name: "Glute Bridge", sets: "3 set x 15 reps" },
+            { slug: "wall-sit", name: "Wall Sit", sets: "3 set x 40 detik" }
+          ]
+        },
+        {
+          dayName: "Sabtu",
+          dayCode: "SAB",
+          focus: "Cardio Shred Rumahan (Tanpa Alat)",
+          duration: "30 Mnt",
+          calBurn: 240,
+          category: "cardio",
+          exercises: [
+            { slug: "burpee", name: "Burpees", sets: "3 set x 10 reps" },
+            { slug: "high-knees", name: "High Knees", sets: "3 set x 40 detik" },
+            { slug: "skater-hop", name: "Skater Hops", sets: "3 set x 30 detik" }
+          ]
+        },
+        {
+          dayName: "Minggu",
+          dayCode: "MIN",
+          focus: "Rest Day & Recovery Total",
+          duration: "Istirahat",
+          calBurn: 0,
+          category: "stretch",
+          isRest: true,
+          exercises: []
+        }
+      ]
+    };
+
+    function renderWorkoutRoutines(p) {
+      const loc = p.workoutLocation || 'gym';
+      const program = WORKOUT_PROGRAMS[loc] || WORKOUT_PROGRAMS.gym;
+
+      // Update location badges & title
+      const locBadge = document.getElementById('plan-today-loc-badge');
+      const weeklyLocTitle = document.getElementById('plan-weekly-loc-title');
+      if (locBadge) {
+        locBadge.innerText = loc === 'home' ? '🏠 Latihan di Rumah' : '🏋️ Latihan di Gym';
+        locBadge.className = loc === 'home'
+          ? "px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-700"
+          : "px-2.5 py-1 rounded-full text-[10px] font-black bg-orange-100 text-[#FF991C]";
+      }
+      if (weeklyLocTitle) {
+        weeklyLocTitle.innerText = loc === 'home'
+          ? "Program Terpilih: Home Workout (Kalistenik & Beban Ringan)"
+          : "Program Terpilih: Gym Workout (Peralatan & Mesin Lengkap)";
+      }
+
+      // 1. Determine Today's Workout Routine
+      const todayDayIdx = new Date().getDay(); // 0 is Sunday, 1 is Monday...
+      const mappedIdx = (todayDayIdx === 0) ? 6 : todayDayIdx - 1;
+      const todayRoutine = program[mappedIdx] || program[0];
+
+      const todayFocusEl = document.getElementById('plan-today-workout-focus');
+      if (todayFocusEl) {
+        todayFocusEl.innerText = `${todayRoutine.dayName}: ${todayRoutine.focus}`;
+      }
+
+      const todayExContainer = document.getElementById('plan-today-exercise-list');
+      if (todayExContainer) {
+        if (todayRoutine.isRest) {
+          todayExContainer.innerHTML = `
+            <div class="p-4 bg-gray-50 rounded-2xl text-center space-y-1.5 border border-gray-100">
+              <i class="ph-bold ph-bed text-2xl text-emerald-600"></i>
+              <p class="font-extrabold text-xs text-[#191A1D]">Hari Ini: Jadwal Istirahat (Rest Day)</p>
+              <p class="text-[11px] text-gray-500">Otot bertumbuh dan pulih saat istirahat. Jaga hidrasi dan cukup tidur malam ini.</p>
+            </div>
+          `;
+        } else {
+          todayExContainer.innerHTML = todayRoutine.exercises.map(ex => {
+            const found = (window.exerciseCatalog || workoutGuideCatalog || []).find(e => e.slug === ex.slug) || { id: 1, name: ex.name, frames: [] };
+            const frameSrc = (found.frames && found.frames.length) ? found.frames[0] : `https://app.fluxy.id/workout-assets/${ex.slug}/frame-1.svg?v=2`;
+            return `
+              <div onclick="openExerciseBySlug('${ex.slug}')"
+                class="p-2.5 bg-gray-50 hover:bg-[#FFF5E9]/50 hover:border-[#FF991C] rounded-2xl flex items-center justify-between border border-gray-100 cursor-pointer transition-all group">
+                <div class="flex items-center space-x-2.5 min-w-0">
+                  <div class="w-10 h-10 rounded-xl bg-[#FFF5E9] border border-[#FF991C]/30 p-1 flex items-center justify-center shrink-0">
+                    <img src="${frameSrc}" alt="${ex.name}" class="w-full h-full object-contain" onerror="this.src='logo.png'">
+                  </div>
+                  <div class="min-w-0">
+                    <p class="font-black text-xs text-[#191A1D] group-hover:text-[#FF991C] transition-colors truncate">${ex.name}</p>
+                    <p class="text-[10px] text-gray-400 font-bold">${ex.sets}</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5 shrink-0">
+                  <span class="text-[9px] font-bold text-[#FF991C] bg-white border border-[#FF991C]/30 px-2 py-0.5 rounded-lg">
+                    Lihat Gerakan
+                  </span>
+                </div>
+              </div>
+            `;
+          }).join('') + `
+            <div class="pt-1 flex space-x-2">
+              <button onclick="goToGymCategory('${todayRoutine.category}')"
+                class="flex-1 py-2.5 bg-[#FFF5E9] hover:bg-[#FFEED8] text-[#FF991C] rounded-xl font-bold text-xs flex items-center justify-center space-x-1 border border-[#FF991C]/30 transition-all">
+                <i class="ph-bold ph-barbell text-sm"></i>
+                <span>Jelajahi Gerakan ${todayRoutine.category.toUpperCase()}</span>
+              </button>
+            </div>
+          `;
+        }
+      }
+
+      // 2. Render Weekly 7-Day Split List
+      const weeklyContainer = document.getElementById('plan-weekly-split-list');
+      if (weeklyContainer) {
+        weeklyContainer.innerHTML = program.map(day => {
+          if (day.isRest) {
+            return `
+              <div class="p-3 bg-gray-50 rounded-2xl flex items-center justify-between border border-gray-100">
+                <div class="flex items-center space-x-3">
+                  <span class="w-8 h-8 rounded-xl bg-gray-200 text-gray-700 font-black text-xs flex items-center justify-center">${day.dayCode}</span>
+                  <div>
+                    <p class="font-bold text-[#191A1D] text-xs">${day.focus}</p>
+                    <p class="text-[10px] text-gray-400">Istirahat total otot, evaluasi timbangan mingguan & nutrisi</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">Recovery</span>
+              </div>
+            `;
+          }
+
+          const badgeColor = day.dayCode === 'SEN' ? 'bg-orange-100 text-[#FF991C]' :
+                             day.dayCode === 'SEL' ? 'bg-emerald-100 text-emerald-600' :
+                             day.dayCode === 'RAB' ? 'bg-blue-100 text-blue-600' :
+                             day.dayCode === 'KAM' ? 'bg-purple-100 text-purple-600' :
+                             day.dayCode === 'JUM' ? 'bg-rose-100 text-rose-600' : 'bg-amber-100 text-amber-700';
+
+          return `
+            <div class="p-3 bg-gray-50 hover:bg-[#FFF5E9]/30 rounded-2xl border border-gray-100 space-y-2 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <span class="w-8 h-8 rounded-xl ${badgeColor} font-black text-xs flex items-center justify-center">${day.dayCode}</span>
+                  <div>
+                    <p class="font-extrabold text-[#191A1D] text-xs">${day.dayName}: ${day.focus}</p>
+                    <p class="text-[10px] text-gray-400 font-semibold">${day.duration} • ~${day.calBurn} kkal terbakar</p>
+                  </div>
+                </div>
+                <button onclick="goToGymCategory('${day.category}')"
+                  class="px-2.5 py-1 bg-white hover:bg-gray-100 text-[#FF991C] font-bold text-[10px] rounded-lg border border-gray-200 shadow-2xs">
+                  Buka Latihan
+                </button>
+              </div>
+
+              <!-- Exercise Pills -->
+              <div class="flex flex-wrap gap-1.5 pt-0.5">
+                ${day.exercises.map(e => `
+                  <span onclick="openExerciseBySlug('${e.slug}')"
+                    class="bg-white hover:border-[#FF991C] hover:text-[#FF991C] text-gray-700 border border-gray-200/80 px-2 py-0.5 rounded-md text-[10px] font-semibold cursor-pointer transition-all">
+                    ${e.name}
+                  </span>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function openExerciseBySlug(slug) {
+      const catalog = (window.exerciseCatalog || workoutGuideCatalog || []);
+      const ex = catalog.find(e => e.slug === slug);
+      if (ex) {
+        openExerciseDetailModal(ex.id);
+      } else {
+        switchView('workout');
+      }
+    }
+
+    function switchPlanPeriod(period) {
+      state.activePlanPeriod = period;
+      ['day', 'weekly', 'monthly'].forEach(p => {
+        const btn = document.getElementById('plan-pill-' + p);
+        const content = document.getElementById('plan-content-' + p);
+        if (p === period) {
+          if (btn) btn.className = "px-5 py-1.5 rounded-full text-xs font-bold bg-[#FF991C] text-white shadow-xs transition-all";
+          if (content) content.classList.remove('hidden');
+        } else {
+          if (btn) btn.className = "px-5 py-1.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-800 transition-all";
+          if (content) content.classList.add('hidden');
+        }
+      });
+      saveState();
+    }
+
+    function retakePlanOnboarding() {
+      const onbView = document.getElementById('plan-onboarding-view');
+      const dashView = document.getElementById('plan-dashboard-view');
+      if (onbView && dashView) {
+        onbView.classList.remove('hidden');
+        dashView.classList.add('hidden');
+        initOnbFromState();
+        goToOnbStep(1);
+      }
+    }
+
+    function goToGymCategory(category) {
+      switchView('workout');
+      if (typeof filterExerciseCategory === 'function') {
+        filterExerciseCategory(category);
+      }
+    }
+
 
     function changeDietProgram(days, target) {
       state.activePlanDays = days;
