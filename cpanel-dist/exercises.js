@@ -17,9 +17,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bench-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bench-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bench-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bench-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bench-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bench-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -38,9 +38,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/incline-bench-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/incline-bench-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/incline-bench-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/incline-bench-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-bench-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-bench-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -59,9 +59,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/incline-dumbbell-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/incline-dumbbell-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/incline-dumbbell-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/incline-dumbbell-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-dumbbell-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-dumbbell-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -80,9 +80,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-bench-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-bench-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-bench-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-bench-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-bench-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-bench-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -101,9 +101,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/decline-bench-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/decline-bench-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/decline-bench-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/decline-bench-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-bench-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-bench-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -122,9 +122,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/machine-chest-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/machine-chest-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/machine-chest-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/machine-chest-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-chest-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-chest-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -142,9 +142,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/pec-deck/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/pec-deck/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/pec-deck/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/pec-deck/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pec-deck/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pec-deck/frame-3.svg?v=2"
     ]
   },
   {
@@ -162,9 +162,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-fly/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-fly/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-fly/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-fly/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-fly/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-fly/frame-3.svg?v=2"
     ]
   },
   {
@@ -183,9 +183,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -204,9 +204,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/weighted-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/weighted-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/weighted-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/weighted-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -224,9 +224,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/overhead-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/overhead-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/overhead-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/overhead-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/overhead-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/overhead-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -244,9 +244,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/seated-dumbbell-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/seated-dumbbell-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/seated-dumbbell-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/seated-dumbbell-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-dumbbell-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-dumbbell-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -264,9 +264,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/arnold-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/arnold-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/arnold-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/arnold-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/arnold-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/arnold-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -284,9 +284,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/lateral-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/lateral-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/lateral-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/lateral-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lateral-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lateral-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -304,9 +304,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-lateral-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-lateral-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-lateral-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-lateral-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-lateral-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-lateral-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -324,9 +324,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/front-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/front-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/front-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/front-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/front-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/front-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -344,9 +344,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/rear-delt-fly/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/rear-delt-fly/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/rear-delt-fly/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/rear-delt-fly/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rear-delt-fly/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rear-delt-fly/frame-3.svg?v=2"
     ]
   },
   {
@@ -364,9 +364,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/reverse-pec-deck/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/reverse-pec-deck/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/reverse-pec-deck/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/reverse-pec-deck/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-pec-deck/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-pec-deck/frame-3.svg?v=2"
     ]
   },
   {
@@ -385,9 +385,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/face-pull/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/face-pull/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/face-pull/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/face-pull/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/face-pull/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/face-pull/frame-3.svg?v=2"
     ]
   },
   {
@@ -406,9 +406,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/upright-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/upright-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/upright-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/upright-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/upright-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/upright-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -427,9 +427,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -448,9 +448,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/romanian-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/romanian-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/romanian-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/romanian-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/romanian-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/romanian-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -469,9 +469,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/barbell-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/barbell-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/barbell-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/barbell-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/barbell-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/barbell-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -490,9 +490,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/t-bar-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/t-bar-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/t-bar-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/t-bar-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/t-bar-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/t-bar-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -511,9 +511,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-bent-over-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-bent-over-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-bent-over-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-bent-over-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-bent-over-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-bent-over-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -531,9 +531,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/one-arm-dumbbell-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/one-arm-dumbbell-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/one-arm-dumbbell-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/one-arm-dumbbell-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/one-arm-dumbbell-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/one-arm-dumbbell-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -552,9 +552,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/chest-supported-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/chest-supported-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/chest-supported-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/chest-supported-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chest-supported-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chest-supported-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -573,9 +573,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/seated-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/seated-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/seated-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/seated-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -593,9 +593,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/machine-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/machine-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/machine-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/machine-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -613,9 +613,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/lat-pulldown/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/lat-pulldown/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/lat-pulldown/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/lat-pulldown/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lat-pulldown/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lat-pulldown/frame-3.svg?v=2"
     ]
   },
   {
@@ -633,9 +633,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/close-grip-lat-pulldown/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/close-grip-lat-pulldown/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/close-grip-lat-pulldown/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/close-grip-lat-pulldown/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/close-grip-lat-pulldown/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/close-grip-lat-pulldown/frame-3.svg?v=2"
     ]
   },
   {
@@ -653,9 +653,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/straight-arm-pulldown/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/straight-arm-pulldown/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/straight-arm-pulldown/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/straight-arm-pulldown/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/straight-arm-pulldown/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/straight-arm-pulldown/frame-3.svg?v=2"
     ]
   },
   {
@@ -674,9 +674,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -694,9 +694,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/assisted-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/assisted-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/assisted-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/assisted-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -714,9 +714,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/weighted-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/weighted-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/weighted-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/weighted-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -734,9 +734,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/chin-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/chin-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/chin-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/chin-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chin-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chin-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -754,9 +754,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/shrug/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/shrug/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/shrug/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/shrug/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/shrug/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/shrug/frame-3.svg?v=2"
     ]
   },
   {
@@ -775,9 +775,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -796,9 +796,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/front-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/front-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/front-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/front-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/front-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/front-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -816,9 +816,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hack-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hack-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hack-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hack-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hack-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hack-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -837,9 +837,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/leg-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/leg-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/leg-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/leg-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -858,9 +858,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bulgarian-split-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bulgarian-split-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bulgarian-split-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bulgarian-split-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bulgarian-split-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bulgarian-split-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -879,9 +879,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/walking-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/walking-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/walking-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/walking-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/walking-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/walking-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -899,9 +899,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/step-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/step-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/step-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/step-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/step-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/step-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -917,9 +917,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/leg-extension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/leg-extension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/leg-extension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/leg-extension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-extension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-extension/frame-3.svg?v=2"
     ]
   },
   {
@@ -937,9 +937,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/leg-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/leg-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/leg-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/leg-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -957,9 +957,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/seated-leg-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/seated-leg-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/seated-leg-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/seated-leg-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-leg-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-leg-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -977,9 +977,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hip-thrust/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hip-thrust/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hip-thrust/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hip-thrust/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-thrust/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-thrust/frame-3.svg?v=2"
     ]
   },
   {
@@ -997,9 +997,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/glute-bridge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/glute-bridge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/glute-bridge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/glute-bridge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/glute-bridge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/glute-bridge/frame-3.svg?v=2"
     ]
   },
   {
@@ -1018,9 +1018,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/good-morning/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/good-morning/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/good-morning/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/good-morning/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/good-morning/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/good-morning/frame-3.svg?v=2"
     ]
   },
   {
@@ -1036,9 +1036,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/standing-calf-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/standing-calf-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/standing-calf-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/standing-calf-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/standing-calf-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/standing-calf-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -1054,9 +1054,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/seated-calf-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/seated-calf-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/seated-calf-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/seated-calf-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-calf-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-calf-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -1074,9 +1074,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bicep-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bicep-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bicep-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bicep-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bicep-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bicep-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -1094,9 +1094,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hammer-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hammer-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hammer-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hammer-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hammer-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hammer-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -1114,9 +1114,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/preacher-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/preacher-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/preacher-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/preacher-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/preacher-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/preacher-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -1134,9 +1134,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -1154,9 +1154,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/reverse-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/reverse-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/reverse-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/reverse-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -1172,9 +1172,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wrist-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wrist-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wrist-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wrist-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wrist-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wrist-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -1192,9 +1192,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/tricep-pushdown/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/tricep-pushdown/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/tricep-pushdown/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/tricep-pushdown/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/tricep-pushdown/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/tricep-pushdown/frame-3.svg?v=2"
     ]
   },
   {
@@ -1212,9 +1212,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/overhead-tricep-extension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/overhead-tricep-extension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/overhead-tricep-extension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/overhead-tricep-extension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/overhead-tricep-extension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/overhead-tricep-extension/frame-3.svg?v=2"
     ]
   },
   {
@@ -1232,9 +1232,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/skull-crusher/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/skull-crusher/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/skull-crusher/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/skull-crusher/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skull-crusher/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skull-crusher/frame-3.svg?v=2"
     ]
   },
   {
@@ -1253,9 +1253,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/close-grip-bench-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/close-grip-bench-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/close-grip-bench-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/close-grip-bench-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/close-grip-bench-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/close-grip-bench-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -1274,9 +1274,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dip/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dip/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dip/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dip/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dip/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dip/frame-3.svg?v=2"
     ]
   },
   {
@@ -1294,9 +1294,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/assisted-dip/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/assisted-dip/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/assisted-dip/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/assisted-dip/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-dip/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-dip/frame-3.svg?v=2"
     ]
   },
   {
@@ -1314,9 +1314,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/plank/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/plank/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/plank/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/plank/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plank/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plank/frame-3.svg?v=2"
     ]
   },
   {
@@ -1334,9 +1334,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/side-plank/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/side-plank/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/side-plank/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/side-plank/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-plank/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-plank/frame-3.svg?v=2"
     ]
   },
   {
@@ -1354,9 +1354,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hanging-leg-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hanging-leg-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hanging-leg-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hanging-leg-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hanging-leg-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hanging-leg-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -1372,9 +1372,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-crunch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-crunch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-crunch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-crunch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-crunch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-crunch/frame-3.svg?v=2"
     ]
   },
   {
@@ -1392,9 +1392,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/ab-wheel/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/ab-wheel/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/ab-wheel/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/ab-wheel/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/ab-wheel/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/ab-wheel/frame-3.svg?v=2"
     ]
   },
   {
@@ -1412,9 +1412,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/running/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/running/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/running/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/running/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/running/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/running/frame-3.svg?v=2"
     ]
   },
   {
@@ -1432,9 +1432,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/walking/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/walking/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/walking/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/walking/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/walking/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/walking/frame-3.svg?v=2"
     ]
   },
   {
@@ -1452,9 +1452,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cycling/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cycling/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cycling/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cycling/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cycling/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cycling/frame-3.svg?v=2"
     ]
   },
   {
@@ -1473,9 +1473,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/rowing/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/rowing/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/rowing/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/rowing/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rowing/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rowing/frame-3.svg?v=2"
     ]
   },
   {
@@ -1493,9 +1493,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/stair-climber/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/stair-climber/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/stair-climber/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/stair-climber/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/stair-climber/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/stair-climber/frame-3.svg?v=2"
     ]
   },
   {
@@ -1513,9 +1513,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-fly/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-fly/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-fly/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-fly/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-fly/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-fly/frame-3.svg?v=2"
     ]
   },
   {
@@ -1533,9 +1533,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/incline-cable-fly/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/incline-cable-fly/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/incline-cable-fly/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/incline-cable-fly/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-cable-fly/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-cable-fly/frame-3.svg?v=2"
     ]
   },
   {
@@ -1554,9 +1554,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/decline-dumbbell-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/decline-dumbbell-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/decline-dumbbell-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/decline-dumbbell-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-dumbbell-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-dumbbell-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -1575,9 +1575,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/smith-machine-bench-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-bench-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-bench-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/smith-machine-bench-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-bench-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-bench-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -1596,9 +1596,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/landmine-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/landmine-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/landmine-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/landmine-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/landmine-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/landmine-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -1617,9 +1617,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/chest-dip/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/chest-dip/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/chest-dip/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/chest-dip/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chest-dip/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chest-dip/frame-3.svg?v=2"
     ]
   },
   {
@@ -1638,9 +1638,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/weighted-dip/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/weighted-dip/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/weighted-dip/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/weighted-dip/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-dip/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-dip/frame-3.svg?v=2"
     ]
   },
   {
@@ -1658,9 +1658,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/machine-shoulder-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/machine-shoulder-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/machine-shoulder-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/machine-shoulder-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-shoulder-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-shoulder-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -1679,9 +1679,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/standing-dumbbell-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/standing-dumbbell-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/standing-dumbbell-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/standing-dumbbell-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/standing-dumbbell-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/standing-dumbbell-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -1700,9 +1700,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/push-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/push-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/push-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/push-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/push-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/push-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -1720,9 +1720,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/machine-lateral-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/machine-lateral-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/machine-lateral-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/machine-lateral-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-lateral-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-lateral-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -1740,9 +1740,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-front-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-front-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-front-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-front-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-front-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-front-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -1760,9 +1760,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/plate-front-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/plate-front-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/plate-front-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/plate-front-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plate-front-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plate-front-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -1780,9 +1780,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bent-over-rear-delt-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bent-over-rear-delt-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bent-over-rear-delt-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bent-over-rear-delt-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bent-over-rear-delt-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bent-over-rear-delt-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -1800,9 +1800,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-rear-delt-fly/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-rear-delt-fly/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-rear-delt-fly/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-rear-delt-fly/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-rear-delt-fly/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-rear-delt-fly/frame-3.svg?v=2"
     ]
   },
   {
@@ -1821,9 +1821,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/pendlay-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/pendlay-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/pendlay-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/pendlay-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pendlay-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pendlay-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -1842,9 +1842,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/inverted-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/inverted-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/inverted-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/inverted-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/inverted-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/inverted-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -1863,9 +1863,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/meadows-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/meadows-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/meadows-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/meadows-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/meadows-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/meadows-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -1884,9 +1884,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/single-arm-cable-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/single-arm-cable-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/single-arm-cable-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/single-arm-cable-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-arm-cable-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-arm-cable-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -1904,9 +1904,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wide-grip-lat-pulldown/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wide-grip-lat-pulldown/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wide-grip-lat-pulldown/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wide-grip-lat-pulldown/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wide-grip-lat-pulldown/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wide-grip-lat-pulldown/frame-3.svg?v=2"
     ]
   },
   {
@@ -1925,9 +1925,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/neutral-grip-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/neutral-grip-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/neutral-grip-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/neutral-grip-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/neutral-grip-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/neutral-grip-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -1945,9 +1945,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/assisted-chin-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/assisted-chin-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/assisted-chin-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/assisted-chin-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-chin-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-chin-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -1965,9 +1965,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/weighted-chin-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/weighted-chin-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/weighted-chin-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/weighted-chin-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-chin-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-chin-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -1986,9 +1986,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/rack-pull/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/rack-pull/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/rack-pull/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/rack-pull/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rack-pull/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rack-pull/frame-3.svg?v=2"
     ]
   },
   {
@@ -2007,9 +2007,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/back-extension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/back-extension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/back-extension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/back-extension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/back-extension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/back-extension/frame-3.svg?v=2"
     ]
   },
   {
@@ -2027,9 +2027,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-shrug/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-shrug/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-shrug/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-shrug/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-shrug/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-shrug/frame-3.svg?v=2"
     ]
   },
   {
@@ -2048,9 +2048,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/goblet-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/goblet-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/goblet-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/goblet-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/goblet-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/goblet-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2069,9 +2069,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/smith-machine-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/smith-machine-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2089,9 +2089,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/belt-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/belt-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/belt-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/belt-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/belt-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/belt-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2110,9 +2110,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/sumo-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/sumo-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/sumo-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/sumo-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/sumo-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/sumo-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2131,9 +2131,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/trap-bar-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/trap-bar-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/trap-bar-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/trap-bar-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/trap-bar-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/trap-bar-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2151,9 +2151,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/lying-leg-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/lying-leg-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/lying-leg-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/lying-leg-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lying-leg-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lying-leg-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -2172,9 +2172,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/nordic-hamstring-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/nordic-hamstring-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/nordic-hamstring-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/nordic-hamstring-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/nordic-hamstring-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/nordic-hamstring-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -2193,9 +2193,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/single-leg-romanian-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-romanian-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-romanian-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/single-leg-romanian-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-romanian-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-romanian-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2214,9 +2214,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/reverse-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/reverse-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/reverse-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/reverse-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2235,9 +2235,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/split-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/split-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/split-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/split-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/split-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/split-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2255,9 +2255,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-kickback/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-kickback/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-kickback/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-kickback/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-kickback/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-kickback/frame-3.svg?v=2"
     ]
   },
   {
@@ -2275,9 +2275,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hip-abduction-machine/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hip-abduction-machine/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hip-abduction-machine/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hip-abduction-machine/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-abduction-machine/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-abduction-machine/frame-3.svg?v=2"
     ]
   },
   {
@@ -2295,9 +2295,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/single-leg-glute-bridge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-glute-bridge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-glute-bridge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/single-leg-glute-bridge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-glute-bridge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-glute-bridge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2316,9 +2316,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/barbell-glute-bridge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/barbell-glute-bridge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/barbell-glute-bridge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/barbell-glute-bridge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/barbell-glute-bridge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/barbell-glute-bridge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2337,9 +2337,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-glute-bridge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-glute-bridge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-glute-bridge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-glute-bridge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-glute-bridge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-glute-bridge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2357,9 +2357,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-hip-thrust/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-hip-thrust/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-hip-thrust/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-hip-thrust/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-hip-thrust/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-hip-thrust/frame-3.svg?v=2"
     ]
   },
   {
@@ -2378,9 +2378,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/smith-machine-hip-thrust/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-hip-thrust/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-hip-thrust/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/smith-machine-hip-thrust/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-hip-thrust/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-hip-thrust/frame-3.svg?v=2"
     ]
   },
   {
@@ -2399,9 +2399,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/smith-machine-romanian-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-romanian-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-romanian-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/smith-machine-romanian-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-romanian-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-romanian-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2420,9 +2420,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-romanian-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-romanian-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-romanian-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-romanian-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-romanian-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-romanian-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2441,9 +2441,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/kettlebell-romanian-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/kettlebell-romanian-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/kettlebell-romanian-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/kettlebell-romanian-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/kettlebell-romanian-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/kettlebell-romanian-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2462,9 +2462,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-pull-through/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-pull-through/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-pull-through/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-pull-through/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-pull-through/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-pull-through/frame-3.svg?v=2"
     ]
   },
   {
@@ -2482,9 +2482,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/machine-glute-kickback/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/machine-glute-kickback/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/machine-glute-kickback/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/machine-glute-kickback/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-glute-kickback/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/machine-glute-kickback/frame-3.svg?v=2"
     ]
   },
   {
@@ -2502,9 +2502,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-standing-hip-abduction/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-standing-hip-abduction/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-standing-hip-abduction/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-standing-hip-abduction/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-standing-hip-abduction/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-standing-hip-abduction/frame-3.svg?v=2"
     ]
   },
   {
@@ -2523,9 +2523,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-standing-hip-adduction/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-standing-hip-adduction/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-standing-hip-adduction/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-standing-hip-adduction/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-standing-hip-adduction/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-standing-hip-adduction/frame-3.svg?v=2"
     ]
   },
   {
@@ -2543,9 +2543,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hip-adduction-machine/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hip-adduction-machine/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hip-adduction-machine/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hip-adduction-machine/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-adduction-machine/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-adduction-machine/frame-3.svg?v=2"
     ]
   },
   {
@@ -2564,9 +2564,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/smith-machine-bulgarian-split-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-bulgarian-split-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-bulgarian-split-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/smith-machine-bulgarian-split-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-bulgarian-split-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-bulgarian-split-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2586,9 +2586,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/smith-machine-reverse-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-reverse-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-reverse-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/smith-machine-reverse-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-reverse-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-reverse-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2607,9 +2607,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/smith-machine-split-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-split-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/smith-machine-split-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/smith-machine-split-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-split-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/smith-machine-split-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2628,9 +2628,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/heel-elevated-goblet-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/heel-elevated-goblet-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/heel-elevated-goblet-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/heel-elevated-goblet-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/heel-elevated-goblet-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/heel-elevated-goblet-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2650,9 +2650,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-sumo-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-sumo-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-sumo-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-sumo-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-sumo-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-sumo-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2672,9 +2672,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-sumo-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-sumo-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-sumo-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-sumo-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-sumo-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-sumo-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2693,9 +2693,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/front-foot-elevated-split-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/front-foot-elevated-split-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/front-foot-elevated-split-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/front-foot-elevated-split-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/front-foot-elevated-split-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/front-foot-elevated-split-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2715,9 +2715,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/deficit-reverse-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/deficit-reverse-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/deficit-reverse-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/deficit-reverse-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/deficit-reverse-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/deficit-reverse-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2737,9 +2737,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-lateral-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-lateral-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-lateral-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-lateral-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-lateral-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-lateral-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2759,9 +2759,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-curtsy-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-curtsy-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-curtsy-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-curtsy-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-curtsy-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-curtsy-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -2780,9 +2780,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/landmine-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/landmine-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/landmine-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/landmine-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/landmine-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/landmine-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2801,9 +2801,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/landmine-romanian-deadlift/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/landmine-romanian-deadlift/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/landmine-romanian-deadlift/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/landmine-romanian-deadlift/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/landmine-romanian-deadlift/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/landmine-romanian-deadlift/frame-3.svg?v=2"
     ]
   },
   {
@@ -2823,9 +2823,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/kettlebell-swing/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/kettlebell-swing/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/kettlebell-swing/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/kettlebell-swing/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/kettlebell-swing/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/kettlebell-swing/frame-3.svg?v=2"
     ]
   },
   {
@@ -2844,9 +2844,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/glute-focused-back-extension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/glute-focused-back-extension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/glute-focused-back-extension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/glute-focused-back-extension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/glute-focused-back-extension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/glute-focused-back-extension/frame-3.svg?v=2"
     ]
   },
   {
@@ -2865,9 +2865,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/reverse-hyperextension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/reverse-hyperextension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/reverse-hyperextension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/reverse-hyperextension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-hyperextension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-hyperextension/frame-3.svg?v=2"
     ]
   },
   {
@@ -2883,9 +2883,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/donkey-calf-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/donkey-calf-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/donkey-calf-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/donkey-calf-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/donkey-calf-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/donkey-calf-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -2901,9 +2901,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/leg-press-calf-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/leg-press-calf-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/leg-press-calf-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/leg-press-calf-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-press-calf-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-press-calf-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -2922,9 +2922,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wall-sit/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wall-sit/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wall-sit/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wall-sit/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-sit/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-sit/frame-3.svg?v=2"
     ]
   },
   {
@@ -2943,9 +2943,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/jump-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/jump-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/jump-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/jump-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/jump-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/jump-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -2963,9 +2963,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/incline-dumbbell-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/incline-dumbbell-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/incline-dumbbell-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/incline-dumbbell-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-dumbbell-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-dumbbell-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -2983,9 +2983,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/concentration-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/concentration-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/concentration-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/concentration-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/concentration-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/concentration-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -3003,9 +3003,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/ez-bar-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/ez-bar-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/ez-bar-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/ez-bar-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/ez-bar-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/ez-bar-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -3023,9 +3023,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/spider-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/spider-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/spider-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/spider-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/spider-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/spider-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -3043,9 +3043,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/rope-hammer-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/rope-hammer-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/rope-hammer-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/rope-hammer-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rope-hammer-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rope-hammer-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -3063,9 +3063,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 6,
     "frames": [
-      "https://app.fluxy.id/workout-assets/drag-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/drag-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/drag-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/drag-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/drag-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/drag-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -3083,9 +3083,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/rope-tricep-pushdown/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/rope-tricep-pushdown/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/rope-tricep-pushdown/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/rope-tricep-pushdown/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rope-tricep-pushdown/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/rope-tricep-pushdown/frame-3.svg?v=2"
     ]
   },
   {
@@ -3103,9 +3103,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-skull-crusher/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-skull-crusher/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-skull-crusher/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-skull-crusher/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-skull-crusher/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-skull-crusher/frame-3.svg?v=2"
     ]
   },
   {
@@ -3123,9 +3123,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/single-dumbbell-skullcrusher/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/single-dumbbell-skullcrusher/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/single-dumbbell-skullcrusher/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/single-dumbbell-skullcrusher/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-dumbbell-skullcrusher/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-dumbbell-skullcrusher/frame-3.svg?v=2"
     ]
   },
   {
@@ -3143,9 +3143,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-overhead-tricep-extension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-overhead-tricep-extension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-overhead-tricep-extension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-overhead-tricep-extension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-overhead-tricep-extension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-overhead-tricep-extension/frame-3.svg?v=2"
     ]
   },
   {
@@ -3163,9 +3163,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/single-arm-dumbbell-tricep-extension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/single-arm-dumbbell-tricep-extension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/single-arm-dumbbell-tricep-extension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/single-arm-dumbbell-tricep-extension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-arm-dumbbell-tricep-extension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-arm-dumbbell-tricep-extension/frame-3.svg?v=2"
     ]
   },
   {
@@ -3184,9 +3184,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bench-dip/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bench-dip/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bench-dip/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bench-dip/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bench-dip/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bench-dip/frame-3.svg?v=2"
     ]
   },
   {
@@ -3204,9 +3204,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/tricep-kickback/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/tricep-kickback/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/tricep-kickback/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/tricep-kickback/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/tricep-kickback/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/tricep-kickback/frame-3.svg?v=2"
     ]
   },
   {
@@ -3222,9 +3222,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wrist-extension/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wrist-extension/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wrist-extension/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wrist-extension/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wrist-extension/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wrist-extension/frame-3.svg?v=2"
     ]
   },
   {
@@ -3243,9 +3243,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/farmer-carry/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/farmer-carry/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/farmer-carry/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/farmer-carry/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/farmer-carry/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/farmer-carry/frame-3.svg?v=2"
     ]
   },
   {
@@ -3261,9 +3261,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/crunch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/crunch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/crunch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/crunch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/crunch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/crunch/frame-3.svg?v=2"
     ]
   },
   {
@@ -3279,9 +3279,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/reverse-crunch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/reverse-crunch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/reverse-crunch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/reverse-crunch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-crunch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-crunch/frame-3.svg?v=2"
     ]
   },
   {
@@ -3299,9 +3299,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/russian-twist/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/russian-twist/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/russian-twist/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/russian-twist/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/russian-twist/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/russian-twist/frame-3.svg?v=2"
     ]
   },
   {
@@ -3319,9 +3319,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bicycle-crunch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bicycle-crunch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bicycle-crunch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bicycle-crunch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bicycle-crunch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bicycle-crunch/frame-3.svg?v=2"
     ]
   },
   {
@@ -3340,9 +3340,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/mountain-climber/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/mountain-climber/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/mountain-climber/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/mountain-climber/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/mountain-climber/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/mountain-climber/frame-3.svg?v=2"
     ]
   },
   {
@@ -3360,9 +3360,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dead-bug/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dead-bug/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dead-bug/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dead-bug/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dead-bug/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dead-bug/frame-3.svg?v=2"
     ]
   },
   {
@@ -3381,9 +3381,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bird-dog/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bird-dog/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bird-dog/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bird-dog/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bird-dog/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bird-dog/frame-3.svg?v=2"
     ]
   },
   {
@@ -3401,9 +3401,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/pallof-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/pallof-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/pallof-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/pallof-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pallof-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pallof-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -3421,9 +3421,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-woodchop/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-woodchop/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-woodchop/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-woodchop/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-woodchop/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-woodchop/frame-3.svg?v=2"
     ]
   },
   {
@@ -3442,9 +3442,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/half-kneeling-pallof-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/half-kneeling-pallof-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/half-kneeling-pallof-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/half-kneeling-pallof-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/half-kneeling-pallof-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/half-kneeling-pallof-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -3463,9 +3463,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cable-pallof-hold/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cable-pallof-hold/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cable-pallof-hold/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cable-pallof-hold/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-pallof-hold/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cable-pallof-hold/frame-3.svg?v=2"
     ]
   },
   {
@@ -3483,9 +3483,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hanging-knee-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hanging-knee-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hanging-knee-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hanging-knee-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hanging-knee-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hanging-knee-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -3503,9 +3503,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/captains-chair-knee-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/captains-chair-knee-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/captains-chair-knee-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/captains-chair-knee-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/captains-chair-knee-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/captains-chair-knee-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -3523,9 +3523,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/decline-sit-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/decline-sit-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/decline-sit-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/decline-sit-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-sit-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-sit-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3541,9 +3541,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/weighted-crunch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/weighted-crunch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/weighted-crunch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/weighted-crunch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-crunch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-crunch/frame-3.svg?v=2"
     ]
   },
   {
@@ -3561,9 +3561,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/weighted-russian-twist/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/weighted-russian-twist/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/weighted-russian-twist/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/weighted-russian-twist/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-russian-twist/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/weighted-russian-twist/frame-3.svg?v=2"
     ]
   },
   {
@@ -3581,9 +3581,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dumbbell-side-bend/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-side-bend/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dumbbell-side-bend/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dumbbell-side-bend/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-side-bend/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dumbbell-side-bend/frame-3.svg?v=2"
     ]
   },
   {
@@ -3601,9 +3601,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/elliptical/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/elliptical/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/elliptical/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/elliptical/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/elliptical/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/elliptical/frame-3.svg?v=2"
     ]
   },
   {
@@ -3622,9 +3622,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/swimming/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/swimming/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/swimming/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/swimming/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/swimming/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/swimming/frame-3.svg?v=2"
     ]
   },
   {
@@ -3643,9 +3643,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/jump-rope/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/jump-rope/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/jump-rope/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/jump-rope/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/jump-rope/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/jump-rope/frame-3.svg?v=2"
     ]
   },
   {
@@ -3664,9 +3664,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/assault-bike/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/assault-bike/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/assault-bike/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/assault-bike/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assault-bike/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assault-bike/frame-3.svg?v=2"
     ]
   },
   {
@@ -3686,9 +3686,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/skierg/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/skierg/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/skierg/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/skierg/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skierg/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skierg/frame-3.svg?v=2"
     ]
   },
   {
@@ -3707,9 +3707,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hiking/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hiking/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hiking/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hiking/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hiking/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hiking/frame-3.svg?v=2"
     ]
   },
   {
@@ -3728,9 +3728,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/treadmill-incline-walk/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/treadmill-incline-walk/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/treadmill-incline-walk/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/treadmill-incline-walk/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/treadmill-incline-walk/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/treadmill-incline-walk/frame-3.svg?v=2"
     ]
   },
   {
@@ -3749,9 +3749,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/battle-ropes/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/battle-ropes/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/battle-ropes/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/battle-ropes/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/battle-ropes/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/battle-ropes/frame-3.svg?v=2"
     ]
   },
   {
@@ -3771,9 +3771,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/incline-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/incline-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/incline-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/incline-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/incline-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3793,9 +3793,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/knee-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/knee-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/knee-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/knee-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/knee-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/knee-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3815,9 +3815,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wide-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wide-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wide-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wide-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wide-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wide-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3837,9 +3837,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/diamond-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/diamond-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/diamond-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/diamond-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/diamond-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/diamond-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3859,9 +3859,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/decline-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/decline-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/decline-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/decline-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/decline-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3881,9 +3881,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/pike-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/pike-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/pike-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/pike-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pike-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pike-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3903,9 +3903,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/feet-elevated-pike-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/feet-elevated-pike-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/feet-elevated-pike-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/feet-elevated-pike-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/feet-elevated-pike-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/feet-elevated-pike-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3925,9 +3925,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/archer-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/archer-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/archer-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/archer-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/archer-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/archer-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3947,9 +3947,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/typewriter-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/typewriter-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/typewriter-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/typewriter-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/typewriter-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/typewriter-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3969,9 +3969,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/explosive-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/explosive-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/explosive-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/explosive-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/explosive-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/explosive-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -3991,9 +3991,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hindu-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hindu-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hindu-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hindu-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hindu-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hindu-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4013,9 +4013,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/scapular-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/scapular-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/scapular-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/scapular-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/scapular-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/scapular-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4035,9 +4035,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/push-up-shoulder-tap/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/push-up-shoulder-tap/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/push-up-shoulder-tap/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/push-up-shoulder-tap/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/push-up-shoulder-tap/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/push-up-shoulder-tap/frame-3.svg?v=2"
     ]
   },
   {
@@ -4056,9 +4056,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wall-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wall-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wall-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wall-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4078,9 +4078,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wall-walk/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wall-walk/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wall-walk/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wall-walk/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-walk/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-walk/frame-3.svg?v=2"
     ]
   },
   {
@@ -4100,9 +4100,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wall-handstand-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wall-handstand-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wall-handstand-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wall-handstand-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-handstand-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-handstand-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4122,9 +4122,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/handstand-push-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/handstand-push-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/handstand-push-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/handstand-push-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/handstand-push-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/handstand-push-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4143,9 +4143,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/chair-dip/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/chair-dip/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/chair-dip/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/chair-dip/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chair-dip/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/chair-dip/frame-3.svg?v=2"
     ]
   },
   {
@@ -4165,9 +4165,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/doorway-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/doorway-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/doorway-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/doorway-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/doorway-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/doorway-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -4187,9 +4187,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/towel-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/towel-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/towel-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/towel-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/towel-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/towel-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -4208,9 +4208,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/prone-y-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/prone-y-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/prone-y-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/prone-y-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/prone-y-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/prone-y-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -4229,9 +4229,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/prone-t-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/prone-t-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/prone-t-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/prone-t-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/prone-t-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/prone-t-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -4251,9 +4251,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/superman/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/superman/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/superman/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/superman/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/superman/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/superman/frame-3.svg?v=2"
     ]
   },
   {
@@ -4273,9 +4273,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/superman-hold/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/superman-hold/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/superman-hold/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/superman-hold/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/superman-hold/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/superman-hold/frame-3.svg?v=2"
     ]
   },
   {
@@ -4295,9 +4295,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/reverse-snow-angel/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/reverse-snow-angel/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/reverse-snow-angel/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/reverse-snow-angel/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-snow-angel/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/reverse-snow-angel/frame-3.svg?v=2"
     ]
   },
   {
@@ -4317,9 +4317,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dead-hang/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dead-hang/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dead-hang/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dead-hang/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dead-hang/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dead-hang/frame-3.svg?v=2"
     ]
   },
   {
@@ -4339,9 +4339,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/active-hang/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/active-hang/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/active-hang/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/active-hang/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/active-hang/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/active-hang/frame-3.svg?v=2"
     ]
   },
   {
@@ -4361,9 +4361,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/scapular-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/scapular-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/scapular-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/scapular-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/scapular-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/scapular-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4383,9 +4383,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/negative-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/negative-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/negative-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/negative-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/negative-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/negative-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4405,9 +4405,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/commando-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/commando-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/commando-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/commando-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/commando-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/commando-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4427,9 +4427,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/l-sit-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/l-sit-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/l-sit-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/l-sit-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/l-sit-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/l-sit-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4449,9 +4449,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/towel-pull-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/towel-pull-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/towel-pull-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/towel-pull-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/towel-pull-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/towel-pull-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -4471,9 +4471,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bodyweight-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bodyweight-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bodyweight-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bodyweight-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bodyweight-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bodyweight-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4493,9 +4493,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/pistol-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/pistol-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/pistol-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/pistol-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pistol-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/pistol-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4515,9 +4515,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/assisted-pistol-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/assisted-pistol-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/assisted-pistol-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/assisted-pistol-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-pistol-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/assisted-pistol-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4537,9 +4537,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/shrimp-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/shrimp-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/shrimp-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/shrimp-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/shrimp-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/shrimp-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4559,9 +4559,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cossack-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cossack-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cossack-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cossack-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cossack-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cossack-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4580,9 +4580,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/sissy-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/sissy-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/sissy-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/sissy-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/sissy-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/sissy-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4602,9 +4602,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/forward-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/forward-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/forward-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/forward-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/forward-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/forward-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -4624,9 +4624,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/lateral-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/lateral-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/lateral-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/lateral-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lateral-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lateral-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -4646,9 +4646,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/curtsy-lunge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/curtsy-lunge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/curtsy-lunge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/curtsy-lunge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/curtsy-lunge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/curtsy-lunge/frame-3.svg?v=2"
     ]
   },
   {
@@ -4668,9 +4668,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/skater-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/skater-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/skater-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/skater-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skater-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skater-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4690,9 +4690,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/single-leg-box-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-box-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-box-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/single-leg-box-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-box-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-box-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -4712,9 +4712,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/step-down/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/step-down/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/step-down/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/step-down/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/step-down/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/step-down/frame-3.svg?v=2"
     ]
   },
   {
@@ -4730,9 +4730,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/calf-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/calf-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/calf-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/calf-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/calf-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/calf-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -4750,9 +4750,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/single-leg-calf-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-calf-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/single-leg-calf-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/single-leg-calf-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-calf-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/single-leg-calf-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -4771,9 +4771,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/glute-bridge-march/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/glute-bridge-march/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/glute-bridge-march/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/glute-bridge-march/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/glute-bridge-march/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/glute-bridge-march/frame-3.svg?v=2"
     ]
   },
   {
@@ -4791,9 +4791,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/frog-pump/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/frog-pump/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/frog-pump/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/frog-pump/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/frog-pump/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/frog-pump/frame-3.svg?v=2"
     ]
   },
   {
@@ -4812,9 +4812,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/donkey-kick/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/donkey-kick/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/donkey-kick/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/donkey-kick/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/donkey-kick/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/donkey-kick/frame-3.svg?v=2"
     ]
   },
   {
@@ -4832,9 +4832,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/fire-hydrant/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/fire-hydrant/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/fire-hydrant/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/fire-hydrant/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/fire-hydrant/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/fire-hydrant/frame-3.svg?v=2"
     ]
   },
   {
@@ -4852,9 +4852,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/clamshell/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/clamshell/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/clamshell/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/clamshell/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/clamshell/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/clamshell/frame-3.svg?v=2"
     ]
   },
   {
@@ -4873,9 +4873,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hip-airplane/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hip-airplane/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hip-airplane/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hip-airplane/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-airplane/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hip-airplane/frame-3.svg?v=2"
     ]
   },
   {
@@ -4893,9 +4893,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/side-lying-hip-abduction/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/side-lying-hip-abduction/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/side-lying-hip-abduction/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/side-lying-hip-abduction/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-lying-hip-abduction/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-lying-hip-abduction/frame-3.svg?v=2"
     ]
   },
   {
@@ -4913,9 +4913,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/side-lying-leg-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/side-lying-leg-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/side-lying-leg-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/side-lying-leg-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-lying-leg-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-lying-leg-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -4934,9 +4934,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/lying-hamstring-walkout/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/lying-hamstring-walkout/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/lying-hamstring-walkout/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/lying-hamstring-walkout/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lying-hamstring-walkout/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lying-hamstring-walkout/frame-3.svg?v=2"
     ]
   },
   {
@@ -4955,9 +4955,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/towel-hamstring-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/towel-hamstring-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/towel-hamstring-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/towel-hamstring-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/towel-hamstring-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/towel-hamstring-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -4976,9 +4976,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/stability-ball-hamstring-curl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/stability-ball-hamstring-curl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/stability-ball-hamstring-curl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/stability-ball-hamstring-curl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/stability-ball-hamstring-curl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/stability-ball-hamstring-curl/frame-3.svg?v=2"
     ]
   },
   {
@@ -4997,9 +4997,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-glute-bridge/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-glute-bridge/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-glute-bridge/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-glute-bridge/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-glute-bridge/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-glute-bridge/frame-3.svg?v=2"
     ]
   },
   {
@@ -5018,9 +5018,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-hip-thrust/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-hip-thrust/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-hip-thrust/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-hip-thrust/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-hip-thrust/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-hip-thrust/frame-3.svg?v=2"
     ]
   },
   {
@@ -5038,9 +5038,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-frog-pump/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-frog-pump/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-frog-pump/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-frog-pump/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-frog-pump/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-frog-pump/frame-3.svg?v=2"
     ]
   },
   {
@@ -5058,9 +5058,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-clamshell/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-clamshell/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-clamshell/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-clamshell/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-clamshell/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-clamshell/frame-3.svg?v=2"
     ]
   },
   {
@@ -5079,9 +5079,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-lateral-walk/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-lateral-walk/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-lateral-walk/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-lateral-walk/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-lateral-walk/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-lateral-walk/frame-3.svg?v=2"
     ]
   },
   {
@@ -5101,9 +5101,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-monster-walk/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-monster-walk/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-monster-walk/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-monster-walk/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-monster-walk/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-monster-walk/frame-3.svg?v=2"
     ]
   },
   {
@@ -5123,9 +5123,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-squat/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-squat/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-squat/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-squat/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-squat/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-squat/frame-3.svg?v=2"
     ]
   },
   {
@@ -5144,9 +5144,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-donkey-kick/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-donkey-kick/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-donkey-kick/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-donkey-kick/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-donkey-kick/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-donkey-kick/frame-3.svg?v=2"
     ]
   },
   {
@@ -5164,9 +5164,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-fire-hydrant/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-fire-hydrant/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-fire-hydrant/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-fire-hydrant/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-fire-hydrant/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-fire-hydrant/frame-3.svg?v=2"
     ]
   },
   {
@@ -5185,9 +5185,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-kickback/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-kickback/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-kickback/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-kickback/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-kickback/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-kickback/frame-3.svg?v=2"
     ]
   },
   {
@@ -5205,9 +5205,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-standing-hip-abduction/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-standing-hip-abduction/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-standing-hip-abduction/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-standing-hip-abduction/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-standing-hip-abduction/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-standing-hip-abduction/frame-3.svg?v=2"
     ]
   },
   {
@@ -5225,9 +5225,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-seated-hip-abduction/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-seated-hip-abduction/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-seated-hip-abduction/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-seated-hip-abduction/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-seated-hip-abduction/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-seated-hip-abduction/frame-3.svg?v=2"
     ]
   },
   {
@@ -5246,9 +5246,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/band-pull-apart/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/band-pull-apart/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/band-pull-apart/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/band-pull-apart/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/band-pull-apart/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/band-pull-apart/frame-3.svg?v=2"
     ]
   },
   {
@@ -5267,9 +5267,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-face-pull/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-face-pull/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-face-pull/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-face-pull/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-face-pull/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-face-pull/frame-3.svg?v=2"
     ]
   },
   {
@@ -5288,9 +5288,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-row/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-row/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-row/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-row/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-row/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-row/frame-3.svg?v=2"
     ]
   },
   {
@@ -5309,9 +5309,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-lat-pulldown/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-lat-pulldown/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-lat-pulldown/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-lat-pulldown/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-lat-pulldown/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-lat-pulldown/frame-3.svg?v=2"
     ]
   },
   {
@@ -5330,9 +5330,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-pallof-press/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-pallof-press/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-pallof-press/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-pallof-press/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-pallof-press/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-pallof-press/frame-3.svg?v=2"
     ]
   },
   {
@@ -5351,9 +5351,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-woodchop/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-woodchop/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-woodchop/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-woodchop/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-woodchop/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-woodchop/frame-3.svg?v=2"
     ]
   },
   {
@@ -5372,9 +5372,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/banded-dead-bug/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/banded-dead-bug/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/banded-dead-bug/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/banded-dead-bug/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-dead-bug/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/banded-dead-bug/frame-3.svg?v=2"
     ]
   },
   {
@@ -5392,9 +5392,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hollow-body-hold/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hollow-body-hold/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hollow-body-hold/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hollow-body-hold/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hollow-body-hold/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hollow-body-hold/frame-3.svg?v=2"
     ]
   },
   {
@@ -5412,9 +5412,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hollow-rock/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hollow-rock/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hollow-rock/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hollow-rock/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hollow-rock/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hollow-rock/frame-3.svg?v=2"
     ]
   },
   {
@@ -5432,9 +5432,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/v-up/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/v-up/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/v-up/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/v-up/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/v-up/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/v-up/frame-3.svg?v=2"
     ]
   },
   {
@@ -5452,9 +5452,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/flutter-kick/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/flutter-kick/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/flutter-kick/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/flutter-kick/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/flutter-kick/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/flutter-kick/frame-3.svg?v=2"
     ]
   },
   {
@@ -5472,9 +5472,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/lying-leg-raise/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/lying-leg-raise/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/lying-leg-raise/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/lying-leg-raise/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lying-leg-raise/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lying-leg-raise/frame-3.svg?v=2"
     ]
   },
   {
@@ -5490,9 +5490,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/toe-touch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/toe-touch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/toe-touch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/toe-touch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/toe-touch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/toe-touch/frame-3.svg?v=2"
     ]
   },
   {
@@ -5508,9 +5508,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/heel-tap/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/heel-tap/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/heel-tap/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/heel-tap/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/heel-tap/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/heel-tap/frame-3.svg?v=2"
     ]
   },
   {
@@ -5529,9 +5529,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/plank-shoulder-tap/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/plank-shoulder-tap/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/plank-shoulder-tap/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/plank-shoulder-tap/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plank-shoulder-tap/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plank-shoulder-tap/frame-3.svg?v=2"
     ]
   },
   {
@@ -5550,9 +5550,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/plank-jack/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/plank-jack/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/plank-jack/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/plank-jack/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plank-jack/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/plank-jack/frame-3.svg?v=2"
     ]
   },
   {
@@ -5571,9 +5571,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bear-plank/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bear-plank/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bear-plank/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bear-plank/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bear-plank/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bear-plank/frame-3.svg?v=2"
     ]
   },
   {
@@ -5593,9 +5593,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/bear-crawl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/bear-crawl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/bear-crawl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/bear-crawl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bear-crawl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/bear-crawl/frame-3.svg?v=2"
     ]
   },
   {
@@ -5615,9 +5615,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/crab-walk/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/crab-walk/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/crab-walk/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/crab-walk/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/crab-walk/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/crab-walk/frame-3.svg?v=2"
     ]
   },
   {
@@ -5637,9 +5637,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/inchworm/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/inchworm/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/inchworm/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/inchworm/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/inchworm/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/inchworm/frame-3.svg?v=2"
     ]
   },
   {
@@ -5659,9 +5659,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/l-sit-hold/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/l-sit-hold/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/l-sit-hold/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/l-sit-hold/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/l-sit-hold/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/l-sit-hold/frame-3.svg?v=2"
     ]
   },
   {
@@ -5679,9 +5679,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/seated-knee-tuck/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/seated-knee-tuck/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/seated-knee-tuck/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/seated-knee-tuck/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-knee-tuck/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-knee-tuck/frame-3.svg?v=2"
     ]
   },
   {
@@ -5700,9 +5700,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/side-plank-hip-dip/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/side-plank-hip-dip/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/side-plank-hip-dip/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/side-plank-hip-dip/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-plank-hip-dip/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/side-plank-hip-dip/frame-3.svg?v=2"
     ]
   },
   {
@@ -5721,9 +5721,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/copenhagen-plank/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/copenhagen-plank/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/copenhagen-plank/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/copenhagen-plank/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/copenhagen-plank/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/copenhagen-plank/frame-3.svg?v=2"
     ]
   },
   {
@@ -5742,9 +5742,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/dragon-flag/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/dragon-flag/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/dragon-flag/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/dragon-flag/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dragon-flag/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/dragon-flag/frame-3.svg?v=2"
     ]
   },
   {
@@ -5765,9 +5765,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/burpee/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/burpee/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/burpee/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/burpee/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/burpee/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/burpee/frame-3.svg?v=2"
     ]
   },
   {
@@ -5787,9 +5787,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 7,
     "frames": [
-      "https://app.fluxy.id/workout-assets/half-burpee/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/half-burpee/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/half-burpee/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/half-burpee/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/half-burpee/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/half-burpee/frame-3.svg?v=2"
     ]
   },
   {
@@ -5809,9 +5809,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/squat-thrust/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/squat-thrust/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/squat-thrust/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/squat-thrust/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/squat-thrust/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/squat-thrust/frame-3.svg?v=2"
     ]
   },
   {
@@ -5830,9 +5830,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/high-knees/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/high-knees/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/high-knees/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/high-knees/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/high-knees/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/high-knees/frame-3.svg?v=2"
     ]
   },
   {
@@ -5852,9 +5852,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/jumping-jack/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/jumping-jack/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/jumping-jack/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/jumping-jack/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/jumping-jack/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/jumping-jack/frame-3.svg?v=2"
     ]
   },
   {
@@ -5874,9 +5874,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/skater-hop/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/skater-hop/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/skater-hop/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/skater-hop/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skater-hop/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/skater-hop/frame-3.svg?v=2"
     ]
   },
   {
@@ -5896,9 +5896,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/lateral-shuffle/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/lateral-shuffle/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/lateral-shuffle/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/lateral-shuffle/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lateral-shuffle/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/lateral-shuffle/frame-3.svg?v=2"
     ]
   },
   {
@@ -5917,9 +5917,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/fast-feet/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/fast-feet/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/fast-feet/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/fast-feet/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/fast-feet/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/fast-feet/frame-3.svg?v=2"
     ]
   },
   {
@@ -5939,9 +5939,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/sprawl/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/sprawl/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/sprawl/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/sprawl/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/sprawl/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/sprawl/frame-3.svg?v=2"
     ]
   },
   {
@@ -5961,9 +5961,9 @@ var workoutGuideCatalog = [
     "isStretch": false,
     "met": 4.5,
     "frames": [
-      "https://app.fluxy.id/workout-assets/seal-jack/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/seal-jack/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/seal-jack/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/seal-jack/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seal-jack/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seal-jack/frame-3.svg?v=2"
     ]
   },
   {
@@ -5982,9 +5982,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cat-cow-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cat-cow-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cat-cow-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cat-cow-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cat-cow-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cat-cow-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6004,9 +6004,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/arm-circles/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/arm-circles/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/arm-circles/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/arm-circles/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/arm-circles/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/arm-circles/frame-3.svg?v=2"
     ]
   },
   {
@@ -6026,9 +6026,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/worlds-greatest-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/worlds-greatest-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/worlds-greatest-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/worlds-greatest-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/worlds-greatest-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/worlds-greatest-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6048,9 +6048,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/leg-swings-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/leg-swings-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/leg-swings-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/leg-swings-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-swings-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/leg-swings-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6069,9 +6069,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/torso-twist-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/torso-twist-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/torso-twist-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/torso-twist-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/torso-twist-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/torso-twist-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6090,9 +6090,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/doorway-chest-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/doorway-chest-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/doorway-chest-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/doorway-chest-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/doorway-chest-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/doorway-chest-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6112,9 +6112,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/childs-pose/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/childs-pose/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/childs-pose/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/childs-pose/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/childs-pose/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/childs-pose/frame-3.svg?v=2"
     ]
   },
   {
@@ -6133,9 +6133,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/kneeling-hip-flexor-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/kneeling-hip-flexor-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/kneeling-hip-flexor-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/kneeling-hip-flexor-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/kneeling-hip-flexor-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/kneeling-hip-flexor-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6154,9 +6154,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/hamstring-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/hamstring-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/hamstring-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/hamstring-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hamstring-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/hamstring-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6175,9 +6175,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/standing-quad-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/standing-quad-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/standing-quad-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/standing-quad-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/standing-quad-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/standing-quad-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6197,9 +6197,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/seated-forward-fold-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/seated-forward-fold-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/seated-forward-fold-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/seated-forward-fold-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-forward-fold-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/seated-forward-fold-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6218,9 +6218,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/cross-body-shoulder-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/cross-body-shoulder-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/cross-body-shoulder-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/cross-body-shoulder-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cross-body-shoulder-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/cross-body-shoulder-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6238,9 +6238,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/wall-calf-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/wall-calf-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/wall-calf-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/wall-calf-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-calf-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/wall-calf-stretch/frame-3.svg?v=2"
     ]
   },
   {
@@ -6259,9 +6259,9 @@ var workoutGuideCatalog = [
     "isStretch": true,
     "met": 2.8,
     "frames": [
-      "https://app.fluxy.id/workout-assets/butterfly-stretch/frame-1.svg",
-      "https://app.fluxy.id/workout-assets/butterfly-stretch/frame-2.svg",
-      "https://app.fluxy.id/workout-assets/butterfly-stretch/frame-3.svg"
+      "https://app.fluxy.id/workout-assets/butterfly-stretch/frame-1.svg?v=2",
+      "https://app.fluxy.id/workout-assets/butterfly-stretch/frame-2.svg?v=2",
+      "https://app.fluxy.id/workout-assets/butterfly-stretch/frame-3.svg?v=2"
     ]
   }
 ];

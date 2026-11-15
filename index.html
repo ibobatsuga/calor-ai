@@ -2129,7 +2129,7 @@
       if (img) {
         img.style.filter = "brightness(0)";
         img.style.webkitFilter = "brightness(0)";
-        img.src = ex.frames ? ex.frames[0] : `https://app.fluxy.id/workout-assets/${ex.slug}/frame-1.svg`;
+        img.src = ex.frames ? ex.frames[0] : `https://app.fluxy.id/workout-assets/${ex.slug}/frame-1.svg?v=2`;
         img.onerror = () => {
           img.onerror = null;
           img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg`;
@@ -2143,7 +2143,7 @@
         if (img) {
           img.style.filter = "brightness(0)";
           img.style.webkitFilter = "brightness(0)";
-          img.src = `https://app.fluxy.id/workout-assets/${ex.slug}/frame-${f}.svg`;
+          img.src = `https://app.fluxy.id/workout-assets/${ex.slug}/frame-${f}.svg?v=2`;
         }
         if (frameTag) frameTag.innerText = `F${f}`;
       }, 550);
@@ -2321,7 +2321,7 @@
       cardHoverTimers[id] = setInterval(() => {
         step = (step + 1) % seq.length;
         const f = seq[step];
-        img.src = `https://app.fluxy.id/workout-assets/${slug}/frame-${f}.svg`;
+        img.src = `https://app.fluxy.id/workout-assets/${slug}/frame-${f}.svg?v=2`;
         if (tag) tag.innerText = `F${f}`;
       }, 450);
     }
@@ -2336,7 +2336,7 @@
       if (img) {
         img.style.filter = "brightness(0)";
         img.style.webkitFilter = "brightness(0)";
-        img.src = `https://app.fluxy.id/workout-assets/${slug}/frame-1.svg`;
+        img.src = `https://app.fluxy.id/workout-assets/${slug}/frame-1.svg?v=2`;
       }
       if (tag) tag.innerText = `F1`;
     }
@@ -2442,7 +2442,7 @@
       if (img) {
         img.style.filter = "brightness(0)";
         img.style.webkitFilter = "brightness(0)";
-        img.src = `https://app.fluxy.id/workout-assets/${modalActiveExercise.slug}/frame-${f}.svg`;
+        img.src = `https://app.fluxy.id/workout-assets/${modalActiveExercise.slug}/frame-${f}.svg?v=2`;
         img.onerror = () => {
           img.onerror = null;
           img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${modalActiveExercise.slug}/frame-${f}.svg`;
