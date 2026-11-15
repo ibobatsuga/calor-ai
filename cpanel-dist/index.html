@@ -129,8 +129,12 @@
     }
 
     /* Workout Guide: Pure Black figures on App Brand Orange background */
-    .workout-svg-img {
-      filter: brightness(0);
+    .workout-svg-img,
+    #modal-ex-frame-img,
+    #workout-banner-img,
+    [id^="card-img-"] {
+      filter: brightness(0) !important;
+      -webkit-filter: brightness(0) !important;
       transition: transform 0.2s ease;
     }
 
@@ -959,7 +963,7 @@
           <!-- Active Selected Exercise Visual Preview Banner -->
           <div id="workout-selected-banner" class="bg-[#FFF5E9] border border-[#FF991C]/30 rounded-2xl p-3 flex items-center space-x-3">
             <div class="w-16 h-16 bg-[#FFE8CC] rounded-xl border border-[#FF991C]/40 flex items-center justify-center p-1.5 relative overflow-hidden shrink-0 cursor-pointer shadow-xs" onclick="openCurrentExerciseModal()">
-              <img id="workout-banner-img" src="" alt="Latihan" class="workout-svg-img w-full h-full object-contain">
+              <img id="workout-banner-img" src="" alt="Latihan" class="workout-svg-img w-full h-full object-contain" style="filter: brightness(0) !important; -webkit-filter: brightness(0) !important;">
               <span id="workout-banner-frame" class="absolute bottom-0.5 right-0.5 bg-black/70 text-[8px] text-white px-1 rounded font-mono">F1</span>
             </div>
             <div class="flex-1 min-w-0">
@@ -1353,7 +1357,7 @@
         <!-- 3-Frame Visual Canvas Display -->
         <div class="bg-[#FFF5E9] border-2 border-[#FF991C]/30 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden shadow-inner">
           <div class="w-full h-56 flex items-center justify-center">
-            <img id="modal-ex-frame-img" src="" alt="Latihan" class="workout-svg-img max-w-full max-h-full object-contain filter drop-shadow-sm transition-all duration-150">
+            <img id="modal-ex-frame-img" src="" alt="Latihan" class="workout-svg-img max-w-full max-h-full object-contain transition-all duration-150" style="filter: brightness(0) !important; -webkit-filter: brightness(0) !important;">
           </div>
           <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-xs border border-[#FF991C]/30 px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-gray-800 shadow-xs flex items-center space-x-1.5">
             <span class="w-2 h-2 rounded-full bg-[#FF991C] animate-pulse"></span>
@@ -2123,7 +2127,9 @@
       let step = 0;
       const seq = [1, 2, 3, 2];
       if (img) {
-        img.src = ex.frames ? ex.frames[0] : `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${ex.slug}/frame-1.svg`;
+        img.style.filter = "brightness(0)";
+        img.style.webkitFilter = "brightness(0)";
+        img.src = ex.frames ? ex.frames[0] : `https://app.fluxy.id/workout-assets/${ex.slug}/frame-1.svg`;
         img.onerror = () => {
           img.onerror = null;
           img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg`;
@@ -2134,7 +2140,11 @@
       bannerAnimTimer = setInterval(() => {
         step = (step + 1) % seq.length;
         const f = seq[step];
-        if (img) img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${ex.slug}/frame-${f}.svg`;
+        if (img) {
+          img.style.filter = "brightness(0)";
+          img.style.webkitFilter = "brightness(0)";
+          img.src = `https://app.fluxy.id/workout-assets/${ex.slug}/frame-${f}.svg`;
+        }
         if (frameTag) frameTag.innerText = `F${f}`;
       }, 550);
     }
@@ -2276,6 +2286,7 @@
                  loading="lazy"
                  alt="${ex.name}"
                  class="workout-svg-img w-full h-full object-contain transition-transform group-hover:scale-105"
+                 style="filter: brightness(0) !important; -webkit-filter: brightness(0) !important;"
                  onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${ex.slug}/frame-1.svg'">
             <span class="absolute top-1.5 left-1.5 bg-white/95 text-[#FF991C] text-[9px] font-black uppercase px-1.5 py-0.5 rounded border border-[#FF991C]/30 shadow-2xs">${ex.categoryName || ex.category}</span>
             <span id="card-frame-tag-${ex.id}" class="absolute bottom-1 right-1.5 bg-black/70 text-[8px] font-mono text-white px-1 py-0.2 rounded">F1</span>
@@ -2302,13 +2313,15 @@
       const img = document.getElementById(`card-img-${id}`);
       const tag = document.getElementById(`card-frame-tag-${id}`);
       if (!img) return;
+      img.style.filter = "brightness(0)";
+      img.style.webkitFilter = "brightness(0)";
       const seq = [1, 2, 3, 2];
       let step = 0;
       if (cardHoverTimers[id]) clearInterval(cardHoverTimers[id]);
       cardHoverTimers[id] = setInterval(() => {
         step = (step + 1) % seq.length;
         const f = seq[step];
-        img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${slug}/frame-${f}.svg`;
+        img.src = `https://app.fluxy.id/workout-assets/${slug}/frame-${f}.svg`;
         if (tag) tag.innerText = `F${f}`;
       }, 450);
     }
@@ -2320,7 +2333,11 @@
       }
       const img = document.getElementById(`card-img-${id}`);
       const tag = document.getElementById(`card-frame-tag-${id}`);
-      if (img) img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${slug}/frame-1.svg`;
+      if (img) {
+        img.style.filter = "brightness(0)";
+        img.style.webkitFilter = "brightness(0)";
+        img.src = `https://app.fluxy.id/workout-assets/${slug}/frame-1.svg`;
+      }
       if (tag) tag.innerText = `F1`;
     }
 
@@ -2423,7 +2440,9 @@
       if (!modalActiveExercise) return;
       const img = document.getElementById('modal-ex-frame-img');
       if (img) {
-        img.src = `https://cdn.jsdelivr.net/gh/bryllim/workout-guide@main/packages/workout-guide/assets/${modalActiveExercise.slug}/frame-${f}.svg`;
+        img.style.filter = "brightness(0)";
+        img.style.webkitFilter = "brightness(0)";
+        img.src = `https://app.fluxy.id/workout-assets/${modalActiveExercise.slug}/frame-${f}.svg`;
         img.onerror = () => {
           img.onerror = null;
           img.src = `https://raw.githubusercontent.com/bryllim/workout-guide/main/packages/workout-guide/assets/${modalActiveExercise.slug}/frame-${f}.svg`;
