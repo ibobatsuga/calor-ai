@@ -10,4 +10,4 @@ run_worker_first = ["/api/*"]
 [vars]
 SUPABASE_URL = "https://yxydabqmsjijgnrymkle.supabase.co"
 SUPABASE_PUBLISHABLE_KEY = "sb_publishable_jXjCgAT5zqBtbr3pA3qNOQ_YBpo4gh6"
-SUPABASE_SECRET_KEY = ""
+# SUPABASE_SECRET_KEY is stored securely in Cloudflare Worker environment variables
